@@ -53,7 +53,7 @@ export default function HomePage() {
             </p>
 
             {/* Featured Dishes Grid */}
-            <div className="hidden sm:grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mt-4 w-full max-w-4xl px-4 md:mt-[-24px]">
+            <div className="hidden sm:grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mt-4 w-full max-w-4xl px-4 md:mt-[-1px]">
               {featuredProducts.slice(0, 5).map((product) => (
                 <div
                   key={product.id}
