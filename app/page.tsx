@@ -35,7 +35,7 @@ export default function HomePage() {
         <section className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-gradient-to-b from-[#014325] to-[#014325]/80">
           <div className="absolute inset-0">
             <Image
-              src="/images/design-mode/background%20for%20Pee%27s%20backery%403x.png.jpeg"
+              src="/images/design-mode/Background%20for%20hero%20section%204%403x.png.jpeg"
               alt="Pee's Bakery & Restaurant"
               fill
               className="object-cover opacity-100"
