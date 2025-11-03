@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ShoppingCart, Menu, X, Search, Heart } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import { useCart } from "@/hooks/use-cart"
+import { useWishlist } from "@/hooks/use-wishlist"
 import { products } from "@/lib/products"
 import { useRouter, usePathname } from "next/navigation"
 import Image from "next/image"
@@ -14,7 +15,9 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("")
   const [showSearchDropdown, setShowSearchDropdown] = useState(false)
   const { getItemCount } = useCart()
+  const { getWishlistCount } = useWishlist()
   const itemCount = getItemCount()
+  const wishlistCount = getWishlistCount()
   const router = useRouter()
   const pathname = usePathname()
   const searchRef = useRef<HTMLDivElement>(null)
@@ -45,8 +48,8 @@ export function Header() {
   }
 
   const handleWishlistClick = () => {
-    console.log("[v0] Wishlist clicked")
-    alert("Wishlist feature coming soon! Save your favorite items.")
+    console.log("[v0] Wishlist clicked, navigating to wishlist page")
+    router.push("/wishlist")
   }
 
   const handleMobileSearchClick = () => {
@@ -167,10 +170,15 @@ export function Header() {
             </button>
             <button
               onClick={handleWishlistClick}
-              className="hidden md:flex w-10 h-10 rounded-full bg-[#ffb40b] items-center justify-center hover:bg-[#ffb40b]/90 transition-colors"
+              className="hidden md:flex relative w-10 h-10 rounded-full bg-[#ffb40b] items-center justify-center hover:bg-[#ffb40b]/90 transition-colors"
               aria-label="Wishlist"
             >
               <Heart className="w-5 h-5 text-[#4a1f3d]" />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#dc2626] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
             </button>
             <Link
               href="/cart"
@@ -299,6 +307,16 @@ export function Header() {
                 onClick={() => handleNavClick("contact")}
               >
                 Contact
+              </Link>
+              <Link
+                href="/wishlist"
+                className={`font-medium transition-colors flex items-center gap-2 ${
+                  isActive("/wishlist") ? "text-[#ffb40b]" : "text-white hover:text-[#ffb40b]"
+                }`}
+                onClick={() => handleNavClick("wishlist")}
+              >
+                <Heart className="w-5 h-5" />
+                Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
               </Link>
             </div>
           </nav>

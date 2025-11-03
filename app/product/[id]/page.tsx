@@ -8,7 +8,8 @@ import { Footer } from "@/components/footer"
 import { products } from "@/lib/products"
 import { formatPrice } from "@/lib/utils-app"
 import { useCart } from "@/hooks/use-cart"
-import { Star, Minus, Plus, ShoppingCart } from "lucide-react"
+import { useWishlist } from "@/hooks/use-wishlist"
+import { Star, Minus, Plus, ShoppingCart, Heart } from "lucide-react"
 import type { AddOn } from "@/lib/types"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
 import { CartModal } from "@/components/cart-modal"
@@ -19,6 +20,7 @@ export default function ProductDetailPage() {
   const params = useParams()
   const router = useRouter()
   const { addToCart } = useCart()
+  const { toggleWishlist, isInWishlist } = useWishlist()
   const [quantity, setQuantity] = useState(1)
   const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([])
   const [flyingAnimation, setFlyingAnimation] = useState(false)
@@ -28,6 +30,7 @@ export default function ProductDetailPage() {
 
   const productId = Number.parseInt(params.id as string)
   const product = products.find((p) => p.id === productId)
+  const isFavorite = product ? isInWishlist(product.id) : false
 
   useEffect(() => {
     if (product) {
@@ -48,6 +51,11 @@ export default function ProductDetailPage() {
         <Footer />
       </div>
     )
+  }
+
+  const handleWishlistToggle = () => {
+    toggleWishlist(product)
+    console.log("[v0] Wishlist toggled for:", product.name, "isFavorite:", !isFavorite)
   }
 
   const handleAddOnToggle = (addOn: AddOn) => {
@@ -113,6 +121,15 @@ export default function ProductDetailPage() {
               className="object-cover"
               priority
             />
+            <button
+              onClick={handleWishlistToggle}
+              className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg hover:scale-110"
+              aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+            >
+              <Heart
+                className={`w-6 h-6 transition-all ${isFavorite ? "fill-[#dc2626] text-[#dc2626]" : "text-[#5c6466]"}`}
+              />
+            </button>
           </div>
 
           {/* Right Column: Product Info */}

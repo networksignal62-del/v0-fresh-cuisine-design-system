@@ -7,8 +7,9 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/lib/types"
 import { formatPrice } from "@/lib/utils-app"
-import { Star, Plus, Minus } from "lucide-react"
+import { Star, Plus, Minus, Heart } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
+import { useWishlist } from "@/hooks/use-wishlist"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
 import { CartModal } from "@/components/cart-modal"
 
@@ -23,9 +24,18 @@ export function ProductCard({ product }: ProductCardProps) {
   const [showCartModal, setShowCartModal] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const { addToCart } = useCart()
+  const { toggleWishlist, isInWishlist } = useWishlist()
+  const isFavorite = isInWishlist(product.id)
 
   const handleClick = () => {
     console.log("[v0] Product card clicked:", product.id, product.name)
+  }
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    toggleWishlist(product)
+    console.log("[v0] Wishlist toggled for:", product.name, "isFavorite:", !isFavorite)
   }
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -82,6 +92,15 @@ export function ProductCard({ product }: ProductCardProps) {
             <span className="absolute top-3 right-3 bg-[#ffb40b] text-[#0f1419] text-sm font-bold px-3 py-1.5 rounded-full shadow-md">
               {formatPrice(product.price)}
             </span>
+            <button
+              onClick={handleWishlistToggle}
+              className="absolute top-3 left-3 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all shadow-md hover:scale-110"
+              aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+            >
+              <Heart
+                className={`w-5 h-5 transition-all ${isFavorite ? "fill-[#dc2626] text-[#dc2626]" : "text-[#5c6466]"}`}
+              />
+            </button>
           </div>
 
           {/* Content */}
