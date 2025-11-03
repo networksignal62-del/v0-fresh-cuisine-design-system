@@ -54,7 +54,7 @@ export function Header() {
           {/* Cart Icon */}
           <Link
             href="/cart"
-            className="relative p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="relative p-2 hover:bg-white/10 rounded-lg transition-colors bg-green-950 text-background py-2.5 px-3"
             onClick={() => handleNavClick("cart")}
           >
             <ShoppingCart className="w-6 h-6" />
