@@ -20,7 +20,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-18">
           <Link href="/" className="text-lg md:text-2xl font-bold" onClick={() => handleNavClick("home")}>
-            Pee's Bakery & Restaurant
+            Madam Pee&#39;s 
           </Link>
 
           {/* Desktop Navigation */}
