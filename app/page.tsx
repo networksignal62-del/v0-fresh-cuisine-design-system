@@ -35,25 +35,25 @@ export default function HomePage() {
         <section className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-gradient-to-b from-[#014325] to-[#014325]/80">
           <div className="absolute inset-0">
             <Image
-              src="/images/design-mode/v0_image-2.png"
+              src="/images/design-mode/background%20for%20Pee%27s%20backery%403x.png.jpeg"
               alt="Pee's Bakery & Restaurant"
               fill
-              className="object-cover opacity-45"
+              className="object-cover opacity-100"
               priority
             />
           </div>
 
           <div className="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
-            <h1 className="sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-balance px-4 text-white text-3xl">
+            <h1 className="sm:text-3xl font-bold mb-3 md:mb-4 text-balance px-4 text-white text-3xl mt-[-50px] md:text-7xl">
               Welcome to Pee's Bakery & Restaurant
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mb-6 md:mb-8 text-pretty leading-relaxed px-4 bg-chart-5 rounded-sm">
+            <p className="text-sm sm:text-base md:text-lg max-w-2xl mb-6 md:mb-8 text-pretty leading-relaxed px-4 rounded-sm lg:text-base">
               Your Home of Authentic African Dishes, Fresh Pastries, and Fast Food Delights in Freetown. Taste the
               culture, enjoy the comfort, and order your favorite meals with ease.
             </p>
 
             {/* Featured Dishes Grid */}
-            <div className="hidden sm:grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mt-4 md:mt-8 w-full max-w-4xl px-4">
+            <div className="hidden sm:grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mt-4 w-full max-w-4xl px-4 md:mt-[-24px]">
               {featuredProducts.slice(0, 5).map((product) => (
                 <div
                   key={product.id}
