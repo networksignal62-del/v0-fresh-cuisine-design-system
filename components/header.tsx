@@ -16,8 +16,8 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-[#014325] text-white shadow-lg">
-      <div className="container mx-auto px-4">
+    <header className="sticky top-0 z-50 bg-[#014325] shadow-lg text-green-950">
+      <div className="container mx-auto px-4 bg-card my-0 rounded-sm">
         <div className="flex items-center justify-between h-16 md:h-18">
           <Link href="/" className="text-lg md:text-2xl font-bold" onClick={() => handleNavClick("home")}>
             Madam Pee&#39;s 
