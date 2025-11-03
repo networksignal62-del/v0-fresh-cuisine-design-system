@@ -10,6 +10,7 @@ import Image from "next/image"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [showSearchDropdown, setShowSearchDropdown] = useState(false)
   const { getItemCount } = useCart()
@@ -39,7 +40,19 @@ export function Header() {
   const handleSearchSelect = (productId: number) => {
     setSearchQuery("")
     setShowSearchDropdown(false)
+    setMobileSearchOpen(false)
     router.push(`/product/${productId}`)
+  }
+
+  const handleWishlistClick = () => {
+    console.log("[v0] Wishlist clicked")
+    alert("Wishlist feature coming soon! Save your favorite items.")
+  }
+
+  const handleMobileSearchClick = () => {
+    console.log("[v0] Mobile search clicked")
+    setMobileSearchOpen(!mobileSearchOpen)
+    setMobileMenuOpen(false)
   }
 
   const isActive = (path: string) => {
@@ -145,10 +158,18 @@ export function Header() {
             </div>
 
             {/* Action Buttons */}
-            <button className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#ffb40b] flex items-center justify-center hover:bg-[#ffb40b]/90 transition-colors xl:hidden">
+            <button
+              onClick={handleMobileSearchClick}
+              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#ffb40b] flex items-center justify-center hover:bg-[#ffb40b]/90 transition-colors xl:hidden"
+              aria-label="Search"
+            >
               <Search className="w-4 h-4 md:w-5 md:h-5 text-[#4a1f3d]" />
             </button>
-            <button className="hidden md:flex w-10 h-10 rounded-full bg-[#ffb40b] items-center justify-center hover:bg-[#ffb40b]/90 transition-colors">
+            <button
+              onClick={handleWishlistClick}
+              className="hidden md:flex w-10 h-10 rounded-full bg-[#ffb40b] items-center justify-center hover:bg-[#ffb40b]/90 transition-colors"
+              aria-label="Wishlist"
+            >
               <Heart className="w-5 h-5 text-[#4a1f3d]" />
             </button>
             <Link
@@ -167,13 +188,77 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-white bg-white/10 rounded-lg border border-white/30 hover:bg-white/20 transition-colors"
+            onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen)
+              setMobileSearchOpen(false)
+            }}
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
+        {mobileSearchOpen && (
+          <div className="lg:hidden py-4 border-t border-white/20">
+            <div className="relative">
+              <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2 border border-white/20">
+                <Search className="w-5 h-5 text-white flex-shrink-0" />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value)
+                    setShowSearchDropdown(e.target.value.length > 0)
+                  }}
+                  autoFocus
+                  className="flex-1 bg-transparent text-white placeholder:text-white/70 border-none outline-none"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery("")
+                      setShowSearchDropdown(false)
+                    }}
+                    className="text-white/70 hover:text-white"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+              {showSearchDropdown && filteredProducts.length > 0 && (
+                <div className="mt-2 bg-white rounded-lg shadow-xl border border-[#e5e7e8] max-h-64 overflow-y-auto">
+                  {filteredProducts.slice(0, 5).map((product) => (
+                    <button
+                      key={product.id}
+                      onClick={() => handleSearchSelect(product.id)}
+                      className="w-full flex items-center gap-3 p-3 hover:bg-[#fffbf5] transition-colors text-left border-b border-[#e5e7e8] last:border-b-0"
+                    >
+                      <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                        <Image
+                          src={product.image || "/placeholder.svg"}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-[#0f1419] text-sm line-clamp-1">{product.name}</p>
+                        <p className="text-xs text-[#5c6466]">Le {product.price}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {showSearchDropdown && filteredProducts.length === 0 && searchQuery && (
+                <div className="mt-2 bg-white rounded-lg shadow-xl border border-[#e5e7e8] p-4 text-center text-[#5c6466]">
+                  No products found for "{searchQuery}"
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
@@ -215,46 +300,6 @@ export function Header() {
               >
                 Contact
               </Link>
-              {/* Mobile Search */}
-              <div className="relative pt-2 border-t border-white/20">
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value)
-                    setShowSearchDropdown(e.target.value.length > 0)
-                  }}
-                  className="w-full px-4 py-2 rounded-lg bg-white/10 text-white placeholder:text-white/70 border border-white/20"
-                />
-                {showSearchDropdown && filteredProducts.length > 0 && (
-                  <div className="mt-2 bg-white rounded-lg shadow-xl border border-[#e5e7e8] max-h-64 overflow-y-auto">
-                    {filteredProducts.slice(0, 5).map((product) => (
-                      <button
-                        key={product.id}
-                        onClick={() => {
-                          handleSearchSelect(product.id)
-                          setMobileMenuOpen(false)
-                        }}
-                        className="w-full flex items-center gap-3 p-3 hover:bg-[#fffbf5] transition-colors text-left border-b border-[#e5e7e8] last:border-b-0"
-                      >
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
-                          <Image
-                            src={product.image || "/placeholder.svg"}
-                            alt={product.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-[#0f1419] text-sm line-clamp-1">{product.name}</p>
-                          <p className="text-xs text-[#5c6466]">Le {product.price}</p>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
           </nav>
         )}
