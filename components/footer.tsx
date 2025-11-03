@@ -7,38 +7,14 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-lg mb-4 text-[#014325]">About Pee's Bakery</h3>
+            <h3 className="font-bold mb-4 text-[#014325] text-4xl">About Pee's Bakery</h3>
             <p className="text-sm text-[#5c6466] leading-relaxed">
               Authentic African dishes, fresh pastries, and fast food delights. Taste the culture, enjoy the comfort.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="font-bold text-lg mb-4 text-[#014325]">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/menu" className="text-[#5c6466] hover:text-[#014325]">
-                  Menu
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-[#5c6466] hover:text-[#014325]">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-[#5c6466] hover:text-[#014325]">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/cart" className="text-[#5c6466] hover:text-[#014325]">
-                  Cart
-                </Link>
-              </li>
-            </ul>
-          </div>
+          
 
           {/* Contact */}
           <div>
