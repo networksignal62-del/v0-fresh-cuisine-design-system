@@ -48,14 +48,14 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-[#4a1f3d] shadow-lg">
+    <header className="sticky top-0 z-50 bg-[#4a1f3d] shadow-lg bg-[rgba(0,51,18,1)]">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20 gap-2 md:gap-4">
           {/* Left: Navigation Links */}
           <nav className="hidden lg:flex items-center gap-2">
             <Link
               href="/"
-              className={`px-4 xl:px-6 py-2 rounded-full font-medium transition-colors ${
+              className={`px-4 xl:px-6 py-2 rounded-full font-medium transition-colors bg-sidebar ${
                 isActive("/") ? "bg-[#d4a5c3] text-[#4a1f3d]" : "text-white hover:bg-white/10"
               }`}
               onClick={() => handleNavClick("home")}
