@@ -1,7 +1,7 @@
 import type { Order } from "./types"
 
 export function formatPrice(price: number): string {
-  return `LE ${price.toLocaleString()}`
+  return `Le ${price.toFixed(0)}`
 }
 
 export function generateOrderReference(): string {

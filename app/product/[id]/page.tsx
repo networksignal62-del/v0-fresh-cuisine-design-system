@@ -11,17 +11,19 @@ import { useCart } from "@/hooks/use-cart"
 import { Star, Minus, Plus, ShoppingCart } from "lucide-react"
 import type { AddOn } from "@/lib/types"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
-import { useToast } from "@/hooks/use-toast"
+import { CartModal } from "@/components/cart-modal"
+import { RelatedProducts } from "@/components/related-products"
+import { PromoBanner } from "@/components/promo-banner"
 
 export default function ProductDetailPage() {
   const params = useParams()
   const router = useRouter()
   const { addToCart } = useCart()
-  const { toast } = useToast()
   const [quantity, setQuantity] = useState(1)
   const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([])
   const [flyingAnimation, setFlyingAnimation] = useState(false)
   const [animationStart, setAnimationStart] = useState({ x: 0, y: 0 })
+  const [showCartModal, setShowCartModal] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const productId = Number.parseInt(params.id as string)
@@ -85,10 +87,7 @@ export default function ProductDetailPage() {
     console.log("[v0] Add to cart:", product.name, "qty:", quantity, "total:", totalPrice)
     console.log("[v0] Flying cart animation triggered")
 
-    toast({
-      title: "Added to cart!",
-      description: `${product.name} has been added to your cart.`,
-    })
+    setShowCartModal(true)
   }
 
   return (
@@ -100,6 +99,8 @@ export default function ProductDetailPage() {
         startPosition={animationStart}
         onComplete={() => setFlyingAnimation(false)}
       />
+
+      <CartModal isOpen={showCartModal} onClose={() => setShowCartModal(false)} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -234,6 +235,12 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </main>
+
+      {/* Related Products section */}
+      <RelatedProducts currentProduct={product} allProducts={products} />
+
+      {/* Promo Banner above footer */}
+      <PromoBanner />
 
       <Footer />
     </div>

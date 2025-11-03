@@ -5,10 +5,11 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import { Upload } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { useCart } from "@/hooks/use-cart"
-import { formatPrice, generateOrderReference, calculateEstimatedDelivery, sendSMSReceipt } from "@/lib/utils-app"
+import { formatPrice, generateOrderReference, calculateEstimatedDelivery } from "@/lib/utils-app"
 import type { Order, Customer, DeliveryAddress } from "@/lib/types"
 import { OrderConfirmationModal } from "@/components/order-confirmation-modal"
 
@@ -19,23 +20,17 @@ export default function CheckoutPage() {
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [mounted, setMounted] = useState(false)
-
-  // Form state
-  const [customer, setCustomer] = useState<Customer>({
-    name: "",
-    phone: "",
-    email: "",
-  })
-
+  const [paymentProof, setPaymentProof] = useState<File | null>(null)
+  const [paymentProofPreview, setPaymentProofPreview] = useState<string>("")
+  const [deliveryOption, setDeliveryOption] = useState("standard")
+  const [paymentMethod, setPaymentMethod] = useState("cod")
+  const [customer, setCustomer] = useState<Customer>({ name: "", phone: "", email: "" })
   const [deliveryAddress, setDeliveryAddress] = useState<DeliveryAddress>({
     street: "",
     city: "",
     zipCode: "",
     instructions: "",
   })
-
-  const [deliveryOption, setDeliveryOption] = useState<"standard" | "express" | "pickup">("standard")
-  const [paymentMethod, setPaymentMethod] = useState<"cod" | "orange-money" | "vault" | "afrimoney">("cod")
 
   useEffect(() => {
     setMounted(true)
@@ -51,8 +46,8 @@ export default function CheckoutPage() {
   }, [cart.length, mounted, showConfirmation, router])
 
   const deliveryFees = {
-    standard: 10000,
-    express: 25000,
+    standard: 10,
+    express: 25,
     pickup: 0,
   }
 
@@ -71,14 +66,27 @@ export default function CheckoutPage() {
     })
   }, [subtotal, deliveryFee, tax, total])
 
-  const handleDeliveryOptionChange = (option: typeof deliveryOption) => {
+  const handleDeliveryOptionChange = (option: string) => {
     setDeliveryOption(option)
     console.log("[v0] Delivery option selected:", option)
   }
 
-  const handlePaymentMethodChange = (method: typeof paymentMethod) => {
+  const handlePaymentMethodChange = (method: string) => {
     setPaymentMethod(method)
     console.log("[v0] Payment method selected:", method)
+  }
+
+  const handlePaymentProofChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setPaymentProof(file)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setPaymentProofPreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+      console.log("[v0] Payment proof uploaded:", file.name)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -113,7 +121,38 @@ export default function CheckoutPage() {
     console.log("[v0] Order placed successfully")
     console.log("[v0] Order reference:", order.reference)
 
-    sendSMSReceipt(order, customer.phone)
+    const whatsappNumber = "23233680360"
+    const orderDetails = `
+*New Order from Pee's Bakery*
+
+*Order Reference:* ${order.reference}
+
+*Customer Details:*
+Name: ${customer.name}
+Phone: ${customer.phone}
+${customer.email ? `Email: ${customer.email}` : ""}
+
+*Delivery Address:*
+${deliveryAddress.street}
+${deliveryAddress.city}, ${deliveryAddress.zipCode}
+${deliveryAddress.instructions ? `Instructions: ${deliveryAddress.instructions}` : ""}
+
+*Order Items:*
+${cart.map((item) => `- ${item.product.name} x${item.quantity} - ${formatPrice(item.totalPrice)}`).join("\n")}
+
+*Order Summary:*
+Subtotal: ${formatPrice(subtotal)}
+Delivery: ${formatPrice(deliveryFee)} (${deliveryOption})
+Tax: ${formatPrice(tax)}
+*Total: ${formatPrice(total)}*
+
+*Payment Method:* ${paymentMethod.toUpperCase()}
+${paymentProof ? `*Payment Proof:* Attached (${paymentProof.name})` : ""}
+*Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}
+    `.trim()
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderDetails)}`
+    window.open(whatsappUrl, "_blank")
 
     setCompletedOrder(order)
     setShowConfirmation(true)
@@ -276,7 +315,7 @@ export default function CheckoutPage() {
                       <p className="font-bold">Standard Delivery</p>
                       <p className="text-sm text-[#5c6466]">2-3 hours</p>
                     </div>
-                    <span className="font-bold text-[#014325]">{formatPrice(10000)}</span>
+                    <span className="font-bold text-[#014325]">{formatPrice(10)}</span>
                   </label>
 
                   <label className="flex items-center gap-4 p-4 border-2 border-[#e5e7e8] rounded-lg cursor-pointer hover:border-[#014325] transition-colors has-[:checked]:border-[#014325] has-[:checked]:bg-[#f0fdf4]">
@@ -292,7 +331,7 @@ export default function CheckoutPage() {
                       <p className="font-bold">Express Delivery</p>
                       <p className="text-sm text-[#5c6466]">45-60 minutes</p>
                     </div>
-                    <span className="font-bold text-[#014325]">{formatPrice(25000)}</span>
+                    <span className="font-bold text-[#014325]">{formatPrice(25)}</span>
                   </label>
 
                   <label className="flex items-center gap-4 p-4 border-2 border-[#e5e7e8] rounded-lg cursor-pointer hover:border-[#014325] transition-colors has-[:checked]:border-[#014325] has-[:checked]:bg-[#f0fdf4]">
@@ -344,7 +383,7 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1">
                       <p className="font-bold">Orange Money</p>
-                      <p className="text-sm text-[#5c6466]">Mobile money (*242# or *241#)</p>
+                      <p className="text-sm text-[#5c6466]">Mobile money (*242# or *241#) or Maxit app</p>
                     </div>
                   </label>
 
@@ -377,6 +416,45 @@ export default function CheckoutPage() {
                       <p className="text-sm text-[#5c6466]">West African payment</p>
                     </div>
                   </label>
+                </div>
+
+                {paymentMethod !== "cod" && (
+                  <div className="mt-6 p-4 bg-[#f0fdf4] border border-[#014325] rounded-lg">
+                    <label className="block mb-2 font-medium text-[#0f1419]">Upload Payment Proof (Optional)</label>
+                    <p className="text-sm text-[#5c6466] mb-3">
+                      Upload a screenshot or photo of your payment transaction
+                    </p>
+                    <div className="flex flex-col gap-3">
+                      <label className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-[#014325] rounded-lg cursor-pointer hover:bg-white transition-colors">
+                        <Upload className="w-5 h-5 text-[#014325]" />
+                        <span className="text-sm font-medium text-[#014325]">
+                          {paymentProof ? "Change File" : "Choose File"}
+                        </span>
+                        <input type="file" accept="image/*" onChange={handlePaymentProofChange} className="hidden" />
+                      </label>
+                      {paymentProofPreview && (
+                        <div className="relative w-full h-48 rounded-lg overflow-hidden border border-[#e5e7e8]">
+                          <Image
+                            src={paymentProofPreview || "/placeholder.svg"}
+                            alt="Payment proof preview"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      )}
+                      {paymentProof && <p className="text-sm text-[#5c6466]">Selected: {paymentProof.name}</p>}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-6 p-4 bg-[#fffbf5] border border-[#ffb40b] rounded-lg">
+                  <p className="text-sm text-[#0f1419]">
+                    <strong>Note:</strong> For customized design cakes (marriage or any other event), please message us
+                    on WhatsApp at{" "}
+                    <a href="https://wa.me/232078891638" className="text-[#014325] font-bold hover:underline">
+                      078891638
+                    </a>
+                  </p>
                 </div>
               </section>
             </div>

@@ -10,7 +10,7 @@ import { formatPrice } from "@/lib/utils-app"
 import { Star, Plus, Minus } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
-import { useToast } from "@/hooks/use-toast"
+import { CartModal } from "@/components/cart-modal"
 
 interface ProductCardProps {
   product: Product
@@ -20,9 +20,9 @@ export function ProductCard({ product }: ProductCardProps) {
   const [quantity, setQuantity] = useState(0)
   const [flyingAnimation, setFlyingAnimation] = useState(false)
   const [animationStart, setAnimationStart] = useState({ x: 0, y: 0 })
+  const [showCartModal, setShowCartModal] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const { addToCart } = useCart()
-  const { toast } = useToast()
 
   const handleClick = () => {
     console.log("[v0] Product card clicked:", product.id, product.name)
@@ -44,11 +44,8 @@ export function ProductCard({ product }: ProductCardProps) {
     addToCart(product, quantity, [])
     console.log("[v0] Add to cart from product card:", product.name, "qty:", quantity)
 
-    toast({
-      title: "Added to cart!",
-      description: `${product.name} has been added to your cart.`,
-    })
-
+    // Show cart modal immediately
+    setShowCartModal(true)
     setQuantity(0)
   }
 
@@ -73,6 +70,8 @@ export function ProductCard({ product }: ProductCardProps) {
         startPosition={animationStart}
         onComplete={() => setFlyingAnimation(false)}
       />
+
+      <CartModal isOpen={showCartModal} onClose={() => setShowCartModal(false)} />
 
       <Link href={`/product/${product.id}`} onClick={handleClick}>
         <div className="bg-white border border-[#e5e7e8] rounded-xl overflow-hidden transition-all duration-200 hover:shadow-[0_8px_16px_rgba(1,67,37,0.12)] hover:-translate-y-1 hover:scale-[1.02] cursor-pointer flex flex-col h-full">
