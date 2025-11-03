@@ -50,7 +50,7 @@ export function PromoBanner() {
           {/* Right: Image */}
           <div className="relative h-64 lg:h-full min-h-[400px]">
             <Image
-              src="/promo-banner.png"
+              src="/images/design-mode/pasta-spaghetti-with-shrimps-tomato-sauce-served-plate-dark-surface-closeup.jpg"
               alt="Delicious grilled shrimp skewers"
               fill
               className="object-cover"

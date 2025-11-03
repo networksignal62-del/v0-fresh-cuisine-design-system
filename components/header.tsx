@@ -48,7 +48,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-[#4a1f3d] shadow-lg bg-[rgba(0,51,18,1)]">
+    <header className="sticky top-0 z-50 bg-[#4a1f3d] shadow-lg bg-[rgba(5,62,29,1)]">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20 gap-2 md:gap-4">
           {/* Left: Navigation Links */}
