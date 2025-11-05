@@ -71,7 +71,7 @@ export function Header() {
           <nav className="hidden lg:flex items-center gap-2">
             <Link
               href="/"
-              className={`px-4 xl:px-6 py-2 rounded-full font-medium transition-colors bg-sidebar ${
+              className={`px-4 xl:px-6 py-2 rounded-full font-medium transition-colors ${
                 isActive("/") ? "bg-[#d4a5c3] text-[#4a1f3d]" : "text-white hover:bg-white/10"
               }`}
               onClick={() => handleNavClick("home")}
