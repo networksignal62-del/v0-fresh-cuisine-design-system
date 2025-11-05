@@ -49,14 +49,14 @@ export default function AboutPage() {
         <section className="relative h-[400px] bg-[#014325]">
           <div className="absolute inset-0">
             <Image
-              src="/asian-restaurant-kitchen-chef-cooking.jpg"
+              src="/images/design-mode/pees%20Backery%20group%20pictures.jpg"
               alt="Pee's Bakery & Restaurant Kitchen"
               fill
-              className="object-cover opacity-30"
+              className="object-cover opacity-100"
             />
           </div>
           <div className="relative container mx-auto px-4 h-full flex items-center justify-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white text-center">About Pee's Bakery & Restaurant</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-center text-green-900 bg-[rgba(255,255,255,1)] rounded-lg px-3">About Pee's Bakery & Restaurant</h1>
           </div>
         </section>
 
