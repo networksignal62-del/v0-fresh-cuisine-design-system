@@ -6,7 +6,7 @@ export const products: Product[] = [
     name: "Spaghetti",
     category: "african",
     price: 180,
-    image: "/delicious-spaghetti-pasta-with-tomato-sauce.jpg",
+    image: "/spaghetti-chicken.jpg",
     description: "Delicious spaghetti with rich tomato sauce and herbs",
     longDescription:
       "Our signature spaghetti is cooked to perfection with a rich tomato sauce, fresh herbs, and your choice of protein. A classic favorite that never disappoints.",
@@ -24,10 +24,11 @@ export const products: Product[] = [
     name: "Whole Chicken",
     category: "african",
     price: 250,
-    image: "/roasted-whole-chicken-golden-brown.jpg",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Crispy%20chicken-BFtcL5JRoOIwyW3VS0KskBDzF7haUY.jpg",
     description: "Perfectly roasted whole chicken with seasoning",
     longDescription:
-      "A full roasted chicken seasoned with our special blend of spices. Perfect for sharing with family and friends.",
+      "A full roasted chicken seasoned with our special blend of spices. Served with crispy fries. Perfect for sharing with family and friends.",
     addOns: [
       { id: 4, name: "Extra Sauce", price: 10 },
       { id: 5, name: "Fried Plantain", price: 15 },
@@ -42,7 +43,7 @@ export const products: Product[] = [
     name: "Half Chicken",
     category: "african",
     price: 150,
-    image: "/half-roasted-chicken-with-herbs.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Half%20chinken-5w6YI99FHKXkt6lwvEzNavI8hmwszB.jpg",
     description: "Half roasted chicken with special seasoning",
     longDescription:
       "Half of our perfectly roasted chicken, ideal for a single serving or smaller appetite. Seasoned to perfection.",
@@ -60,7 +61,7 @@ export const products: Product[] = [
     name: "Bulgur with Fish",
     category: "african",
     price: 250,
-    image: "/bulgur-fish.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bulgur-51MinKIMuIfRwxBQGL3GKgxQyl9lm5.jpg",
     description: "Nutritious bulgur wheat served with fresh fish",
     longDescription:
       "Healthy bulgur wheat cooked with vegetables and served with perfectly seasoned fish. A nutritious and delicious meal.",
@@ -77,10 +78,11 @@ export const products: Product[] = [
     name: "Fried Rice and Fish",
     category: "african",
     price: 250,
-    image: "/fried-rice-with-fish-vegetables.jpg",
-    description: "Flavorful fried rice with seasoned fish",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fried%20rice%20and%20grilled%C2%A0fish-zVGHhUODDMEYCSfeMWa5d70h6WrkXE.jpg",
+    description: "Flavorful fried rice with seasoned grilled fish",
     longDescription:
-      "Our special fried rice loaded with vegetables and served with perfectly fried fish. A complete and satisfying meal.",
+      "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal.",
     addOns: [
       { id: 12, name: "Extra Fish", price: 40 },
       { id: 13, name: "Plantain", price: 15 },
@@ -109,7 +111,7 @@ export const products: Product[] = [
     name: "Shawarma Meat",
     category: "fast-food",
     price: 120,
-    image: "/meat-shawarma-wrap-fresh-vegetables.jpg",
+    image: "/roast-meat-skewers.jpg",
     description: "Delicious meat shawarma wrap with fresh vegetables",
     longDescription:
       "Tender marinated meat wrapped in fresh pita bread with lettuce, tomatoes, onions, and our special sauce.",
@@ -195,7 +197,7 @@ export const products: Product[] = [
     name: "Ice Cream Small",
     category: "drinks",
     price: 20,
-    image: "/ice-cream-cone-vanilla-chocolate.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cream-LLQ3LSvijGkqTbPBJicnaMTQOfwUgs.jpg",
     description: "Small serving of creamy ice cream",
     longDescription: "Cool and creamy ice cream in various flavors. Perfect for a sweet treat!",
     addOns: [
@@ -210,7 +212,7 @@ export const products: Product[] = [
     name: "Ice Cream Large",
     category: "drinks",
     price: 50,
-    image: "/large-ice-cream-sundae-toppings.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cream%201-KUmozZfzOikgIjvuN7kYWfQnJAwe2X.jpg",
     description: "Large serving of delicious ice cream",
     longDescription:
       "Generous portion of our creamy ice cream. Available in multiple flavors to satisfy your sweet tooth.",
@@ -223,13 +225,14 @@ export const products: Product[] = [
   },
   {
     id: 14,
-    name: "Foofoo",
+    name: "Foofoo with Okra Soup",
     category: "african",
     price: 120,
-    image: "/african-foofoo-with-soup.jpg",
-    description: "Traditional African foofoo with soup",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Foofoo%20okara%20suap-UMxkpqwGcyF8Q9iT8MnWbotSFxipD6.jpg",
+    description: "Traditional African foofoo with okra soup",
     longDescription:
-      "Smooth and stretchy foofoo served with your choice of soup. A traditional African staple that's both filling and delicious.",
+      "Smooth and stretchy foofoo served with rich okra soup and tender meat. A traditional African staple that's both filling and delicious.",
     addOns: [
       { id: 35, name: "Extra Foofoo", price: 30 },
       { id: 36, name: "Extra Soup", price: 25 },
@@ -243,7 +246,8 @@ export const products: Product[] = [
     name: "Birthday Cake Small",
     category: "bakery",
     price: 350,
-    image: "/small-birthday-cake-decorated.jpg",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%20350-M9U0vI1CYXs9XJxgZXxB7qCn89LYIl.jpg",
     description: "Small birthday cake for intimate celebrations",
     longDescription:
       "Beautiful birthday cake perfect for small gatherings. Available in various flavors and can be customized with a message.",
@@ -260,10 +264,11 @@ export const products: Product[] = [
     name: "Birthday Cake Medium",
     category: "bakery",
     price: 550,
-    image: "/medium-birthday-cake-colorful.jpg",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20Cake%20550-aDjYxWfat7XZ0J5d4puKB8EI4ydk1Y.jpg",
     description: "Medium birthday cake for family celebrations",
     longDescription:
-      "Perfect sized cake for family birthday celebrations. Choose from chocolate, vanilla, or red velvet flavors.",
+      "Perfect sized cake for family birthday celebrations. Choose from chocolate, vanilla, or red velvet flavors. Can be customized with your child's favorite themes!",
     addOns: [
       { id: 40, name: "Custom Message", price: 10 },
       { id: 41, name: "Candles", price: 5 },
@@ -276,10 +281,11 @@ export const products: Product[] = [
     name: "Birthday Cake Large",
     category: "bakery",
     price: 750,
-    image: "/large-birthday-cake-elegant.jpg",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%202500-scV0HFXBrDDXf02a6v4vFb4SuVHEpM.jpg",
     description: "Large birthday cake for big celebrations",
     longDescription:
-      "Large celebration cake perfect for parties. Beautifully decorated and delicious. Multiple flavor options available.",
+      "Large celebration cake perfect for parties. Beautifully decorated with intricate designs. Multiple flavor options available.",
     addOns: [
       { id: 42, name: "Custom Message", price: 15 },
       { id: 43, name: "Candles", price: 8 },
@@ -308,7 +314,7 @@ export const products: Product[] = [
     name: "Rich Cake",
     category: "bakery",
     price: 50,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/rich-cake-trays.jpg",
     description: "Moist and rich cake slice",
     longDescription:
       "Dense, moist, and incredibly rich cake. Perfect with a cup of tea or coffee. A decadent treat for any time of day.",
@@ -324,7 +330,7 @@ export const products: Product[] = [
     name: "Banana Bread Small",
     category: "bakery",
     price: 50,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Banana%20bread-GQZfy18LuYq3tX05fv2wxGMBeIFoNZ.jpg",
     description: "Small loaf of homemade banana bread",
     longDescription:
       "Moist and flavorful banana bread made with ripe bananas. Perfect for breakfast or as a snack with tea.",
@@ -340,7 +346,7 @@ export const products: Product[] = [
     name: "Banana Bread Large",
     category: "bakery",
     price: 100,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bread-UUbU7HgbudqXE1hzdVfaLMN74DHaGO.jpg",
     description: "Large loaf of homemade banana bread",
     longDescription:
       "Full-sized loaf of our delicious banana bread. Great for sharing or enjoying throughout the week.",
@@ -350,6 +356,335 @@ export const products: Product[] = [
     ],
     rating: 4.8,
     reviewCount: 145,
+  },
+  {
+    id: 22,
+    name: "Pizza",
+    category: "fast-food",
+    price: 120,
+    image: "/pizza.jpg",
+    description: "Delicious pepperoni pizza with melted cheese",
+    longDescription:
+      "Hot and fresh pizza loaded with pepperoni, mozzarella cheese, and our signature tomato sauce. Perfectly baked with a crispy crust.",
+    addOns: [
+      { id: 52, name: "Extra Cheese", price: 20 },
+      { id: 53, name: "Extra Pepperoni", price: 25 },
+      { id: 54, name: "Mushrooms", price: 15 },
+    ],
+    featured: true,
+    rating: 4.9,
+    reviewCount: 312,
+  },
+  {
+    id: 23,
+    name: "Sausage Roll",
+    category: "bakery",
+    price: 35,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chin%20chin-rKdwF22BAMnuJCF9I9uLYv5dT6btdf.jpg",
+    description: "Freshly baked sausage rolls",
+    longDescription:
+      "Golden brown sausage rolls made fresh daily. Flaky pastry wrapped around seasoned sausage meat. Perfect for a quick snack!",
+    addOns: [
+      { id: 55, name: "Extra Roll", price: 35 },
+      { id: 56, name: "Ketchup", price: 5 },
+    ],
+    rating: 4.7,
+    reviewCount: 189,
+  },
+  {
+    id: 24,
+    name: "Red Bull",
+    category: "drinks",
+    price: 25,
+    image: "/redbull.jpeg",
+    description: "Red Bull Energy Drink",
+    longDescription: "Ice cold Red Bull energy drink to keep you energized throughout the day.",
+    addOns: [],
+    rating: 4.6,
+    reviewCount: 78,
+  },
+  {
+    id: 25,
+    name: "Vimto",
+    category: "drinks",
+    price: 15,
+    image: "/vimto-drink.jpg",
+    description: "Vimto Sparkling Drink",
+    longDescription: "Refreshing Vimto sparkling drink with mixed fruit flavors. A delicious and fizzy treat!",
+    addOns: [],
+    rating: 4.5,
+    reviewCount: 92,
+  },
+  {
+    id: 26,
+    name: "Soft Drinks",
+    category: "drinks",
+    price: 15,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Cock-OKpuLbq3Smq9JWt4x6RgSVjxpF7N2A.jpeg",
+    description: "Coca-Cola, Sprite, or Fanta",
+    longDescription: "Choose from Coca-Cola, Sprite, or Fanta Orange. Ice cold and refreshing!",
+    addOns: [],
+    rating: 4.7,
+    reviewCount: 234,
+  },
+  {
+    id: 27,
+    name: "Super Malt",
+    category: "drinks",
+    price: 25,
+    image: "/super-malt.jpg",
+    description: "Super Malt Original",
+    longDescription:
+      "Non-alcoholic malt beverage with B vitamins. Rich, smooth taste that's both nutritious and delicious.",
+    addOns: [],
+    rating: 4.8,
+    reviewCount: 167,
+  },
+  {
+    id: 28,
+    name: "Fanta",
+    category: "drinks",
+    price: 15,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cold%20fanta-qQNGGuht2bRfqVLzznJhdI4U1UuyqA.jpeg",
+    description: "Ice Cold Fanta Orange",
+    longDescription: "Refreshing ice-cold Fanta Orange soda. Perfect for quenching your thirst on a hot day!",
+    addOns: [],
+    rating: 4.6,
+    reviewCount: 156,
+  },
+  {
+    id: 29,
+    name: "Kebba",
+    category: "african",
+    price: 80,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kebba-wTBvhmk8yXmeOjmIfqX8qW9QHd2hTA.jpg",
+    description: "Traditional African Kebba",
+    longDescription:
+      "Delicious traditional African kebba, crispy on the outside and flavorful on the inside. A beloved street food delicacy!",
+    addOns: [
+      { id: 57, name: "Extra Sauce", price: 5 },
+      { id: 58, name: "Extra Pieces", price: 30 },
+    ],
+    featured: true,
+    rating: 4.8,
+    reviewCount: 234,
+  },
+  {
+    id: 30,
+    name: "Laffadie Special",
+    category: "african",
+    price: 150,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Laffadie%20150-g20b02jrCgZ6rwZHy1YCStGigAa16y.jpg",
+    description: "Laffadie rice with sausages and fried items",
+    longDescription:
+      "A complete Laffadie meal featuring white rice, sausages, crispy fried items, and special spices. A hearty traditional favorite!",
+    addOns: [
+      { id: 59, name: "Extra Sausage", price: 20 },
+      { id: 60, name: "Extra Rice", price: 15 },
+    ],
+    rating: 4.9,
+    reviewCount: 187,
+  },
+  {
+    id: 31,
+    name: "Maltina",
+    category: "drinks",
+    price: 20,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Maltina-w1L5rUpnTXcQXagYGs4YutmG3FQMgp.jpeg",
+    description: "Maltina Classic Malt Drink",
+    longDescription: "Enriched non-alcoholic malt beverage with B vitamins. Smooth, refreshing, and nutritious!",
+    addOns: [],
+    rating: 4.7,
+    reviewCount: 198,
+  },
+  {
+    id: 32,
+    name: "Lucozade Energy",
+    category: "drinks",
+    price: 25,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lucozade%20Drink-FMcU3DK8mTtSzZPDnQa37vEbURrpsD.jpg",
+    description: "Lucozade Energy Orange",
+    longDescription:
+      "Ice-cold Lucozade Energy drink with glucose to keep you powered throughout the day. Refreshing orange flavor!",
+    addOns: [],
+    rating: 4.8,
+    reviewCount: 167,
+  },
+  {
+    id: 33,
+    name: "Krain Krain",
+    category: "african",
+    price: 200,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/krain%20krain-6wBSS2WtipNx50vqemm8Zi3hrhP0JZ.jpg",
+    description: "Traditional Krain Krain stew with meat",
+    longDescription:
+      "Rich, traditional Krain Krain stew cooked with tender meat, seafood, and special spices. A West African delicacy from Pee's Bakery!",
+    addOns: [
+      { id: 61, name: "Extra Meat", price: 40 },
+      { id: 62, name: "Extra Seafood", price: 50 },
+      { id: 63, name: "Rice", price: 20 },
+    ],
+    featured: true,
+    rating: 5.0,
+    reviewCount: 143,
+  },
+  {
+    id: 34,
+    name: "Grilled Catfish Platter",
+    category: "african",
+    price: 350,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Grilled%20catfish%20with%20fried%20rice%20and%20plaintain%20and%C2%A0coslaw-6H4vAZg1XfIGxCydDCkLe20o2m4jpp.jpg",
+    description: "Whole grilled catfish with fried rice, plantain and coleslaw",
+    longDescription:
+      "A complete seafood feast featuring a whole grilled catfish, flavorful fried rice, sweet fried plantains, and fresh coleslaw. Served with special sauces!",
+    addOns: [
+      { id: 64, name: "Extra Fish", price: 100 },
+      { id: 65, name: "Extra Plantain", price: 20 },
+      { id: 66, name: "Extra Rice", price: 30 },
+    ],
+    featured: true,
+    rating: 5.0,
+    reviewCount: 289,
+  },
+  {
+    id: 35,
+    name: "Fried Catfish",
+    category: "african",
+    price: 200,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fishing%20Batter%20Small%20Size%2025%20big%20size%C2%A035-Z6IS39YBpuHTxJAmZTVDq90WQHYIS8.jpg",
+    description: "Crispy fried catfish with golden batter",
+    longDescription:
+      "Perfectly fried catfish with a crispy golden batter. Available in small and large sizes. A delicious and satisfying meal!",
+    addOns: [
+      { id: 67, name: "Extra Sauce", price: 10 },
+      { id: 68, name: "Fries", price: 20 },
+      { id: 69, name: "Coleslaw", price: 10 },
+    ],
+    rating: 4.8,
+    reviewCount: 145,
+  },
+  {
+    id: 36,
+    name: "Don Simon Juice",
+    category: "drinks",
+    price: 30,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Don%20Simon%20Juice-88SdYDRmIs8GYpBEz7KZtdMd9uaZcI.jpg",
+    description: "Don Simon Multifrutas Juice 1L",
+    longDescription:
+      "Refreshing multi-fruit juice from Don Simon. Made with a blend of delicious fruits. Perfect for any meal!",
+    addOns: [],
+    rating: 4.7,
+    reviewCount: 98,
+  },
+  {
+    id: 37,
+    name: "Fish Balls",
+    category: "african",
+    price: 80,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chinken%20ball-N3e39zDXyjn2ea2B27wlFUEaHqGP8n.jpg",
+    description: "Crispy fried fish balls",
+    longDescription:
+      "Golden fried fish balls made with fresh fish and special seasonings. Crispy on the outside, tender on the inside. A popular snack!",
+    addOns: [
+      { id: 70, name: "Extra Sauce", price: 5 },
+      { id: 71, name: "Extra Pieces", price: 30 },
+    ],
+    rating: 4.6,
+    reviewCount: 134,
+  },
+  {
+    id: 38,
+    name: "Grilled Gizzards on Stick",
+    category: "african",
+    price: 50,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gizzard%20on%20stick%202-CpR92jBXH9n5YvcFIM5phYsAHBK8Ff.jpg",
+    description: "Spicy grilled gizzards on skewers",
+    longDescription:
+      "Tender chicken gizzards marinated in spices and grilled to perfection on skewers. A flavorful street food favorite!",
+    addOns: [
+      { id: 72, name: "Extra Stick", price: 50 },
+      { id: 73, name: "Extra Sauce", price: 10 },
+    ],
+    featured: true,
+    rating: 4.9,
+    reviewCount: 187,
+  },
+  {
+    id: 39,
+    name: "Ceres Mango Juice",
+    category: "drinks",
+    price: 35,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ceres%20Mango%20Juice%20-JGq6n8HpqV7dzyop1xwElwLYRXLioz.jpg",
+    description: "100% Juice blend - Mango flavor 1L",
+    longDescription:
+      "Refreshing 100% pear juice from concentrate and mango puree. Natural and delicious tropical flavor in a 1L carton.",
+    addOns: [],
+    rating: 4.8,
+    reviewCount: 156,
+  },
+  {
+    id: 40,
+    name: "Archeka with Grilled Fish",
+    category: "african",
+    price: 280,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Archeka%20with%20fish-lHyZlsK3FM4hJE73dgDzLfyzxUpFS2.jpg",
+    description: "Couscous-style archeka with whole grilled fish",
+    longDescription:
+      "Traditional archeka (couscous) served with perfectly grilled fish, golden fried plantains, fresh garden salad, and special sauces. A complete and nutritious meal!",
+    addOns: [
+      { id: 74, name: "Extra Fish", price: 80 },
+      { id: 75, name: "Extra Plantain", price: 20 },
+      { id: 76, name: "Extra Archeka", price: 25 },
+    ],
+    featured: true,
+    rating: 4.9,
+    reviewCount: 203,
+  },
+  {
+    id: 41,
+    name: "Archeka with Grilled Chicken",
+    category: "african",
+    price: 250,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Archeka%20and%20chicken%C2%A0-hm1HnDJoEzP2Qan9GmIMB2gL8cvA4K.jpg",
+    description: "Couscous-style archeka with grilled chicken",
+    longDescription:
+      "Fluffy archeka (couscous) served with tender grilled chicken, boiled eggs, sliced meats, fresh vegetables, and homemade sauces. A hearty and satisfying platter!",
+    addOns: [
+      { id: 77, name: "Extra Chicken", price: 60 },
+      { id: 78, name: "Extra Eggs", price: 15 },
+      { id: 79, name: "Extra Archeka", price: 25 },
+    ],
+    featured: true,
+    rating: 4.9,
+    reviewCount: 189,
+  },
+  {
+    id: 42,
+    name: "Cassava Leaf Stew",
+    category: "african",
+    price: 180,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/African%20dish%20Cassava%20Leafe-Jj1jMyPWwCCeN6LUZlPKXufg46kTos.jpg",
+    description: "Traditional West African cassava leaf stew",
+    longDescription:
+      "Rich and flavorful cassava leaf stew cooked with tender meat, fish, and authentic West African spices. Served in convenient containers. A traditional delicacy from Pee's Bakery!",
+    addOns: [
+      { id: 80, name: "Extra Meat", price: 40 },
+      { id: 81, name: "Rice", price: 20 },
+      { id: 82, name: "Foofoo", price: 30 },
+    ],
+    featured: true,
+    rating: 5.0,
+    reviewCount: 167,
   },
 ]
 

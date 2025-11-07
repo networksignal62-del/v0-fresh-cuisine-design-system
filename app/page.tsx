@@ -28,10 +28,10 @@ export default function HomePage() {
   const featuredProducts = products.filter((p) => p.featured)
 
   return (
-    <div className="min-h-screen bg-[#fffbf5]">
+    <div className="min-h-screen bg-[#fffbf5] bg-popover-foreground">
       <Header />
 
-      <main>
+      <main className="bg-[rgba(234,236,223,1)]">
         <section className="relative h-[400px] md:h-[500px] lg:h-[600px] bg-gradient-to-b from-[#014325] to-[#014325]/80">
           <div className="absolute inset-0">
             <Image
