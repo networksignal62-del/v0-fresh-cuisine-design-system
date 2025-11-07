@@ -107,13 +107,17 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Center: Brand Name */}
-          <Link
-            href="/"
-            className="text-lg md:text-xl lg:text-3xl font-bold text-white lg:absolute lg:left-1/2 lg:-translate-x-1/2"
-            onClick={() => handleNavClick("home")}
-          >
-            Pee's Bakery
+          {/* Center: Brand Logo */}
+          <Link href="/" className="lg:absolute lg:left-1/2 lg:-translate-x-1/2" onClick={() => handleNavClick("home")}>
+            <div className="relative h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20">
+              <Image
+                src="/images/design-mode/Pees%20Bakery%20Logo%403x.png.jpeg"
+                alt="Pee's Bakery Logo"
+                fill
+                className="object-contain invert rounded-full"
+                priority
+              />
+            </div>
           </Link>
 
           {/* Right: Search and Icons */}

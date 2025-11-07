@@ -121,7 +121,7 @@ export default function CheckoutPage() {
     console.log("[v0] Order placed successfully")
     console.log("[v0] Order reference:", order.reference)
 
-    const whatsappNumber = "23233680360"
+    const whatsappNumber = "232033680260"
     const orderDetails = `
 *New Order from Pee's Bakery*
 
@@ -451,9 +451,10 @@ ${paymentProof ? `*Payment Proof:* Attached (${paymentProof.name})` : ""}
                   <p className="text-sm text-[#0f1419]">
                     <strong>Note:</strong> For customized design cakes (marriage or any other event), please message us
                     on WhatsApp at{" "}
-                    <a href="https://wa.me/232078891638" className="text-[#014325] font-bold hover:underline">
-                      078891638
-                    </a>
+                    <a href="https://wa.me/232033680260" className="text-[#014325] font-bold hover:underline">
+                      033680260
+                    </a>{" "}
+                    or use Orange Money payment code: <strong>216542</strong>
                   </p>
                 </div>
               </section>
