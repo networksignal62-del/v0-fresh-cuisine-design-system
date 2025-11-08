@@ -28,17 +28,22 @@ export default function CheckoutPage() {
     zipCode: "",
     instructions: "",
   })
+  const [orangeMoneyTransaction, setOrangeMoneyTransaction] = useState({
+    transactionId: "",
+    phoneNumber: "",
+    accountName: "",
+  })
 
   useEffect(() => {
     setMounted(true)
+    console.log("[v0] Checkout page mounted")
   }, [])
 
   useEffect(() => {
-    console.log("[v0] Checkout page loaded")
-    console.log("[v0] Cart items:", cart.length)
+    console.log("[v0] Cart check - items:", cart.length)
 
     if (mounted && cart.length === 0 && !showConfirmation) {
-      console.log("[v0] Empty cart, redirecting...")
+      console.log("[v0] Empty cart detected, redirecting to cart page")
       router.push("/cart")
     }
   }, [cart.length, mounted, showConfirmation, router, cart])
@@ -56,39 +61,47 @@ export default function CheckoutPage() {
 
   const handleDeliveryOptionChange = (option: string) => {
     setDeliveryOption(option)
-    console.log("[v0] Delivery:", option)
+    console.log("[v0] Delivery option changed to:", option)
   }
 
   const handlePaymentMethodChange = (method: string) => {
     setPaymentMethod(method)
-    console.log("[v0] Payment:", method)
+    console.log("[v0] Payment method changed to:", method)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] ========== CONFIRM ORDER CLICKED ==========")
-    console.log("[v0] Cart items:", cart.length)
+    console.log("[v0] ==========================================")
+    console.log("[v0] FORM SUBMITTED - handleSubmit called!")
+    console.log("[v0] ==========================================")
+    console.log("[v0] Current cart length:", cart.length)
+    console.log("[v0] Customer name:", customer.name)
+    console.log("[v0] Customer phone:", customer.phone)
 
-    const orderItems = [...cart].map((item) => ({
+    const orderItems = cart.map((item) => ({
       product: { ...item.product },
       quantity: item.quantity,
       totalPrice: item.totalPrice,
     }))
 
     console.log("[v0] Order items captured:", orderItems.length)
-    console.log("[v0] Items:", orderItems.map((i) => `${i.product.name} x${i.quantity}`).join(", "))
+    console.log("[v0] Order items details:")
+    orderItems.forEach((item, idx) => {
+      console.log(`[v0]   ${idx + 1}. ${item.product.name} x${item.quantity} = Le ${item.totalPrice}`)
+    })
 
     if (orderItems.length === 0) {
-      console.error("[v0] ERROR: No items to order!")
-      alert("Cart is empty!")
+      console.error("[v0] ERROR: No items in order!")
+      alert("Your cart is empty. Please add items before checkout.")
       return
     }
 
     setIsProcessing(true)
+    console.log("[v0] Processing started...")
 
     try {
       const orderRef = generateOrderReference()
-      console.log("[v0] Order reference:", orderRef)
+      console.log("[v0] Generated order reference:", orderRef)
 
       const order: Order = {
         id: orderRef,
@@ -108,65 +121,68 @@ export default function CheckoutPage() {
         estimatedDelivery: calculateEstimatedDelivery(deliveryOption),
       }
 
+      console.log("[v0] Order object created")
+      console.log("[v0] Building WhatsApp message...")
+
       const itemsList = orderItems
-        .map((item) => `- ${item.product.name} x${item.quantity} - Le ${item.totalPrice}`)
-        .join("\n")
+        .map((item) => `${item.product.name} x${item.quantity} - Le ${item.totalPrice}`)
+        .join("%0A")
 
-      const message = `*New Order from Pee's Bakery*
+      const message = `*New Order from Pee's Bakery*%0A%0A*Order #${orderRef}*%0A%0A*Customer:*%0AName: ${customer.name}%0APhone: ${customer.phone}${customer.email ? `%0AEmail: ${customer.email}` : ""}%0A%0A*Delivery:*%0A${deliveryAddress.street}%0A${deliveryAddress.city}, ${deliveryAddress.zipCode}${deliveryAddress.instructions ? `%0ANotes: ${deliveryAddress.instructions}` : ""}%0A%0A*Items:*%0A${itemsList}%0A%0A*Summary:*%0ASubtotal: Le ${subtotal}%0ADelivery: Le ${deliveryFee}%0ATax: Le ${tax}%0ATotal: Le ${total}%0A%0A*Payment:* ${paymentMethod.toUpperCase()}%0A*Estimated:* ${order.estimatedDelivery.toLocaleString()}`
 
-*Order Reference:* ${orderRef}
-
-*Customer Details:*
-Name: ${customer.name}
-Phone: ${customer.phone}
-${customer.email ? `Email: ${customer.email}` : ""}
-
-*Delivery Address:*
-${deliveryAddress.street}
-${deliveryAddress.city}, ${deliveryAddress.zipCode}
-${deliveryAddress.instructions ? `Instructions: ${deliveryAddress.instructions}` : ""}
-
-*Order Items:*
-${itemsList}
-
-*Order Summary:*
-Subtotal: Le ${subtotal}
-Delivery: Le ${deliveryFee} (${deliveryOption})
-Tax: Le ${tax}
-*Total: Le ${total}*
-
-*Payment Method:* ${paymentMethod.toUpperCase().replace("-", " ")}
-
-*Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}
-
-Thank you for your order!`
-
-      console.log("[v0] Message length:", message.length)
-      console.log("[v0] Opening WhatsApp...")
+      console.log("[v0] Message created, length:", message.length)
 
       const whatsappNumber = "232033680260"
-      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`
 
-      console.log("[v0] URL length:", url.length)
+      console.log("[v0] WhatsApp URL length:", whatsappURL.length)
+      console.log("[v0] Opening WhatsApp...")
 
-      window.open(url, "_blank")
-      console.log("[v0] WhatsApp window opened")
+      window.open(whatsappURL, "_blank")
+      console.log("[v0] WhatsApp opened successfully")
 
       setCompletedOrder(order)
       setShowConfirmation(true)
-      clearCart()
 
-      console.log("[v0] ========== ORDER COMPLETE ==========")
-      setIsProcessing(false)
+      console.log("[v0] Clearing cart...")
+      clearCart()
+      console.log("[v0] Cart cleared")
+
+      console.log("[v0] ==========================================")
+      console.log("[v0] ORDER COMPLETED SUCCESSFULLY!")
+      console.log("[v0] ==========================================")
     } catch (error) {
-      console.error("[v0] ERROR:", error)
-      alert("Error placing order. Please try again.")
+      console.error("[v0] ==========================================")
+      console.error("[v0] ERROR during order submission:")
+      console.error("[v0]", error)
+      console.error("[v0] ==========================================")
+      alert("Failed to place order. Please try again.")
+    } finally {
       setIsProcessing(false)
+      console.log("[v0] Processing finished")
     }
   }
 
-  const isFormValid =
-    customer.name && customer.phone && deliveryAddress.street && deliveryAddress.city && deliveryAddress.zipCode
+  const isFormValid = Boolean(
+    customer.name.trim() &&
+      customer.phone.trim() &&
+      deliveryAddress.street.trim() &&
+      deliveryAddress.city.trim() &&
+      deliveryAddress.zipCode.trim() &&
+      cart.length > 0 &&
+      (paymentMethod !== "orange-money" || orangeMoneyTransaction.transactionId.trim()),
+  )
+
+  useEffect(() => {
+    console.log("[v0] Form validation check:")
+    console.log("[v0]   Name:", customer.name ? "✓" : "✗")
+    console.log("[v0]   Phone:", customer.phone ? "✓" : "✗")
+    console.log("[v0]   Street:", deliveryAddress.street ? "✓" : "✗")
+    console.log("[v0]   City:", deliveryAddress.city ? "✓" : "✗")
+    console.log("[v0]   Zip:", deliveryAddress.zipCode ? "✓" : "✗")
+    console.log("[v0]   Cart items:", cart.length)
+    console.log("[v0]   Form valid:", isFormValid)
+  }, [customer, deliveryAddress, cart.length, isFormValid])
 
   if (!mounted || (cart.length === 0 && !showConfirmation)) {
     return null
@@ -388,7 +404,7 @@ Thank you for your order!`
                     />
                     <div className="flex-1">
                       <p className="font-bold">Orange Money</p>
-                      <p className="text-sm text-[#5c6466]">Mobile money (*242# or *241#) or Maxit app</p>
+                      <p className="text-sm text-[#5c6466]">Mobile money (*144#) or Maxit app</p>
                     </div>
                   </label>
 
@@ -423,7 +439,122 @@ Thank you for your order!`
                   </label>
                 </div>
 
-                {paymentMethod !== "cod" && (
+                {paymentMethod === "orange-money" && (
+                  <div className="mt-6 space-y-4">
+                    <div className="p-4 bg-[#ff8c00]/10 border border-[#ff8c00] rounded-lg">
+                      <h3 className="font-bold text-[#0f1419] mb-3">Orange Money Payment Instructions</h3>
+
+                      <div className="space-y-3 mb-4">
+                        <p className="text-sm text-[#0f1419]">
+                          <strong>Step 1:</strong> Dial Orange Money USSD code to make payment
+                        </p>
+                        <a
+                          href="tel:*144#"
+                          className="flex items-center justify-center gap-2 w-full bg-[#ff8c00] text-white py-3 rounded-lg font-bold hover:bg-[#ff8c00]/90 transition-colors"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                            />
+                          </svg>
+                          Dial *144# Now
+                        </a>
+                        <p className="text-sm text-[#0f1419]">
+                          <strong>Step 2:</strong> Select option 4 (Pay Merchant)
+                        </p>
+                        <p className="text-sm text-[#0f1419]">
+                          <strong>Step 3:</strong> Enter merchant code:{" "}
+                          <strong className="text-[#ff8c00]">197469</strong>
+                        </p>
+                        <p className="text-sm text-[#0f1419]">
+                          <strong>Step 4:</strong> Enter amount:{" "}
+                          <strong className="text-[#ff8c00]">{formatPrice(total)}</strong>
+                        </p>
+                        <p className="text-sm text-[#0f1419]">
+                          <strong>Step 5:</strong> Complete payment and fill in transaction details below
+                        </p>
+                      </div>
+
+                      <div className="p-3 bg-[#fffbf5] border border-[#ffb40b] rounded-lg text-sm">
+                        <p className="font-bold text-[#dc2626] mb-1">Important:</p>
+                        <p className="text-[#0f1419] mb-2">
+                          Please complete the payment within 15 minutes. Your order will be automatically cancelled if
+                          payment is not received within this time.
+                        </p>
+                        <p className="text-[#0f1419]">
+                          After completing the payment, you will receive a confirmation SMS. Your order will be
+                          processed immediately upon payment confirmation.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-white border-2 border-[#ff8c00] rounded-lg">
+                      <h4 className="font-bold text-[#0f1419] mb-3">
+                        Transaction Details <span className="text-[#dc2626]">*</span>
+                      </h4>
+
+                      <div className="space-y-3">
+                        <div>
+                          <label htmlFor="transactionId" className="block text-sm font-medium mb-2">
+                            Transaction ID <span className="text-[#dc2626]">*</span>
+                          </label>
+                          <input
+                            id="transactionId"
+                            type="text"
+                            required
+                            value={orangeMoneyTransaction.transactionId}
+                            onChange={(e) =>
+                              setOrangeMoneyTransaction({ ...orangeMoneyTransaction, transactionId: e.target.value })
+                            }
+                            className="w-full px-4 py-3 border border-[#e5e7e8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff8c00] focus:border-transparent"
+                            placeholder="e.g., MP123456789"
+                          />
+                          <p className="text-xs text-[#5c6466] mt-1">
+                            Enter the transaction ID from your Orange Money confirmation SMS
+                          </p>
+                        </div>
+
+                        <div>
+                          <label htmlFor="orangeMoneyPhone" className="block text-sm font-medium mb-2">
+                            Orange Money Phone Number (Optional)
+                          </label>
+                          <input
+                            id="orangeMoneyPhone"
+                            type="tel"
+                            value={orangeMoneyTransaction.phoneNumber}
+                            onChange={(e) =>
+                              setOrangeMoneyTransaction({ ...orangeMoneyTransaction, phoneNumber: e.target.value })
+                            }
+                            className="w-full px-4 py-3 border border-[#e5e7e8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff8c00] focus:border-transparent"
+                            placeholder="+232 XX XXX XXX"
+                          />
+                          <p className="text-xs text-[#5c6466] mt-1">The phone number used for the payment</p>
+                        </div>
+
+                        <div>
+                          <label htmlFor="orangeMoneyName" className="block text-sm font-medium mb-2">
+                            Account Holder Name (Optional)
+                          </label>
+                          <input
+                            id="orangeMoneyName"
+                            type="text"
+                            value={orangeMoneyTransaction.accountName}
+                            onChange={(e) =>
+                              setOrangeMoneyTransaction({ ...orangeMoneyTransaction, accountName: e.target.value })
+                            }
+                            className="w-full px-4 py-3 border border-[#e5e7e8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff8c00] focus:border-transparent"
+                            placeholder="Name on Orange Money account"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {paymentMethod !== "cod" && paymentMethod !== "orange-money" && (
                   <div className="mt-6 p-4 bg-[#fffbf5] border border-[#ffb40b] rounded-lg">
                     <p className="text-sm text-[#0f1419] mb-2">
                       <strong>Note:</strong> After placing your order, please send your payment transaction screenshot
@@ -433,8 +564,7 @@ Thank you for your order!`
                       For customized cakes, contact us on WhatsApp at{" "}
                       <a href="https://wa.me/232033680260" className="text-[#014325] font-bold hover:underline">
                         033680260
-                      </a>{" "}
-                      or use Orange Money code: <strong>216542</strong>
+                      </a>
                     </p>
                   </div>
                 )}
@@ -492,10 +622,15 @@ Thank you for your order!`
                 <button
                   type="submit"
                   disabled={!isFormValid || isProcessing}
+                  onClick={() => console.log("[v0] Confirm Order button clicked!")}
                   className="w-full bg-[#014325] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#014325]/90 disabled:bg-[#f2f3f4] disabled:text-[#5c6466] disabled:cursor-not-allowed transition-colors"
                 >
                   {isProcessing ? "Processing..." : `Confirm Order - ${formatPrice(total)}`}
                 </button>
+
+                <p className="text-xs text-center mt-2 text-[#5c6466]">
+                  {!isFormValid && "Please fill all required fields"}
+                </p>
               </div>
             </div>
           </div>
