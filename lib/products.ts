@@ -112,7 +112,7 @@ export const products: Product[] = [
     name: "Shawarma Meat",
     category: "fast-food",
     price: 120,
-    image: "/roast-meat-skewers.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-81A5dnbk4YmP5xpjCKx1RaTXxhXLTi.png",
     description: "Delicious meat shawarma wrap with fresh vegetables",
     longDescription:
       "Tender marinated meat wrapped in fresh pita bread with lettuce, tomatoes, onions, and our special sauce.",
@@ -130,7 +130,7 @@ export const products: Product[] = [
     name: "Shawarma Chicken",
     category: "fast-food",
     price: 100,
-    image: "/chicken-shawarma-wrap-garlic-sauce.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7FH8Xj3KgISbHQ7mVMKViQVWp27GcO.png",
     description: "Tasty chicken shawarma with fresh toppings",
     longDescription:
       "Grilled chicken wrapped in soft pita with crisp vegetables and our signature garlic sauce. A customer favorite!",
@@ -147,7 +147,7 @@ export const products: Product[] = [
     name: "Burger",
     category: "fast-food",
     price: 100,
-    image: "/classic-beef-burger-lettuce-tomato.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-gTzsAxe7oYy0c0lE2jmeeKimlOdLFR.png",
     description: "Classic beef burger with fresh toppings",
     longDescription:
       "Juicy beef patty with lettuce, tomato, onions, pickles, and our special burger sauce on a toasted bun.",
@@ -164,7 +164,7 @@ export const products: Product[] = [
     name: "Egg Burger",
     category: "fast-food",
     price: 120,
-    image: "/burger-with-fried-egg-beef-patty.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-r1S2SpmLukPNgqRehsvlF7HcQrTS3p.png",
     description: "Burger with fried egg and beef patty",
     longDescription:
       "Our classic burger topped with a perfectly fried egg. The combination of runny yolk and juicy beef is irresistible!",
@@ -181,7 +181,7 @@ export const products: Product[] = [
     name: "Double Burger",
     category: "fast-food",
     price: 170,
-    image: "/double-beef-burger-cheese-stacked.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-krCIXFMcSBukIZaTxODUPrSyPPAX9t.png",
     description: "Double beef patty burger for big appetites",
     longDescription:
       "Two juicy beef patties stacked high with cheese, lettuce, tomato, and our special sauce. For those with a hearty appetite!",
@@ -296,19 +296,25 @@ export const products: Product[] = [
   },
   {
     id: 18,
-    name: "Birthday Cake Extra Large",
+    name: "Customized Cake Design",
     category: "bakery",
-    price: 1000,
-    image: "/placeholder.svg?height=400&width=400",
-    description: "Extra large cake for grand celebrations",
-    longDescription:
-      "Our grandest birthday cake for large celebrations. Stunning design and exceptional taste. Perfect for milestone birthdays! For customized designs message on WhatsApp +232 78 891638.",
-    addOns: [
-      { id: 44, name: "Custom Message", price: 20 },
-      { id: 45, name: "Candles", price: 10 },
+    price: 0,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%203-5NN7FvpOc8MZ4Qsf9RBz7flNGiVJ02.jpg",
+    images: [
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%203-5NN7FvpOc8MZ4Qsf9RBz7flNGiVJ02.jpg",
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake-7nOzODXuuEbfptAD3KHT9pEl9RMGZf.jpg",
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%204-kAYaKaLtKy2Ilsl1AewccFaaiRfLo8.jpg",
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%202-ofFoVsnmQLAuxRUxPUC1Ogd1cXrKyi.jpg",
     ],
+    description: "Create your dream cake with personalized designs and themes",
+    longDescription:
+      "Bring your vision to life with our fully customized cake designs! From princess castles to superhero adventures, birthday milestones to wedding celebrations - we create stunning custom cakes tailored to your exact specifications. Every cake is a masterpiece crafted with love and attention to detail. Contact us on WhatsApp to discuss your design ideas, theme, size, flavors, and budget. Our talented bakers will work with you to create the perfect cake for your special occasion!",
+    addOns: [],
+    isCustomizable: true,
+    featured: true,
     rating: 5.0,
-    reviewCount: 65,
+    reviewCount: 156,
   },
   {
     id: 19,
@@ -586,7 +592,7 @@ export const products: Product[] = [
     name: "Pork Stick",
     category: "african",
     price: 35,
-    image: "/grilled-pork-on-stick.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-eUyuX1lq5xrLPr5Dcgh0RXAWKiSbnL.png",
     description: "Grilled pork on stick",
     longDescription:
       "Tender pork pieces marinated and grilled on skewers. Juicy, flavorful, and perfectly seasoned. A popular street food choice!",

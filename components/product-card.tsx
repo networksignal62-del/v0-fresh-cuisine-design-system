@@ -12,6 +12,7 @@ import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
 import { CartModal } from "@/components/cart-modal"
+import { useToast } from "@/hooks/use-toast"
 
 interface ProductCardProps {
   product: Product
@@ -26,6 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const { addToCart } = useCart()
   const { toggleWishlist, isInWishlist } = useWishlist()
+  const { toast } = useToast()
   const isFavorite = isInWishlist(product.id)
 
   const handleClick = () => {
@@ -37,6 +39,12 @@ export function ProductCard({ product }: ProductCardProps) {
     e.stopPropagation()
     toggleWishlist(product)
     console.log("[v0] Wishlist toggled for:", product.name, "isFavorite:", !isFavorite)
+
+    toast({
+      title: isFavorite ? "Removed from Wishlist" : "Added to Wishlist ❤️",
+      description: `${product.name}`,
+      duration: 3000,
+    })
   }
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -55,7 +63,12 @@ export function ProductCard({ product }: ProductCardProps) {
     addToCart(product, quantity, [])
     console.log("[v0] Add to cart from product card:", product.name, "qty:", quantity)
 
-    // Show cart modal immediately
+    toast({
+      title: "Added to Cart! 🛒",
+      description: `${product.name} x${quantity} - ${formatPrice(product.price * quantity)}`,
+      duration: 3000,
+    })
+
     setShowCartModal(true)
     setQuantity(0)
   }

@@ -16,7 +16,7 @@ export interface ProductVariant {
 export interface Product {
   id: number
   name: string
-  category: "noodles" | "seafood" | "chicken" | "rice" | "salads"
+  category: "noodles" | "seafood" | "chicken" | "rice" | "salads" | "african" | "bakery" | "fast-food" | "drinks"
   price: number
   image: string
   images?: string[]
@@ -27,6 +27,7 @@ export interface Product {
   featured?: boolean
   rating?: number
   reviewCount?: number
+  isCustomizable?: boolean // Added flag for customizable products
 }
 
 export interface CartItem {

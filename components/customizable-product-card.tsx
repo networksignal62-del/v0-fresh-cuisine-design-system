@@ -1,0 +1,115 @@
+"use client"
+
+import type React from "react"
+import { useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import type { Product } from "@/lib/types"
+import { Star, MessageCircle, Sparkles } from "lucide-react"
+
+interface CustomizableProductCardProps {
+  product: Product
+}
+
+export function CustomizableProductCard({ product }: CustomizableProductCardProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const images = product.images || [product.image]
+
+  const handleWhatsAppClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const phoneNumber = "23278891638"
+    const message = encodeURIComponent(
+      `Hello! I'm interested in ordering a customized cake design. I'd like to discuss my ideas for a special occasion.`,
+    )
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank")
+  }
+
+  return (
+    <div className="bg-gradient-to-br from-[#fffbf5] via-white to-[#fff5e6] border-2 border-[#ffb40b] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(255,180,11,0.3)] hover:-translate-y-3 hover:scale-[1.02] cursor-pointer flex flex-col h-full group relative">
+      {/* Decorative corner elements */}
+      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#ffb40b]/20 to-transparent rounded-bl-full" />
+      <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-[#014325]/10 to-transparent rounded-tr-full" />
+
+      {/* Sparkle badge */}
+      <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-[#ffb40b] to-[#ffd700] text-[#0f1419] text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
+        <Sparkles className="w-4 h-4" />
+        CUSTOM ORDER
+      </div>
+
+      <Link href={`/product/${product.id}`}>
+        {/* Image Carousel */}
+        <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-[#f5f5f0] to-[#fffbf5]">
+          <Image
+            src={images[currentImageIndex] || "/placeholder.svg"}
+            alt={`${product.name} - Design ${currentImageIndex + 1}`}
+            fill
+            className="object-cover transition-all duration-700 group-hover:scale-110"
+          />
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#ffb40b]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Image dots navigation */}
+          {images.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setCurrentImageIndex(index)
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentImageIndex ? "bg-[#ffb40b] w-6" : "bg-white/60 hover:bg-white/80"
+                  }`}
+                  aria-label={`View design ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Premium badge */}
+          <span className="absolute top-4 right-4 bg-[#014325] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+            PREMIUM
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="p-5 flex flex-col flex-1 relative z-10">
+          <h3 className="font-bold text-xl text-[#0f1419] mb-2 transition-all duration-300 group-hover:text-[#014325] flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-[#ffb40b] group-hover:rotate-180 transition-transform duration-500" />
+            {product.name}
+          </h3>
+
+          <p className="text-sm text-[#5c6466] line-clamp-2 leading-relaxed mb-4 flex-1">{product.description}</p>
+
+          {/* Rating */}
+          {product.rating && (
+            <div className="flex items-center gap-1 mb-4">
+              <Star className="w-4 h-4 fill-[#ffb40b] text-[#ffb40b]" />
+              <span className="text-sm font-medium">{product.rating}</span>
+              <span className="text-xs text-[#5c6466]">({product.reviewCount} happy customers)</span>
+            </div>
+          )}
+
+          {/* WhatsApp CTA Button */}
+          <button
+            onClick={handleWhatsAppClick}
+            className="w-full bg-[#ffb40b] hover:bg-[#ffc83d] text-[#0f1419] py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 group/btn"
+          >
+            <MessageCircle className="w-5 h-5 group-hover/btn:animate-bounce" />
+            <span>Message on WhatsApp</span>
+          </button>
+
+          {/* Contact info */}
+          <p className="text-center text-xs text-[#5c6466] mt-3 font-medium">+232 78 891638</p>
+
+          {/* Note */}
+          <p className="text-center text-xs text-[#014325] mt-2 italic">Custom prices based on design complexity</p>
+        </div>
+      </Link>
+    </div>
+  )
+}

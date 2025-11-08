@@ -9,6 +9,7 @@ import { products } from "@/lib/products"
 import { formatPrice } from "@/lib/utils-app"
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
+import { useToast } from "@/hooks/use-toast"
 import { Star, Minus, Plus, ShoppingCart, Heart } from "lucide-react"
 import type { AddOn, ProductVariant } from "@/lib/types"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
@@ -21,6 +22,7 @@ export default function ProductDetailPage() {
   const router = useRouter()
   const { addToCart } = useCart()
   const { toggleWishlist, isInWishlist } = useWishlist()
+  const { toast } = useToast()
   const [quantity, setQuantity] = useState(1)
   const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([])
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null)
@@ -43,8 +45,16 @@ export default function ProductDetailPage() {
   }, [product, selectedVariant])
 
   const handleWishlistToggle = () => {
+    if (!product) return
+
     toggleWishlist(product)
     console.log("[v0] Wishlist toggled for:", product.name, "isFavorite:", !isFavorite)
+
+    toast({
+      title: isFavorite ? "Removed from Wishlist" : "Added to Wishlist ❤️",
+      description: `${product.name}`,
+      duration: 3000,
+    })
   }
 
   const handleAddOnToggle = (addOn: AddOn) => {
@@ -89,6 +99,16 @@ export default function ProductDetailPage() {
 
     console.log("[v0] Add to cart:", product.name, "qty:", quantity, "total:", totalPrice)
     console.log("[v0] Flying cart animation triggered")
+
+    const variantText = selectedVariant ? ` (${selectedVariant.name})` : ""
+    const addOnsText =
+      selectedAddOns.length > 0 ? ` + ${selectedAddOns.length} add-on${selectedAddOns.length > 1 ? "s" : ""}` : ""
+
+    toast({
+      title: "Added to Cart! 🛒",
+      description: `${product.name}${variantText} x${quantity}${addOnsText} - ${formatPrice(totalPrice)}`,
+      duration: 3000,
+    })
 
     setShowCartModal(true)
   }
