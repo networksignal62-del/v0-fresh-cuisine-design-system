@@ -20,10 +20,12 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
   useEffect(() => {
     if (isOpen) {
       setShowConfetti(true)
+      console.log("[v0] Cart modal opened, items in cart:", cart.length)
+      console.log("[v0] Cart total:", getCartTotal())
       const timer = setTimeout(() => setShowConfetti(false), 3000)
       return () => clearTimeout(timer)
     }
-  }, [isOpen])
+  }, [isOpen, cart.length, getCartTotal])
 
   if (!isOpen) return null
 
@@ -46,26 +48,30 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
 
           {/* Content */}
           <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
-            {cart
-              .slice(-3)
-              .reverse()
-              .map((item, index) => (
-                <div key={index} className="flex gap-4 items-center">
-                  <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                    <Image
-                      src={item.product.image || "/placeholder.svg"}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover"
-                    />
+            {cart.length === 0 ? (
+              <p className="text-center text-[#5c6466]">Your cart is empty</p>
+            ) : (
+              cart
+                .slice(-3)
+                .reverse()
+                .map((item, index) => (
+                  <div key={index} className="flex gap-4 items-center">
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                      <Image
+                        src={item.product.image || "/placeholder.svg"}
+                        alt={item.product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-[#0f1419] line-clamp-1">{item.product.name}</p>
+                      <p className="text-sm text-[#5c6466]">Qty: {item.quantity}</p>
+                    </div>
+                    <span className="font-bold text-[#014325]">{formatPrice(item.totalPrice)}</span>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-[#0f1419] line-clamp-1">{item.product.name}</p>
-                    <p className="text-sm text-[#5c6466]">Qty: {item.quantity}</p>
-                  </div>
-                  <span className="font-bold text-[#014325]">{formatPrice(item.totalPrice)}</span>
-                </div>
-              ))}
+                ))
+            )}
           </div>
 
           {/* Footer */}

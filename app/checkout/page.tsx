@@ -74,27 +74,29 @@ export default function CheckoutPage() {
     console.log("[v0] ==========================================")
     console.log("[v0] FORM SUBMITTED - handleSubmit called!")
     console.log("[v0] ==========================================")
-    console.log("[v0] Current cart length:", cart.length)
-    console.log("[v0] Customer name:", customer.name)
-    console.log("[v0] Customer phone:", customer.phone)
 
-    const orderItems = cart.map((item) => ({
+    const orderItems = [...cart].map((item) => ({
       product: { ...item.product },
       quantity: item.quantity,
       totalPrice: item.totalPrice,
+      selectedVariant: item.selectedVariant,
     }))
 
     console.log("[v0] Order items captured:", orderItems.length)
-    console.log("[v0] Order items details:")
-    orderItems.forEach((item, idx) => {
-      console.log(`[v0]   ${idx + 1}. ${item.product.name} x${item.quantity} = Le ${item.totalPrice}`)
-    })
+    console.log("[v0] Cart length at submit:", cart.length)
+    console.log("[v0] Customer name:", customer.name)
+    console.log("[v0] Customer phone:", customer.phone)
 
     if (orderItems.length === 0) {
       console.error("[v0] ERROR: No items in order!")
       alert("Your cart is empty. Please add items before checkout.")
       return
     }
+
+    console.log("[v0] Order items details:")
+    orderItems.forEach((item, idx) => {
+      console.log(`[v0]   ${idx + 1}. ${item.product.name} x${item.quantity} = Le ${item.totalPrice}`)
+    })
 
     setIsProcessing(true)
     console.log("[v0] Processing started...")
@@ -125,12 +127,24 @@ export default function CheckoutPage() {
       console.log("[v0] Building WhatsApp message...")
 
       const itemsList = orderItems
-        .map((item) => `${item.product.name} x${item.quantity} - Le ${item.totalPrice}`)
+        .map((item, idx) => {
+          const variantText = item.selectedVariant ? ` (${item.selectedVariant.name})` : ""
+          return `${idx + 1}. ${item.product.name}${variantText} x${item.quantity} - Le ${item.totalPrice}`
+        })
         .join("%0A")
 
-      const message = `*New Order from Pee's Bakery*%0A%0A*Order #${orderRef}*%0A%0A*Customer:*%0AName: ${customer.name}%0APhone: ${customer.phone}${customer.email ? `%0AEmail: ${customer.email}` : ""}%0A%0A*Delivery:*%0A${deliveryAddress.street}%0A${deliveryAddress.city}, ${deliveryAddress.zipCode}${deliveryAddress.instructions ? `%0ANotes: ${deliveryAddress.instructions}` : ""}%0A%0A*Items:*%0A${itemsList}%0A%0A*Summary:*%0ASubtotal: Le ${subtotal}%0ADelivery: Le ${deliveryFee}%0ATax: Le ${tax}%0ATotal: Le ${total}%0A%0A*Payment:* ${paymentMethod.toUpperCase()}%0A*Estimated:* ${order.estimatedDelivery.toLocaleString()}`
+      console.log("[v0] Items list created, length:", itemsList.length)
 
-      console.log("[v0] Message created, length:", message.length)
+      const orangeMoneyDetails =
+        paymentMethod === "orange-money"
+          ? `%0A%0A*Orange Money Transaction:*%0ATransaction ID: ${orangeMoneyTransaction.transactionId}${orangeMoneyTransaction.phoneNumber ? `%0APhone: ${orangeMoneyTransaction.phoneNumber}` : ""}${orangeMoneyTransaction.accountName ? `%0AAccount Name: ${orangeMoneyTransaction.accountName}` : ""}`
+          : ""
+
+      const message = `*New Order from Pee's Bakery*%0A%0A*Order Reference:* ${orderRef}%0A%0A*Customer Details:*%0AName: ${customer.name}%0APhone: ${customer.phone}${customer.email ? `%0AEmail: ${customer.email}` : ""}%0A%0A*Delivery Address:*%0A${deliveryAddress.street}%0A${deliveryAddress.city}, ${deliveryAddress.zipCode}${deliveryAddress.instructions ? `%0AInstructions: ${deliveryAddress.instructions}` : ""}%0A%0A*Order Items:*%0A${itemsList}%0A%0A*Order Summary:*%0ASubtotal: Le ${subtotal}%0ADelivery (${deliveryOption}): Le ${deliveryFee}%0ATax (5%%): Le ${tax}%0A*Total: Le ${total}*%0A%0A*Payment Method:* ${paymentMethod.toUpperCase()}${orangeMoneyDetails}%0A%0A*Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}`
+
+      console.log("[v0] WhatsApp message created")
+      console.log("[v0] Message length:", message.length)
+      console.log("[v0] Message preview:", message.substring(0, 200))
 
       const whatsappNumber = "232033680260"
       const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`
@@ -139,7 +153,7 @@ export default function CheckoutPage() {
       console.log("[v0] Opening WhatsApp...")
 
       window.open(whatsappURL, "_blank")
-      console.log("[v0] WhatsApp opened successfully")
+      console.log("[v0] WhatsApp window opened")
 
       setCompletedOrder(order)
       setShowConfirmation(true)
