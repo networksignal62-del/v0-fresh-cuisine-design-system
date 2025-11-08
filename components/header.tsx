@@ -114,7 +114,7 @@ export function Header() {
                 src="/images/design-mode/Pees%20Bakery%20Logo%403x.png.jpeg"
                 alt="Pee's Bakery Logo"
                 fill
-                className="object-contain invert rounded-full"
+                className="object-contain invert rounded-md"
                 priority
               />
             </div>

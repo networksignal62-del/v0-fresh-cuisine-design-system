@@ -214,6 +214,27 @@
   }
 }
 
+/* Added text loading animation with gradient sweep effect */
+@keyframes text-loading {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes text-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Hide scrollbar for category filter */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
