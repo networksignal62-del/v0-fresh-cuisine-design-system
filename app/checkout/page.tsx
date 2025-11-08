@@ -38,6 +38,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     console.log("[v0] Page loaded: Checkout")
+    console.log("[v0] Cart items on checkout:", cart.length)
 
     if (mounted && cart.length === 0 && !showConfirmation) {
       console.log("[v0] Cart is empty, redirecting to cart page")
@@ -79,13 +80,18 @@ export default function CheckoutPage() {
   const handlePaymentProofChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File size must be less than 10MB")
+        return
+      }
+
       setPaymentProof(file)
       const reader = new FileReader()
       reader.onloadend = () => {
         setPaymentProofPreview(reader.result as string)
       }
       reader.readAsDataURL(file)
-      console.log("[v0] Payment proof uploaded:", file.name)
+      console.log("[v0] Payment proof uploaded:", file.name, "size:", (file.size / 1024).toFixed(2), "KB")
     }
   }
 
@@ -93,36 +99,108 @@ export default function CheckoutPage() {
     e.preventDefault()
 
     console.log("[v0] Place order clicked")
-    console.log("[v0] Delivery info entered:", { customer, deliveryAddress })
+    console.log("[v0] Cart items count:", cart.length)
+    console.log(
+      "[v0] Cart items details:",
+      JSON.stringify(cart.map((item) => ({ name: item.product.name, qty: item.quantity, price: item.totalPrice }))),
+    )
+
+    if (cart.length === 0) {
+      alert("Your cart is empty. Please add items before placing an order.")
+      router.push("/cart")
+      return
+    }
+
+    if (paymentMethod !== "cod" && !paymentProof) {
+      alert("Please upload your payment proof (screenshot of transaction) to continue.")
+      return
+    }
 
     setIsProcessing(true)
 
-    // Simulate processing delay
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const orderItems = cart.map((item) => ({
+        product: { ...item.product },
+        quantity: item.quantity,
+        totalPrice: item.totalPrice,
+      }))
 
-    const order: Order = {
-      id: generateOrderReference(),
-      reference: generateOrderReference(),
-      customer,
-      deliveryAddress,
-      items: cart,
-      subtotal,
-      deliveryFee,
-      tax,
-      discount: 0,
-      total,
-      deliveryOption,
-      paymentMethod,
-      status: "confirmed",
-      createdAt: new Date(),
-      estimatedDelivery: calculateEstimatedDelivery(deliveryOption),
-    }
+      console.log("[v0] Order items captured:", orderItems.length)
 
-    console.log("[v0] Order placed successfully")
-    console.log("[v0] Order reference:", order.reference)
+      let paymentProofUrl = ""
 
-    const whatsappNumber = "232033680260"
-    const orderDetails = `
+      if (paymentProof) {
+        console.log("[v0] Uploading payment proof to Vercel Blob...")
+        const formData = new FormData()
+        formData.append("file", paymentProof)
+
+        const uploadResponse = await fetch("/api/upload-payment", {
+          method: "POST",
+          body: formData,
+        })
+
+        if (!uploadResponse.ok) {
+          let errorMessage = "Failed to upload payment proof"
+          try {
+            const error = await uploadResponse.json()
+            errorMessage = error.error || errorMessage
+          } catch (parseError) {
+            // If response is not JSON, use status text
+            errorMessage = uploadResponse.statusText || errorMessage
+          }
+          console.error("[v0] Upload failed:", errorMessage)
+          alert(`${errorMessage}. Please try with a smaller image or compress it.`)
+          setIsProcessing(false)
+          return
+        }
+
+        const uploadData = await uploadResponse.json()
+        paymentProofUrl = uploadData.url
+        console.log("[v0] Payment proof uploaded successfully:", paymentProofUrl)
+      }
+
+      // Simulate processing delay
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      const order: Order = {
+        id: generateOrderReference(),
+        reference: generateOrderReference(),
+        customer,
+        deliveryAddress,
+        items: orderItems,
+        subtotal,
+        deliveryFee,
+        tax,
+        discount: 0,
+        total,
+        deliveryOption,
+        paymentMethod,
+        status: "confirmed",
+        createdAt: new Date(),
+        estimatedDelivery: calculateEstimatedDelivery(deliveryOption),
+      }
+
+      console.log("[v0] Order created successfully")
+      console.log("[v0] Order reference:", order.reference)
+      console.log("[v0] Order items in final order:", order.items.length)
+
+      const whatsappNumber = "232033680260"
+
+      const orderItemsList = orderItems
+        .map((item) => `- ${item.product.name} x${item.quantity} - ${formatPrice(item.totalPrice)}`)
+        .join("\n")
+
+      console.log("[v0] Order items list for WhatsApp:\n", orderItemsList)
+
+      let paymentProofInfo = ""
+      if (paymentProofUrl) {
+        paymentProofInfo = `
+
+*Payment Proof:* ${paymentProofUrl}
+(Click link to view transaction screenshot)`
+      }
+
+      const orderDetails = `
 *New Order from Pee's Bakery*
 
 *Order Reference:* ${order.reference}
@@ -138,7 +216,7 @@ ${deliveryAddress.city}, ${deliveryAddress.zipCode}
 ${deliveryAddress.instructions ? `Instructions: ${deliveryAddress.instructions}` : ""}
 
 *Order Items:*
-${cart.map((item) => `- ${item.product.name} x${item.quantity} - ${formatPrice(item.totalPrice)}`).join("\n")}
+${orderItemsList}
 
 *Order Summary:*
 Subtotal: ${formatPrice(subtotal)}
@@ -146,22 +224,40 @@ Delivery: ${formatPrice(deliveryFee)} (${deliveryOption})
 Tax: ${formatPrice(tax)}
 *Total: ${formatPrice(total)}*
 
-*Payment Method:* ${paymentMethod.toUpperCase()}
-${paymentProof ? `*Payment Proof:* Attached (${paymentProof.name})` : ""}
+*Payment Method:* ${paymentMethod.toUpperCase()}${paymentProofInfo}
 *Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}
-    `.trim()
 
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderDetails)}`
-    window.open(whatsappUrl, "_blank")
+Thank you for your order! 🎉
+      `.trim()
 
-    setCompletedOrder(order)
-    setShowConfirmation(true)
-    clearCart()
-    setIsProcessing(false)
+      console.log("[v0] WhatsApp message prepared, opening WhatsApp...")
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderDetails)}`
+
+      window.open(whatsappUrl, "_blank")
+      console.log("[v0] WhatsApp window opened")
+
+      setCompletedOrder(order)
+      setShowConfirmation(true)
+
+      console.log("[v0] Clearing cart...")
+      clearCart()
+      console.log("[v0] Cart cleared")
+
+      setIsProcessing(false)
+    } catch (error) {
+      console.error("[v0] Error processing order:", error)
+      alert("An error occurred while processing your order. Please try again.")
+      setIsProcessing(false)
+    }
   }
 
   const isFormValid =
-    customer.name && customer.phone && deliveryAddress.street && deliveryAddress.city && deliveryAddress.zipCode
+    customer.name &&
+    customer.phone &&
+    deliveryAddress.street &&
+    deliveryAddress.city &&
+    deliveryAddress.zipCode &&
+    (paymentMethod === "cod" || paymentProof !== null)
 
   if (!mounted || (cart.length === 0 && !showConfirmation)) {
     return null
@@ -419,21 +515,31 @@ ${paymentProof ? `*Payment Proof:* Attached (${paymentProof.name})` : ""}
                 </div>
 
                 {paymentMethod !== "cod" && (
-                  <div className="mt-6 p-4 bg-[#f0fdf4] border border-[#014325] rounded-lg">
-                    <label className="block mb-2 font-medium text-[#0f1419]">Upload Payment Proof (Optional)</label>
+                  <div className="mt-6 p-4 bg-[#fef2f2] border-2 border-[#dc2626] rounded-lg">
+                    <label className="block mb-2 font-bold text-[#0f1419]">
+                      Upload Payment Proof <span className="text-[#dc2626]">*REQUIRED*</span>
+                    </label>
                     <p className="text-sm text-[#5c6466] mb-3">
-                      Upload a screenshot or photo of your payment transaction
+                      Please upload a screenshot of your {paymentMethod.replace("-", " ").toUpperCase()} transaction.
+                      This is required to process your order. The image will be securely uploaded and included in your
+                      order confirmation. (Max 10MB)
                     </p>
                     <div className="flex flex-col gap-3">
-                      <label className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-[#014325] rounded-lg cursor-pointer hover:bg-white transition-colors">
-                        <Upload className="w-5 h-5 text-[#014325]" />
-                        <span className="text-sm font-medium text-[#014325]">
-                          {paymentProof ? "Change File" : "Choose File"}
+                      <label className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-[#dc2626] rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
+                        <Upload className="w-5 h-5 text-[#dc2626]" />
+                        <span className="text-sm font-bold text-[#dc2626]">
+                          {paymentProof ? "Change Payment Screenshot" : "Upload Payment Screenshot"}
                         </span>
-                        <input type="file" accept="image/*" onChange={handlePaymentProofChange} className="hidden" />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handlePaymentProofChange}
+                          className="hidden"
+                          required
+                        />
                       </label>
                       {paymentProofPreview && (
-                        <div className="relative w-full h-48 rounded-lg overflow-hidden border border-[#e5e7e8]">
+                        <div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-[#10b981]">
                           <Image
                             src={paymentProofPreview || "/placeholder.svg"}
                             alt="Payment proof preview"
@@ -442,7 +548,17 @@ ${paymentProof ? `*Payment Proof:* Attached (${paymentProof.name})` : ""}
                           />
                         </div>
                       )}
-                      {paymentProof && <p className="text-sm text-[#5c6466]">Selected: {paymentProof.name}</p>}
+                      {paymentProof && (
+                        <p className="text-sm text-[#10b981] font-medium flex items-center gap-2">
+                          <span className="text-xl">✓</span>
+                          {paymentProof.name} ({(paymentProof.size / 1024).toFixed(2)} KB)
+                        </p>
+                      )}
+                      {!paymentProof && (
+                        <p className="text-sm text-[#dc2626] font-medium">
+                          Payment proof screenshot is required to proceed with this payment method.
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -513,8 +629,14 @@ ${paymentProof ? `*Payment Proof:* Attached (${paymentProof.name})` : ""}
                   disabled={!isFormValid || isProcessing}
                   className="w-full bg-[#014325] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#014325]/90 disabled:bg-[#f2f3f4] disabled:text-[#5c6466] disabled:cursor-not-allowed transition-colors"
                 >
-                  {isProcessing ? "Processing..." : `Confirm Order - ${formatPrice(total)}`}
+                  {isProcessing ? "Processing Order..." : `Confirm Order - ${formatPrice(total)}`}
                 </button>
+
+                {paymentMethod !== "cod" && !paymentProof && (
+                  <p className="text-xs text-[#dc2626] text-center mt-2">
+                    Upload payment screenshot to enable order confirmation
+                  </p>
+                )}
               </div>
             </div>
           </div>
