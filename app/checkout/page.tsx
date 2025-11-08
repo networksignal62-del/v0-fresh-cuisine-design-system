@@ -5,7 +5,6 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Upload } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { useCart } from "@/hooks/use-cart"
@@ -20,8 +19,6 @@ export default function CheckoutPage() {
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [paymentProof, setPaymentProof] = useState<File | null>(null)
-  const [paymentProofPreview, setPaymentProofPreview] = useState<string>("")
   const [deliveryOption, setDeliveryOption] = useState("standard")
   const [paymentMethod, setPaymentMethod] = useState("cod")
   const [customer, setCustomer] = useState<Customer>({ name: "", phone: "", email: "" })
@@ -37,14 +34,14 @@ export default function CheckoutPage() {
   }, [])
 
   useEffect(() => {
-    console.log("[v0] Page loaded: Checkout")
-    console.log("[v0] Cart items on checkout:", cart.length)
+    console.log("[v0] Checkout page loaded")
+    console.log("[v0] Cart items:", cart.length)
 
     if (mounted && cart.length === 0 && !showConfirmation) {
-      console.log("[v0] Cart is empty, redirecting to cart page")
+      console.log("[v0] Empty cart, redirecting...")
       router.push("/cart")
     }
-  }, [cart.length, mounted, showConfirmation, router])
+  }, [cart.length, mounted, showConfirmation, router, cart])
 
   const deliveryFees = {
     standard: 10,
@@ -57,111 +54,45 @@ export default function CheckoutPage() {
   const tax = Math.round(subtotal * 0.05)
   const total = subtotal + deliveryFee + tax
 
-  useEffect(() => {
-    console.log("[v0] Order total calculated:", {
-      subtotal,
-      deliveryFee,
-      tax,
-      discount: 0,
-      grandTotal: total,
-    })
-  }, [subtotal, deliveryFee, tax, total])
-
   const handleDeliveryOptionChange = (option: string) => {
     setDeliveryOption(option)
-    console.log("[v0] Delivery option selected:", option)
+    console.log("[v0] Delivery:", option)
   }
 
   const handlePaymentMethodChange = (method: string) => {
     setPaymentMethod(method)
-    console.log("[v0] Payment method selected:", method)
-  }
-
-  const handlePaymentProofChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        alert("File size must be less than 10MB")
-        return
-      }
-
-      setPaymentProof(file)
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setPaymentProofPreview(reader.result as string)
-      }
-      reader.readAsDataURL(file)
-      console.log("[v0] Payment proof uploaded:", file.name, "size:", (file.size / 1024).toFixed(2), "KB")
-    }
+    console.log("[v0] Payment:", method)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("[v0] ========== CONFIRM ORDER CLICKED ==========")
+    console.log("[v0] Cart items:", cart.length)
 
-    console.log("[v0] ==================== PLACE ORDER CLICKED ====================")
-    console.log("[v0] Form submitted")
-    console.log("[v0] Cart items count:", cart.length)
-    console.log("[v0] Payment method:", paymentMethod)
-    console.log("[v0] Has payment proof:", !!paymentProof)
-
-    const orderItems = cart.map((item) => ({
+    const orderItems = [...cart].map((item) => ({
       product: { ...item.product },
       quantity: item.quantity,
       totalPrice: item.totalPrice,
     }))
 
     console.log("[v0] Order items captured:", orderItems.length)
+    console.log("[v0] Items:", orderItems.map((i) => `${i.product.name} x${i.quantity}`).join(", "))
 
     if (orderItems.length === 0) {
-      console.error("[v0] ERROR: No order items!")
-      alert("Your cart is empty. Please add items before placing an order.")
-      router.push("/cart")
-      return
-    }
-
-    if (paymentMethod !== "cod" && !paymentProof) {
-      console.error("[v0] ERROR: Payment proof missing")
-      alert("Please upload your payment proof to continue.")
+      console.error("[v0] ERROR: No items to order!")
+      alert("Cart is empty!")
       return
     }
 
     setIsProcessing(true)
 
     try {
-      let paymentProofUrl = ""
-
-      if (paymentProof) {
-        console.log("[v0] Uploading payment proof...")
-        const formData = new FormData()
-        formData.append("file", paymentProof)
-
-        const uploadResponse = await fetch("/api/upload-payment", {
-          method: "POST",
-          body: formData,
-        })
-
-        if (!uploadResponse.ok) {
-          let errorMessage = "Failed to upload payment proof"
-          try {
-            const error = await uploadResponse.json()
-            errorMessage = error.error || errorMessage
-          } catch {
-            const textError = await uploadResponse.text()
-            errorMessage = textError || errorMessage
-          }
-          alert(errorMessage)
-          setIsProcessing(false)
-          return
-        }
-
-        const uploadData = await uploadResponse.json()
-        paymentProofUrl = uploadData.url
-        console.log("[v0] Payment proof uploaded:", paymentProofUrl)
-      }
+      const orderRef = generateOrderReference()
+      console.log("[v0] Order reference:", orderRef)
 
       const order: Order = {
-        id: generateOrderReference(),
-        reference: generateOrderReference(),
+        id: orderRef,
+        reference: orderRef,
         customer,
         deliveryAddress,
         items: orderItems,
@@ -177,22 +108,18 @@ export default function CheckoutPage() {
         estimatedDelivery: calculateEstimatedDelivery(deliveryOption),
       }
 
-      console.log("[v0] Order created:", order.reference)
-
-      const whatsappNumber = "232033680260"
-
       const itemsList = orderItems
         .map((item) => `- ${item.product.name} x${item.quantity} - Le ${item.totalPrice}`)
         .join("\n")
 
-      const orderMessage = `*New Order from Pee's Bakery*
+      const message = `*New Order from Pee's Bakery*
 
-*Order Reference:* ${order.reference}
+*Order Reference:* ${orderRef}
 
 *Customer Details:*
 Name: ${customer.name}
 Phone: ${customer.phone}
-Email: ${customer.email || "N/A"}
+${customer.email ? `Email: ${customer.email}` : ""}
 
 *Delivery Address:*
 ${deliveryAddress.street}
@@ -208,47 +135,38 @@ Delivery: Le ${deliveryFee} (${deliveryOption})
 Tax: Le ${tax}
 *Total: Le ${total}*
 
-*Payment Method:* ${paymentMethod.toUpperCase().replace("-", " ")}${paymentProofUrl ? `\n\n*Payment Proof:* ${paymentProofUrl}` : ""}
+*Payment Method:* ${paymentMethod.toUpperCase().replace("-", " ")}
 
 *Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}
 
 Thank you for your order!`
 
-      console.log("[v0] WhatsApp message created (length:", orderMessage.length, "chars)")
-      console.log("[v0] WhatsApp message content:")
-      console.log(orderMessage)
-
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderMessage)}`
-
-      console.log("[v0] WhatsApp URL length:", whatsappUrl.length)
+      console.log("[v0] Message length:", message.length)
       console.log("[v0] Opening WhatsApp...")
 
-      window.open(whatsappUrl, "_blank")
-      console.log("[v0] WhatsApp opened!")
+      const whatsappNumber = "232033680260"
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+
+      console.log("[v0] URL length:", url.length)
+
+      window.open(url, "_blank")
+      console.log("[v0] WhatsApp window opened")
 
       setCompletedOrder(order)
       setShowConfirmation(true)
-
-      console.log("[v0] Clearing cart...")
       clearCart()
-      console.log("[v0] Cart cleared!")
 
+      console.log("[v0] ========== ORDER COMPLETE ==========")
       setIsProcessing(false)
-      console.log("[v0] ==================== ORDER COMPLETE ====================")
     } catch (error) {
-      console.error("[v0] ERROR processing order:", error)
-      alert("An error occurred. Please try again.")
+      console.error("[v0] ERROR:", error)
+      alert("Error placing order. Please try again.")
       setIsProcessing(false)
     }
   }
 
   const isFormValid =
-    customer.name &&
-    customer.phone &&
-    deliveryAddress.street &&
-    deliveryAddress.city &&
-    deliveryAddress.zipCode &&
-    (paymentMethod === "cod" || paymentProof !== null)
+    customer.name && customer.phone && deliveryAddress.street && deliveryAddress.city && deliveryAddress.zipCode
 
   if (!mounted || (cart.length === 0 && !showConfirmation)) {
     return null
@@ -506,64 +424,20 @@ Thank you for your order!`
                 </div>
 
                 {paymentMethod !== "cod" && (
-                  <div className="mt-6 p-4 bg-[#fef2f2] border-2 border-[#dc2626] rounded-lg">
-                    <label className="block mb-2 font-bold text-[#0f1419]">
-                      Upload Payment Proof <span className="text-[#dc2626]">*REQUIRED*</span>
-                    </label>
-                    <p className="text-sm text-[#5c6466] mb-3">
-                      Please upload a screenshot of your {paymentMethod.replace("-", " ").toUpperCase()} transaction.
-                      This is required to process your order. The image will be securely uploaded and included in your
-                      order confirmation. (Max 10MB)
+                  <div className="mt-6 p-4 bg-[#fffbf5] border border-[#ffb40b] rounded-lg">
+                    <p className="text-sm text-[#0f1419] mb-2">
+                      <strong>Note:</strong> After placing your order, please send your payment transaction screenshot
+                      via WhatsApp.
                     </p>
-                    <div className="flex flex-col gap-3">
-                      <label className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-[#dc2626] rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
-                        <Upload className="w-5 h-5 text-[#dc2626]" />
-                        <span className="text-sm font-bold text-[#dc2626]">
-                          {paymentProof ? "Change Payment Screenshot" : "Upload Payment Screenshot"}
-                        </span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handlePaymentProofChange}
-                          className="hidden"
-                          required
-                        />
-                      </label>
-                      {paymentProofPreview && (
-                        <div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-[#10b981]">
-                          <Image
-                            src={paymentProofPreview || "/placeholder.svg"}
-                            alt="Payment proof preview"
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
-                      {paymentProof && (
-                        <p className="text-sm text-[#10b981] font-medium flex items-center gap-2">
-                          <span className="text-xl">✓</span>
-                          {paymentProof.name} ({(paymentProof.size / 1024).toFixed(2)} KB)
-                        </p>
-                      )}
-                      {!paymentProof && (
-                        <p className="text-sm text-[#dc2626] font-medium">
-                          Payment proof screenshot is required to proceed with this payment method.
-                        </p>
-                      )}
-                    </div>
+                    <p className="text-sm text-[#0f1419]">
+                      For customized cakes, contact us on WhatsApp at{" "}
+                      <a href="https://wa.me/232033680260" className="text-[#014325] font-bold hover:underline">
+                        033680260
+                      </a>{" "}
+                      or use Orange Money code: <strong>216542</strong>
+                    </p>
                   </div>
                 )}
-
-                <div className="mt-6 p-4 bg-[#fffbf5] border border-[#ffb40b] rounded-lg">
-                  <p className="text-sm text-[#0f1419]">
-                    <strong>Note:</strong> For customized design cakes (marriage or any other event), please message us
-                    on WhatsApp at{" "}
-                    <a href="https://wa.me/232033680260" className="text-[#014325] font-bold hover:underline">
-                      033680260
-                    </a>{" "}
-                    or use Orange Money payment code: <strong>216542</strong>
-                  </p>
-                </div>
               </section>
             </div>
 
@@ -620,14 +494,8 @@ Thank you for your order!`
                   disabled={!isFormValid || isProcessing}
                   className="w-full bg-[#014325] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#014325]/90 disabled:bg-[#f2f3f4] disabled:text-[#5c6466] disabled:cursor-not-allowed transition-colors"
                 >
-                  {isProcessing ? "Processing Order..." : `Confirm Order - ${formatPrice(total)}`}
+                  {isProcessing ? "Processing..." : `Confirm Order - ${formatPrice(total)}`}
                 </button>
-
-                {paymentMethod !== "cod" && !paymentProof && (
-                  <p className="text-xs text-[#dc2626] text-center mt-2">
-                    Upload payment screenshot to enable order confirmation
-                  </p>
-                )}
               </div>
             </div>
           </div>
