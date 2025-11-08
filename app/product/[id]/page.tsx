@@ -10,7 +10,7 @@ import { formatPrice } from "@/lib/utils-app"
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
 import { Star, Minus, Plus, ShoppingCart, Heart } from "lucide-react"
-import type { AddOn } from "@/lib/types"
+import type { AddOn, ProductVariant } from "@/lib/types"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
 import { CartModal } from "@/components/cart-modal"
 import { RelatedProducts } from "@/components/related-products"
@@ -23,6 +23,7 @@ export default function ProductDetailPage() {
   const { toggleWishlist, isInWishlist } = useWishlist()
   const [quantity, setQuantity] = useState(1)
   const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([])
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null)
   const [flyingAnimation, setFlyingAnimation] = useState(false)
   const [animationStart, setAnimationStart] = useState({ x: 0, y: 0 })
   const [showCartModal, setShowCartModal] = useState(false)
@@ -35,23 +36,11 @@ export default function ProductDetailPage() {
   useEffect(() => {
     if (product) {
       console.log("[v0] Product viewed:", product.id, product.name)
+      if (product.variants && product.variants.length > 0 && !selectedVariant) {
+        setSelectedVariant(product.variants[0])
+      }
     }
-  }, [product])
-
-  if (!product) {
-    return (
-      <div className="min-h-screen bg-[#fffbf5]">
-        <Header />
-        <main className="container mx-auto px-4 py-16 text-center">
-          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-          <button onClick={() => router.push("/menu")} className="bg-[#014325] text-white px-6 py-3 rounded-lg">
-            Back to Menu
-          </button>
-        </main>
-        <Footer />
-      </div>
-    )
-  }
+  }, [product, selectedVariant])
 
   const handleWishlistToggle = () => {
     toggleWishlist(product)
@@ -71,6 +60,11 @@ export default function ProductDetailPage() {
     })
   }
 
+  const handleVariantSelect = (variant: ProductVariant) => {
+    setSelectedVariant(variant)
+    console.log("[v0] Variant selected:", variant.name, variant.price)
+  }
+
   const handleQuantityChange = (delta: number) => {
     const newQuantity = Math.max(1, quantity + delta)
     setQuantity(newQuantity)
@@ -78,7 +72,8 @@ export default function ProductDetailPage() {
   }
 
   const addOnsTotal = selectedAddOns.reduce((sum, addon) => sum + addon.price, 0)
-  const totalPrice = (product.price + addOnsTotal) * quantity
+  const basePrice = selectedVariant ? selectedVariant.price : product.price
+  const totalPrice = (basePrice + addOnsTotal) * quantity
 
   const handleAddToCart = () => {
     if (buttonRef.current) {
@@ -90,12 +85,27 @@ export default function ProductDetailPage() {
       setFlyingAnimation(true)
     }
 
-    addToCart(product, quantity, selectedAddOns)
+    addToCart(product, quantity, selectedAddOns, selectedVariant)
 
     console.log("[v0] Add to cart:", product.name, "qty:", quantity, "total:", totalPrice)
     console.log("[v0] Flying cart animation triggered")
 
     setShowCartModal(true)
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-[#fffbf5]">
+        <Header />
+        <main className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
+          <button onClick={() => router.push("/menu")} className="bg-[#014325] text-white px-6 py-3 rounded-lg">
+            Back to Menu
+          </button>
+        </main>
+        <Footer />
+      </div>
+    )
   }
 
   return (
@@ -161,13 +171,47 @@ export default function ProductDetailPage() {
             )}
 
             {/* Price */}
-            <div className="text-3xl font-bold text-[#014325]">{formatPrice(product.price)}</div>
+            <div className="text-3xl font-bold text-[#014325]">{formatPrice(basePrice)}</div>
 
             {/* Description */}
             <div className="space-y-2">
               <h2 className="text-xl font-bold text-[#0f1419]">Description</h2>
               <p className="text-[#5c6466] leading-relaxed">{product.longDescription || product.description}</p>
             </div>
+
+            {/* Variants selection section */}
+            {product.variants && product.variants.length > 0 && (
+              <div className="space-y-3">
+                <h2 className="text-xl font-bold text-[#0f1419]">Choose Your Option</h2>
+                <div className="space-y-2">
+                  {product.variants.map((variant) => (
+                    <label
+                      key={variant.id}
+                      className={`flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                        selectedVariant?.id === variant.id
+                          ? "border-[#014325] bg-[#014325]/5"
+                          : "border-[#e5e7e8] hover:border-[#014325]/50"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="variant"
+                        checked={selectedVariant?.id === variant.id}
+                        onChange={() => handleVariantSelect(variant)}
+                        className="mt-1 w-5 h-5 text-[#014325] focus:ring-2 focus:ring-[#014325] focus:ring-offset-2"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[#0f1419]">{variant.name}</span>
+                          <span className="text-[#014325] font-bold">{formatPrice(variant.price)}</span>
+                        </div>
+                        {variant.description && <p className="text-sm text-[#5c6466] mt-1">{variant.description}</p>}
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Add-ons */}
             {product.addOns.length > 0 && (
@@ -221,8 +265,8 @@ export default function ProductDetailPage() {
             {/* Price Breakdown */}
             <div className="bg-[#fffbf5] border border-[#e5e7e8] rounded-lg p-4 space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-[#5c6466]">Base Price</span>
-                <span>{formatPrice(product.price)}</span>
+                <span className="text-[#5c6466]">{selectedVariant ? selectedVariant.name : "Base Price"}</span>
+                <span>{formatPrice(basePrice)}</span>
               </div>
               {selectedAddOns.length > 0 && (
                 <div className="flex justify-between text-sm">

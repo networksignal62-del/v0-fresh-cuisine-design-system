@@ -25,7 +25,7 @@ export const products: Product[] = [
     category: "african",
     price: 250,
     image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Crispy%20chicken-BFtcL5JRoOIwyW3VS0KskBDzF7haUY.jpg",
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-06%20at%2019.18.26_707a395d-9EYS1emRSX3gUjhli9aYKrldsybBp4.jpg",
     description: "Perfectly roasted whole chicken with seasoning",
     longDescription:
       "A full roasted chicken seasoned with our special blend of spices. Served with crispy fries. Perfect for sharing with family and friends.",
@@ -95,7 +95,8 @@ export const products: Product[] = [
     name: "Fried Rice and Chicken",
     category: "african",
     price: 180,
-    image: "/fried-rice-chicken.jpg",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fride%20Rice%20and%20chicken-TfVnP2SbQUXowmurXJXkzo1DxPxtJM.jpg",
     description: "Tasty fried rice with tender chicken",
     longDescription:
       "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner.",
@@ -250,7 +251,7 @@ export const products: Product[] = [
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%20350-M9U0vI1CYXs9XJxgZXxB7qCn89LYIl.jpg",
     description: "Small birthday cake for intimate celebrations",
     longDescription:
-      "Beautiful birthday cake perfect for small gatherings. Available in various flavors and can be customized with a message.",
+      "Beautiful birthday cake perfect for small gatherings. Available in various flavors and can be customized with a message. For customized designs message on WhatsApp +232 78 891638.",
     addOns: [
       { id: 38, name: "Custom Message", price: 10 },
       { id: 39, name: "Candles", price: 5 },
@@ -268,7 +269,7 @@ export const products: Product[] = [
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20Cake%20550-aDjYxWfat7XZ0J5d4puKB8EI4ydk1Y.jpg",
     description: "Medium birthday cake for family celebrations",
     longDescription:
-      "Perfect sized cake for family birthday celebrations. Choose from chocolate, vanilla, or red velvet flavors. Can be customized with your child's favorite themes!",
+      "Perfect sized cake for family birthday celebrations. Choose from chocolate, vanilla, or red velvet flavors. Can be customized with your child's favorite themes! For customized designs message on WhatsApp +232 78 891638.",
     addOns: [
       { id: 40, name: "Custom Message", price: 10 },
       { id: 41, name: "Candles", price: 5 },
@@ -285,7 +286,7 @@ export const products: Product[] = [
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%202500-scV0HFXBrDDXf02a6v4vFb4SuVHEpM.jpg",
     description: "Large birthday cake for big celebrations",
     longDescription:
-      "Large celebration cake perfect for parties. Beautifully decorated with intricate designs. Multiple flavor options available.",
+      "Large celebration cake perfect for parties. Beautifully decorated with intricate designs. Multiple flavor options available. For customized designs message on WhatsApp +232 78 891638.",
     addOns: [
       { id: 42, name: "Custom Message", price: 15 },
       { id: 43, name: "Candles", price: 8 },
@@ -301,7 +302,7 @@ export const products: Product[] = [
     image: "/placeholder.svg?height=400&width=400",
     description: "Extra large cake for grand celebrations",
     longDescription:
-      "Our grandest birthday cake for large celebrations. Stunning design and exceptional taste. Perfect for milestone birthdays!",
+      "Our grandest birthday cake for large celebrations. Stunning design and exceptional taste. Perfect for milestone birthdays! For customized designs message on WhatsApp +232 78 891638.",
     addOns: [
       { id: 44, name: "Custom Message", price: 20 },
       { id: 45, name: "Candles", price: 10 },
@@ -327,7 +328,7 @@ export const products: Product[] = [
   },
   {
     id: 20,
-    name: "Banana Bread Small",
+    name: "Banana Bread",
     category: "bakery",
     price: 65,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Banana%20bread-GQZfy18LuYq3tX05fv2wxGMBeIFoNZ.jpg",
@@ -340,22 +341,6 @@ export const products: Product[] = [
     ],
     rating: 4.7,
     reviewCount: 134,
-  },
-  {
-    id: 21,
-    name: "Banana Bread Large",
-    category: "bakery",
-    price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bread-UUbU7HgbudqXE1hzdVfaLMN74DHaGO.jpg",
-    description: "Large loaf of homemade banana bread",
-    longDescription:
-      "Full-sized loaf of our delicious banana bread. Great for sharing or enjoying throughout the week.",
-    addOns: [
-      { id: 50, name: "Butter", price: 8 },
-      { id: 51, name: "Jam", price: 10 },
-    ],
-    rating: 4.8,
-    reviewCount: 145,
   },
   {
     id: 22,
@@ -380,7 +365,8 @@ export const products: Product[] = [
     name: "Sausage Roll",
     category: "bakery",
     price: 20,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chin%20chin-rKdwF22BAMnuJCF9I9uLYv5dT6btdf.jpg",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-06%20at%2019.18.02_96d1adb7-LioEbKmoGPqnZE2OebJ34yfPrFookY.jpg",
     description: "Freshly baked sausage rolls",
     longDescription:
       "Golden brown sausage rolls made fresh daily. Flaky pastry wrapped around seasoned sausage meat. Perfect for a quick snack!",
@@ -490,7 +476,7 @@ export const products: Product[] = [
     id: 31,
     name: "Maltina",
     category: "drinks",
-    price: 20,
+    price: 35,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Maltina-w1L5rUpnTXcQXagYGs4YutmG3FQMgp.jpeg",
     description: "Maltina Classic Malt Drink",
     longDescription: "Enriched non-alcoholic malt beverage with B vitamins. Smooth, refreshing, and nutritious!",
@@ -516,7 +502,7 @@ export const products: Product[] = [
     id: 33,
     name: "Krain Krain",
     category: "african",
-    price: 200,
+    price: 100,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/krain%20krain-6wBSS2WtipNx50vqemm8Zi3hrhP0JZ.jpg",
     description: "Traditional Krain Krain stew with meat",
     longDescription:
@@ -532,61 +518,10 @@ export const products: Product[] = [
   },
   {
     id: 34,
-    name: "Grilled Catfish with Fried Rice",
-    category: "african",
-    price: 400,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Grilled%20catfish%20with%20fried%20rice%20and%20plaintain%20and%C2%A0coslaw-6H4vAZg1XfIGxCydDCkLe20o2m4jpp.jpg",
-    description: "Whole grilled catfish with fried rice, plantain and coleslaw",
-    longDescription:
-      "A complete seafood feast featuring a whole grilled catfish, flavorful fried rice, sweet fried plantains, and fresh coleslaw. Served with special sauces!",
-    addOns: [
-      { id: 64, name: "Extra Fish", price: 100 },
-      { id: 65, name: "Extra Plantain", price: 20 },
-      { id: 66, name: "Extra Rice", price: 30 },
-    ],
-    featured: true,
-    rating: 5.0,
-    reviewCount: 289,
-  },
-  {
-    id: 35,
-    name: "Fish in Batter",
-    category: "african",
-    price: 25,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fishing%20Batter%20Small%20Size%2025%20big%20size%C2%A035-Z6IS39YBpuHTxJAmZTVDq90WQHYIS8.jpg",
-    description: "Crispy fried fish with golden batter",
-    longDescription:
-      "Perfectly fried fish with a crispy golden batter. Small size 25 GMD, big size 35 GMD. A delicious and satisfying meal!",
-    addOns: [
-      { id: 67, name: "Extra Sauce", price: 10 },
-      { id: 68, name: "Fries", price: 20 },
-      { id: 69, name: "Coleslaw", price: 10 },
-    ],
-    rating: 4.8,
-    reviewCount: 145,
-  },
-  {
-    id: 36,
-    name: "Don Simon Juice",
-    category: "drinks",
-    price: 85,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Don%20Simon%20Juice-88SdYDRmIs8GYpBEz7KZtdMd9uaZcI.jpg",
-    description: "Don Simon Multifrutas Juice 1L",
-    longDescription:
-      "Refreshing multi-fruit juice from Don Simon. Made with a blend of delicious fruits. Perfect for any meal!",
-    addOns: [],
-    rating: 4.7,
-    reviewCount: 98,
-  },
-  {
-    id: 37,
     name: "Fish Balls",
     category: "african",
     price: 10,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chinken%20ball-N3e39zDXyjn2ea2B27wlFUEaHqGP8n.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fish%20Ball-CmEMGPt5srcWX3yNh3w0BBxZ0J4Vga.jpg",
     description: "Crispy fried fish balls - 10 GMD for 1pc, 100 GMD for 12pcs with veg",
     longDescription:
       "Golden fried fish balls made with fresh fish and special seasonings. Crispy on the outside, tender on the inside. A popular snack! 10 GMD for 1 piece or 100 GMD for 12 pieces with vegetables.",
@@ -598,162 +533,56 @@ export const products: Product[] = [
     reviewCount: 134,
   },
   {
-    id: 38,
-    name: "Grilled Gizzards",
-    category: "african",
-    price: 20,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gizzard%20on%20stick%202-CpR92jBXH9n5YvcFIM5phYsAHBK8Ff.jpg",
-    description: "Spicy grilled gizzards",
-    longDescription:
-      "Tender chicken gizzards marinated in spices and grilled to perfection. A flavorful street food favorite!",
-    addOns: [
-      { id: 72, name: "Extra Stick", price: 20 },
-      { id: 73, name: "Extra Sauce", price: 10 },
-    ],
-    featured: true,
-    rating: 4.9,
-    reviewCount: 187,
-  },
-  {
-    id: 39,
-    name: "Ceres Mango Juice",
-    category: "drinks",
-    price: 100,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ceres%20Mango%20Juice%20-JGq6n8HpqV7dzyop1xwElwLYRXLioz.jpg",
-    description: "100% Juice blend - Mango flavor 1L",
-    longDescription:
-      "Refreshing 100% pear juice from concentrate and mango puree. Natural and delicious tropical flavor in a 1L carton.",
-    addOns: [],
-    rating: 4.8,
-    reviewCount: 156,
-  },
-  {
-    id: 40,
-    name: "Archeka with Grilled Fish",
-    category: "african",
-    price: 350,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Archeka%20with%20fish-lHyZlsK3FM4hJE73dgDzLfyzxUpFS2.jpg",
-    description: "Couscous-style archeka with whole grilled fish",
-    longDescription:
-      "Traditional archeka (couscous) served with perfectly grilled fish, golden fried plantains, fresh garden salad, and special sauces. A complete and nutritious meal!",
-    addOns: [
-      { id: 74, name: "Extra Fish", price: 80 },
-      { id: 75, name: "Extra Plantain", price: 20 },
-      { id: 76, name: "Extra Archeka", price: 25 },
-    ],
-    featured: true,
-    rating: 4.9,
-    reviewCount: 203,
-  },
-  {
-    id: 41,
-    name: "Archeka with Grilled Chicken",
-    category: "african",
-    price: 250,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Archeka%20and%20chicken%C2%A0-hm1HnDJoEzP2Qan9GmIMB2gL8cvA4K.jpg",
-    description: "Couscous-style archeka with grilled chicken",
-    longDescription:
-      "Fluffy archeka (couscous) served with tender grilled chicken, boiled eggs, sliced meats, fresh vegetables, and homemade sauces. A hearty and satisfying platter!",
-    addOns: [
-      { id: 77, name: "Extra Chicken", price: 60 },
-      { id: 78, name: "Extra Eggs", price: 15 },
-      { id: 79, name: "Extra Archeka", price: 25 },
-    ],
-    featured: true,
-    rating: 4.9,
-    reviewCount: 189,
-  },
-  {
-    id: 42,
-    name: "Cassava Leaf Stew",
-    category: "african",
-    price: 180,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/African%20dish%20Cassava%20Leafe-Jj1jMyPWwCCeN6LUZlPKXufg46kTos.jpg",
-    description: "Traditional West African cassava leaf stew",
-    longDescription:
-      "Rich and flavorful cassava leaf stew cooked with tender meat, fish, and authentic West African spices. Served in convenient containers. A traditional delicacy from Pee's Bakery!",
-    addOns: [
-      { id: 80, name: "Extra Meat", price: 40 },
-      { id: 81, name: "Rice", price: 20 },
-      { id: 82, name: "Foofoo", price: 30 },
-    ],
-    featured: true,
-    rating: 5.0,
-    reviewCount: 167,
-  },
-  {
-    id: 43,
-    name: "Archeka with Goat",
-    category: "african",
-    price: 450,
-    image: "/archeka-with-grilled-goat-meat.jpg",
-    description: "Couscous-style archeka with grilled goat meat",
-    longDescription:
-      "Traditional archeka (couscous) served with tender grilled goat meat, plantains, vegetables, and special sauces. A premium and flavorful meal!",
-    addOns: [
-      { id: 83, name: "Extra Goat", price: 100 },
-      { id: 84, name: "Extra Plantain", price: 20 },
-      { id: 85, name: "Extra Archeka", price: 25 },
-    ],
-    featured: true,
-    rating: 5.0,
-    reviewCount: 45,
-  },
-  {
-    id: 44,
+    id: 35,
     name: "Chicken Balls",
     category: "fast-food",
     price: 80,
-    image: "/crispy-chicken-balls.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chinken%20ball-WvE4Dpis0CBmTAf5gFdFRsy4ADphap.jpg",
     description: "Pack of 12 crispy chicken balls with vegetables",
     longDescription:
       "Golden fried chicken balls made with tender chicken and special seasonings. Pack of 12 pieces served with fresh vegetables. Perfect for sharing!",
     addOns: [
-      { id: 86, name: "Extra Sauce", price: 5 },
-      { id: 87, name: "Extra Vegetables", price: 10 },
+      { id: 72, name: "Extra Sauce", price: 5 },
+      { id: 73, name: "Extra Vegetables", price: 10 },
     ],
     rating: 4.7,
     reviewCount: 92,
   },
   {
-    id: 45,
+    id: 36,
     name: "Meat Pie",
     category: "bakery",
     price: 20,
-    image: "/meat-pie.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-t03EuVJC5nGswH4Ge3oFoeqOgpkXve.png",
     description: "Freshly baked meat pie",
     longDescription:
       "Flaky pastry filled with seasoned ground beef and vegetables. Baked fresh daily. Perfect for a quick snack or light meal!",
     addOns: [
-      { id: 88, name: "Extra Pie", price: 20 },
-      { id: 89, name: "Ketchup", price: 5 },
+      { id: 74, name: "Extra Pie", price: 20 },
+      { id: 75, name: "Ketchup", price: 5 },
     ],
     rating: 4.6,
     reviewCount: 156,
   },
   {
-    id: 46,
-    name: "Roast Meat",
+    id: 37,
+    name: "Gizzard on Stick",
     category: "african",
-    price: 35,
-    image: "/roasted-meat-on-skewer.jpg",
-    description: "Tender roasted meat on skewer",
+    price: 20,
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gizzard%20on%20stick-UyeDFuvx2zlLX1Uuikuf1s6N5TyXZb.jpg",
+    description: "Tender grilled gizzards on stick",
     longDescription:
-      "Succulent pieces of roasted meat seasoned with African spices and grilled to perfection. A delicious street food favorite!",
+      "Succulent grilled gizzards seasoned with African spices and grilled to perfection. A delicious street food favorite!",
     addOns: [
-      { id: 90, name: "Extra Skewer", price: 35 },
-      { id: 91, name: "Extra Sauce", price: 10 },
+      { id: 76, name: "Extra Skewer", price: 20 },
+      { id: 77, name: "Extra Sauce", price: 10 },
     ],
     rating: 4.8,
     reviewCount: 178,
   },
   {
-    id: 47,
+    id: 38,
     name: "Pork Stick",
     category: "african",
     price: 35,
@@ -762,30 +591,30 @@ export const products: Product[] = [
     longDescription:
       "Tender pork pieces marinated and grilled on skewers. Juicy, flavorful, and perfectly seasoned. A popular street food choice!",
     addOns: [
-      { id: 92, name: "Extra Stick", price: 35 },
-      { id: 93, name: "Extra Sauce", price: 10 },
+      { id: 78, name: "Extra Stick", price: 35 },
+      { id: 79, name: "Extra Sauce", price: 10 },
     ],
     rating: 4.7,
     reviewCount: 134,
   },
   {
-    id: 48,
+    id: 39,
     name: "Spring Roll",
     category: "fast-food",
     price: 10,
-    image: "/crispy-spring-roll.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-xpdUD2p9dsLHOIEuACjAeNyRgxlAHe.png",
     description: "Crispy vegetable spring roll",
     longDescription:
       "Crispy fried spring rolls filled with mixed vegetables and special seasonings. Perfect as a snack or appetizer!",
     addOns: [
-      { id: 94, name: "Extra Roll", price: 10 },
-      { id: 95, name: "Sweet Chili Sauce", price: 5 },
+      { id: 80, name: "Extra Roll", price: 10 },
+      { id: 81, name: "Sweet Chili Sauce", price: 5 },
     ],
     rating: 4.5,
     reviewCount: 89,
   },
   {
-    id: 49,
+    id: 40,
     name: "Crispy Chicken",
     category: "african",
     price: 35,
@@ -794,91 +623,99 @@ export const products: Product[] = [
     longDescription:
       "Golden fried chicken with a crispy coating. Seasoned to perfection with our special blend of spices. Juicy and flavorful!",
     addOns: [
-      { id: 96, name: "Extra Piece", price: 35 },
-      { id: 97, name: "Fries", price: 20 },
-      { id: 98, name: "Coleslaw", price: 10 },
+      { id: 82, name: "Extra Piece", price: 35 },
+      { id: 83, name: "Fries", price: 20 },
+      { id: 84, name: "Coleslaw", price: 10 },
     ],
     rating: 4.8,
     reviewCount: 201,
   },
   {
-    id: 50,
+    id: 41,
     name: "Bread",
     category: "bakery",
     price: 25,
-    image: "/fresh-baked-bread-loaf.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bread-Nz38OenycM4E2YYmfg2gv5m0xWgW1D.jpg",
     description: "Fresh baked bread loaf",
     longDescription:
       "Soft and fresh white bread loaf baked daily. Perfect for sandwiches or toast. Made with quality ingredients!",
     addOns: [
-      { id: 99, name: "Butter", price: 5 },
-      { id: 100, name: "Jam", price: 8 },
+      { id: 85, name: "Butter", price: 5 },
+      { id: 86, name: "Jam", price: 8 },
     ],
     rating: 4.5,
     reviewCount: 123,
   },
   {
-    id: 51,
+    id: 42,
     name: "Brown Bread",
     category: "bakery",
     price: 35,
-    image: "/whole-wheat-brown-bread.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Brown%20Bread-fPUByO1zeZwRvqkOXTo68ewmOmQB0c.jpg",
     description: "Healthy whole wheat brown bread",
     longDescription:
       "Nutritious brown bread made with whole wheat flour. Higher in fiber and perfect for a healthy diet. Freshly baked!",
     addOns: [
-      { id: 101, name: "Butter", price: 5 },
-      { id: 102, name: "Honey", price: 10 },
+      { id: 87, name: "Butter", price: 5 },
+      { id: 88, name: "Honey", price: 10 },
     ],
     rating: 4.6,
     reviewCount: 98,
   },
   {
-    id: 52,
-    name: "Grilled Catfish with Fries",
+    id: 43,
+    name: "Grilled Fish Selection",
     category: "african",
     price: 350,
-    image: "/grilled-catfish-with-fries-plantain-coleslaw.jpg",
-    description: "Whole grilled catfish with fries, plantain and coleslaw",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Grilled%20fish-K9r93nch5a9rNEF4aZRPWCBLljQmvX.jpg",
+    description: "Choose from our selection of grilled fish options",
     longDescription:
-      "Perfectly grilled whole catfish served with crispy fries, sweet fried plantains, and fresh coleslaw. A delicious seafood platter!",
-    addOns: [
-      { id: 103, name: "Extra Fish", price: 100 },
-      { id: 104, name: "Extra Plantain", price: 20 },
-      { id: 105, name: "Extra Fries", price: 20 },
+      "Select your preferred grilled fish option from our menu. All options are grilled to perfection with our special blend of spices and served with delicious sides!",
+    variants: [
+      {
+        id: 1,
+        name: "Grilled Catfish with Fries",
+        price: 350,
+        description: "Whole grilled catfish with fries, plantain and coleslaw",
+      },
+      {
+        id: 2,
+        name: "Grilled Catfish with Fried Rice",
+        price: 400,
+        description: "Whole grilled catfish with fried rice, plantain and coleslaw",
+      },
+      {
+        id: 3,
+        name: "Grilled Fish (Regular)",
+        price: 350,
+        description: "Regular size whole grilled fish with sides",
+      },
+      {
+        id: 4,
+        name: "Grilled Fish (Large)",
+        price: 550,
+        description: "Large size whole grilled fish with sides",
+      },
     ],
-    featured: true,
-    rating: 4.9,
-    reviewCount: 167,
-  },
-  {
-    id: 53,
-    name: "Grilled Fish",
-    category: "african",
-    price: 350,
-    image: "/grilled-whole-fish.jpg",
-    description: "Whole grilled fish - 350 GMD or 550 GMD depending on size",
-    longDescription:
-      "Fresh whole fish grilled to perfection with our special blend of spices. Available in regular (350 GMD) or large (550 GMD) sizes. Served with sides!",
     addOns: [
-      { id: 106, name: "Large Size", price: 200 },
-      { id: 107, name: "Extra Sauce", price: 10 },
-      { id: 108, name: "Plantain", price: 20 },
+      { id: 89, name: "Extra Plantain", price: 20 },
+      { id: 90, name: "Extra Fries", price: 20 },
+      { id: 91, name: "Extra Sauce", price: 10 },
     ],
     featured: true,
     rating: 4.9,
     reviewCount: 234,
   },
   {
-    id: 54,
+    id: 44,
     name: "Chin Chin",
     category: "bakery",
     price: 20,
-    image: "/chin-chin-west-african-snack.jpg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chin%20chin-EymquYewookdYTUoBiO4nMHzpZphmU.jpg",
     description: "Crunchy West African chin chin",
     longDescription:
       "Traditional West African crunchy snack made with flour, sugar, and spices. Sweet, crispy, and perfect for munching anytime!",
-    addOns: [{ id: 109, name: "Extra Portion", price: 20 }],
+    addOns: [{ id: 92, name: "Extra Portion", price: 20 }],
     rating: 4.7,
     reviewCount: 145,
   },

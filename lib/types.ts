@@ -6,6 +6,13 @@ export interface AddOn {
   price: number
 }
 
+export interface ProductVariant {
+  id: number
+  name: string
+  price: number
+  description?: string
+}
+
 export interface Product {
   id: number
   name: string
@@ -16,6 +23,7 @@ export interface Product {
   description: string
   longDescription?: string
   addOns: AddOn[]
+  variants?: ProductVariant[]
   featured?: boolean
   rating?: number
   reviewCount?: number
