@@ -99,91 +99,65 @@ export default function CheckoutPage() {
     e.preventDefault()
 
     console.log("[v0] ==================== PLACE ORDER CLICKED ====================")
+    console.log("[v0] Form submitted")
     console.log("[v0] Cart items count:", cart.length)
-    console.log(
-      "[v0] Cart items details:",
-      cart.map((item) => ({ name: item.product.name, qty: item.quantity, price: item.totalPrice })),
-    )
     console.log("[v0] Payment method:", paymentMethod)
     console.log("[v0] Has payment proof:", !!paymentProof)
-    console.log("[v0] Form valid:", isFormValid)
 
-    if (cart.length === 0) {
-      console.error("[v0] ERROR: Cart is empty!")
+    const orderItems = cart.map((item) => ({
+      product: { ...item.product },
+      quantity: item.quantity,
+      totalPrice: item.totalPrice,
+    }))
+
+    console.log("[v0] Order items captured:", orderItems.length)
+
+    if (orderItems.length === 0) {
+      console.error("[v0] ERROR: No order items!")
       alert("Your cart is empty. Please add items before placing an order.")
       router.push("/cart")
       return
     }
 
     if (paymentMethod !== "cod" && !paymentProof) {
-      console.error("[v0] ERROR: Payment proof missing for non-COD payment")
-      alert("Please upload your payment proof (screenshot of transaction) to continue.")
+      console.error("[v0] ERROR: Payment proof missing")
+      alert("Please upload your payment proof to continue.")
       return
     }
 
     setIsProcessing(true)
-    console.log("[v0] Processing started...")
 
     try {
-      const orderItems = cart.map((item) => ({
-        product: { ...item.product },
-        quantity: item.quantity,
-        totalPrice: item.totalPrice,
-      }))
-
-      console.log("[v0] Order items captured:", orderItems.length)
-      console.log(
-        "[v0] Order items list:",
-        orderItems.map((i) => `${i.product.name} x${i.quantity}`),
-      )
-
       let paymentProofUrl = ""
 
       if (paymentProof) {
-        console.log("[v0] Uploading payment proof to Vercel Blob...")
-        console.log("[v0] Payment proof file:", paymentProof.name, "Size:", (paymentProof.size / 1024).toFixed(2), "KB")
-
+        console.log("[v0] Uploading payment proof...")
         const formData = new FormData()
         formData.append("file", paymentProof)
 
-        try {
-          const uploadResponse = await fetch("/api/upload-payment", {
-            method: "POST",
-            body: formData,
-          })
+        const uploadResponse = await fetch("/api/upload-payment", {
+          method: "POST",
+          body: formData,
+        })
 
-          console.log("[v0] Upload response status:", uploadResponse.status)
-
-          if (!uploadResponse.ok) {
-            let errorMessage = "Failed to upload payment proof"
-            try {
-              const error = await uploadResponse.json()
-              errorMessage = error.error || errorMessage
-              console.error("[v0] Upload error (JSON):", errorMessage)
-            } catch (parseError) {
-              const textError = await uploadResponse.text()
-              errorMessage = textError || uploadResponse.statusText || errorMessage
-              console.error("[v0] Upload error (text):", textError)
-            }
-            alert(`${errorMessage}. Please try with a smaller image or compress it.`)
-            setIsProcessing(false)
-            return
+        if (!uploadResponse.ok) {
+          let errorMessage = "Failed to upload payment proof"
+          try {
+            const error = await uploadResponse.json()
+            errorMessage = error.error || errorMessage
+          } catch {
+            const textError = await uploadResponse.text()
+            errorMessage = textError || errorMessage
           }
-
-          const uploadData = await uploadResponse.json()
-          paymentProofUrl = uploadData.url
-          console.log("[v0] ✓ Payment proof uploaded successfully!")
-          console.log("[v0] Payment proof URL:", paymentProofUrl)
-        } catch (uploadError) {
-          console.error("[v0] Upload exception:", uploadError)
-          alert("Failed to upload payment proof. Please try again.")
+          alert(errorMessage)
           setIsProcessing(false)
           return
         }
-      }
 
-      // Simulate processing delay
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+        const uploadData = await uploadResponse.json()
+        paymentProofUrl = uploadData.url
+        console.log("[v0] Payment proof uploaded:", paymentProofUrl)
+      }
 
       const order: Order = {
         id: generateOrderReference(),
@@ -203,79 +177,67 @@ export default function CheckoutPage() {
         estimatedDelivery: calculateEstimatedDelivery(deliveryOption),
       }
 
-      console.log("[v0] ✓ Order created successfully!")
-      console.log("[v0] Order reference:", order.reference)
-      console.log("[v0] Order total:", formatPrice(order.total))
+      console.log("[v0] Order created:", order.reference)
 
       const whatsappNumber = "232033680260"
 
-      const orderItemsList = orderItems
-        .map((item) => `- ${item.product.name} x${item.quantity} - ${formatPrice(item.totalPrice)}`)
+      const itemsList = orderItems
+        .map((item) => `- ${item.product.name} x${item.quantity} - Le ${item.totalPrice}`)
         .join("\n")
 
-      console.log("[v0] Order items formatted for WhatsApp:")
-      console.log(orderItemsList)
+      const orderMessage = `*New Order from Pee's Bakery*
 
-      let paymentProofSection = ""
-      if (paymentProofUrl) {
-        paymentProofSection = `
+*Order Reference:* ${order.reference}
 
-📸 *Payment Proof:* 
-${paymentProofUrl}
-(Click link above to view transaction screenshot)`
-      }
-
-      const orderDetails = `🎂 *New Order from Pee's Bakery*
-
-📋 *Order Reference:* ${order.reference}
-
-👤 *Customer Details:*
+*Customer Details:*
 Name: ${customer.name}
 Phone: ${customer.phone}
-${customer.email ? `Email: ${customer.email}` : ""}
+Email: ${customer.email || "N/A"}
 
-📍 *Delivery Address:*
+*Delivery Address:*
 ${deliveryAddress.street}
 ${deliveryAddress.city}, ${deliveryAddress.zipCode}
 ${deliveryAddress.instructions ? `Instructions: ${deliveryAddress.instructions}` : ""}
 
-🛒 *Order Items:*
-${orderItemsList}
+*Order Items:*
+${itemsList}
 
-💰 *Order Summary:*
-Subtotal: ${formatPrice(subtotal)}
-Delivery: ${formatPrice(deliveryFee)} (${deliveryOption})
-Tax: ${formatPrice(tax)}
-*Total: ${formatPrice(total)}*
+*Order Summary:*
+Subtotal: Le ${subtotal}
+Delivery: Le ${deliveryFee} (${deliveryOption})
+Tax: Le ${tax}
+*Total: Le ${total}*
 
-💳 *Payment Method:* ${paymentMethod.toUpperCase().replace("-", " ")}${paymentProofSection}
+*Payment Method:* ${paymentMethod.toUpperCase().replace("-", " ")}${paymentProofUrl ? `\n\n*Payment Proof:* ${paymentProofUrl}` : ""}
 
-🚚 *Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}
+*Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}
 
-Thank you for your order! 🎉
-      `.trim()
+Thank you for your order!`
 
-      console.log("[v0] WhatsApp message prepared (length:", orderDetails.length, "chars)")
+      console.log("[v0] WhatsApp message created (length:", orderMessage.length, "chars)")
+      console.log("[v0] WhatsApp message content:")
+      console.log(orderMessage)
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderMessage)}`
+
+      console.log("[v0] WhatsApp URL length:", whatsappUrl.length)
       console.log("[v0] Opening WhatsApp...")
 
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderDetails)}`
-
       window.open(whatsappUrl, "_blank")
-      console.log("[v0] ✓ WhatsApp opened successfully!")
+      console.log("[v0] WhatsApp opened!")
 
       setCompletedOrder(order)
       setShowConfirmation(true)
-      console.log("[v0] ✓ Confirmation modal displayed")
 
       console.log("[v0] Clearing cart...")
       clearCart()
-      console.log("[v0] ✓ Cart cleared successfully!")
-      console.log("[v0] ==================== ORDER COMPLETE ====================")
+      console.log("[v0] Cart cleared!")
 
       setIsProcessing(false)
+      console.log("[v0] ==================== ORDER COMPLETE ====================")
     } catch (error) {
-      console.error("[v0] ❌ FATAL ERROR processing order:", error)
-      alert("An error occurred while processing your order. Please try again.")
+      console.error("[v0] ERROR processing order:", error)
+      alert("An error occurred. Please try again.")
       setIsProcessing(false)
     }
   }
