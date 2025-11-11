@@ -275,20 +275,18 @@ export const products: Product[] = [
   },
   {
     id: 17,
-    name: "Birthday Cake Large",
+    name: "Customize Order",
     category: "bakery",
-    price: 750,
+    price: 0,
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%202500-scV0HFXBrDDXf02a6v4vFb4SuVHEpM.jpg",
-    description: "Large birthday cake for big celebrations",
+    description: "Custom birthday cake - message us for your design!",
     longDescription:
       "Large celebration cake perfect for parties. Beautifully decorated with intricate designs. Multiple flavor options available. For customized designs message on WhatsApp +232 78 891638.",
     addOns: [
       { id: 42, name: "Custom Message", price: 15 },
       { id: 43, name: "Candles", price: 8 },
     ],
-    rating: 5.0,
-    reviewCount: 87,
   },
   {
     id: 18,
@@ -424,15 +422,13 @@ export const products: Product[] = [
   },
   {
     id: 26,
-    name: "Soft Drinks",
+    name: "Coca Cola",
     category: "drinks",
-    price: 10,
+    price: 30,
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Cock-OKpuLbq3Smq9JWt4x6RgSVjxpF7N2A.jpeg",
-    description: "Coca-Cola, Sprite, or Fanta",
-    longDescription: "Choose from Coca-Cola, Sprite, or Fanta Orange. Ice cold and refreshing!",
+    description: "Coca-Cola classic",
+    longDescription: "Ice cold Coca-Cola. The classic refreshing cola!",
     addOns: [],
-    rating: 4.7,
-    reviewCount: 234,
   },
   {
     id: 27,
@@ -451,14 +447,12 @@ export const products: Product[] = [
     id: 28,
     name: "Fanta",
     category: "drinks",
-    price: 35,
+    price: 30,
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cold%20fanta-qQNGGuht2bRfqVLzznJhdI4U1UuyqA.jpeg",
-    description: "Ice Cold Fanta Orange",
-    longDescription: "Refreshing ice-cold Fanta Orange soda. Perfect for quenching your thirst on a hot day!",
+    description: "Fanta Orange",
+    longDescription: "Refreshing Fanta Orange soda. Perfect for quenching your thirst on a hot day!",
     addOns: [],
-    rating: 4.6,
-    reviewCount: 156,
   },
   {
     id: 29,
@@ -809,12 +803,12 @@ export const products: Product[] = [
     category: "african",
     price: 100,
     image: "/stew.png",
-    description: "Traditional African stew with meat",
+    description: "Traditional African stew with meat and rice",
     longDescription:
-      "Rich and flavorful African stew cooked with meat, vegetables, and aromatic spices. Perfect with rice or your favorite side!",
+      "Rich and flavorful African stew cooked with meat, vegetables, and aromatic spices. Served with rice!",
     addOns: [
       { id: 102, name: "Extra Meat", price: 40 },
-      { id: 103, name: "Rice", price: 20 },
+      { id: 103, name: "Extra Rice", price: 20 },
       { id: 104, name: "Bulgur", price: 20 },
     ],
   },

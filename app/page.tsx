@@ -71,8 +71,8 @@ export default function HomePage() {
         </section>
 
         {/* Shop by Category */}
-        <section className="container mx-auto px-4 py-8 md:py-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-[#0f1419]">Shop by Category</h2>
+        <section className="container mx-auto px-4 py-6 md:py-12">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-[#0f1419]">Shop by Category</h2>
           <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
         </section>
 

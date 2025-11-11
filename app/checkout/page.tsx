@@ -481,7 +481,7 @@ export default function CheckoutPage() {
                         </p>
                         <p className="text-sm text-[#0f1419]">
                           <strong>Step 3:</strong> Enter merchant code:{" "}
-                          <strong className="text-[#ff8c00]">197469</strong>
+                          <strong className="text-[#ff8c00]">216542</strong>
                         </p>
                         <p className="text-sm text-[#0f1419]">
                           <strong>Step 4:</strong> Enter amount:{" "}
