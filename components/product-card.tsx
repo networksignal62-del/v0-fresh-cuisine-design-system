@@ -23,7 +23,6 @@ export function ProductCard({ product }: ProductCardProps) {
   const [flyingAnimation, setFlyingAnimation] = useState(false)
   const [animationStart, setAnimationStart] = useState({ x: 0, y: 0 })
   const [showCartModal, setShowCartModal] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const { addToCart } = useCart()
   const { toggleWishlist, isInWishlist } = useWishlist()
@@ -98,11 +97,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <CartModal isOpen={showCartModal} onClose={() => setShowCartModal(false)} />
 
       <Link href={`/product/${product.id}`} onClick={handleClick}>
-        <div
-          className="bg-white border border-[#e5e7e8] rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_12px_24px_rgba(1,67,37,0.15)] hover:-translate-y-2 hover:scale-[1.03] cursor-pointer flex flex-col h-full group"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className="bg-white border border-[#e5e7e8] rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_12px_24px_rgba(1,67,37,0.15)] hover:-translate-y-2 hover:scale-[1.03] cursor-pointer flex flex-col h-full group">
           {/* Image */}
           <div className="relative aspect-square overflow-hidden bg-[#f5f5f0]">
             <Image
