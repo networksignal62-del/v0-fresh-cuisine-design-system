@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/lib/types"
 import { formatPrice } from "@/lib/utils-app"
-import { Star, Plus, Minus, Heart } from "lucide-react"
+import { Plus, Minus, Heart } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
@@ -151,16 +151,6 @@ export function ProductCard({ product }: ProductCardProps) {
             <p className="text-sm text-[#5c6466] line-clamp-2 leading-relaxed mb-3 flex-1 transition-all duration-300">
               {product.description}
             </p>
-
-            {/* Rating */}
-            {product.rating && (
-              <div className="flex items-center gap-1 mb-4">
-                {/* Rotation animation to star on hover */}
-                <Star className="w-4 h-4 fill-[#ffb40b] text-[#ffb40b] transition-transform duration-300 group-hover:rotate-[360deg]" />
-                <span className="text-sm font-medium">{product.rating}</span>
-                <span className="text-xs text-[#5c6466]">({product.reviewCount})</span>
-              </div>
-            )}
 
             {quantity === 0 ? (
               <button

@@ -5,7 +5,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/lib/types"
-import { Star, MessageCircle, Sparkles } from "lucide-react"
+import { MessageCircle, Sparkles } from "lucide-react"
 
 interface CustomizableProductCardProps {
   product: Product
@@ -77,29 +77,22 @@ export function CustomizableProductCard({ product }: CustomizableProductCardProp
         </div>
 
         {/* Content */}
-        <div className="p-5 flex flex-col flex-1 relative z-10">
-          <h3 className="font-bold text-xl text-[#0f1419] mb-2 transition-all duration-300 group-hover:text-[#014325] flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#ffb40b] group-hover:rotate-180 transition-transform duration-500" />
+        <div className="p-4 sm:p-5 flex flex-col flex-1 relative z-10">
+          <h3 className="font-bold text-lg sm:text-xl text-[#0f1419] mb-2 transition-all duration-300 group-hover:text-[#014325] flex items-center gap-2">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffb40b] group-hover:rotate-180 transition-transform duration-500" />
             {product.name}
           </h3>
 
-          <p className="text-sm text-[#5c6466] line-clamp-2 leading-relaxed mb-4 flex-1">{product.description}</p>
-
-          {/* Rating */}
-          {product.rating && (
-            <div className="flex items-center gap-1 mb-4">
-              <Star className="w-4 h-4 fill-[#ffb40b] text-[#ffb40b]" />
-              <span className="text-sm font-medium">{product.rating}</span>
-              <span className="text-xs text-[#5c6466]">({product.reviewCount} happy customers)</span>
-            </div>
-          )}
+          <p className="text-xs sm:text-sm text-[#5c6466] line-clamp-2 leading-relaxed mb-4 flex-1">
+            {product.description}
+          </p>
 
           {/* WhatsApp CTA Button */}
           <button
             onClick={handleWhatsAppClick}
-            className="w-full bg-[#ffb40b] hover:bg-[#ffc83d] text-[#0f1419] py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 font-bold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 group/btn"
+            className="w-full bg-[#ffb40b] hover:bg-[#ffc83d] text-[#0f1419] py-2.5 sm:py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 font-bold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 group/btn text-sm sm:text-base"
           >
-            <MessageCircle className="w-5 h-5 group-hover/btn:animate-bounce" />
+            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:animate-bounce" />
             <span>Message on WhatsApp</span>
           </button>
 
