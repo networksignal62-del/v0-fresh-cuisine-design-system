@@ -348,7 +348,7 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1">
                       <p className="font-bold">Standard Delivery</p>
-                      <p className="text-sm text-[#5c6466]">2-3 hours</p>
+                      <p className="text-sm text-[#5c6466]">Depending on the location</p>
                     </div>
                     <span className="font-bold text-[#014325]">{formatPrice(10)}</span>
                   </label>
@@ -364,7 +364,7 @@ export default function CheckoutPage() {
                     />
                     <div className="flex-1">
                       <p className="font-bold">Express Delivery</p>
-                      <p className="text-sm text-[#5c6466]">45-60 minutes</p>
+                      <p className="text-sm text-[#5c6466]">Depending on the location</p>
                     </div>
                     <span className="font-bold text-[#014325]">{formatPrice(25)}</span>
                   </label>
