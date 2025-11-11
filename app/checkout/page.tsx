@@ -49,7 +49,7 @@ export default function CheckoutPage() {
   }, [cart.length, mounted, showConfirmation, router, cart])
 
   const deliveryFees = {
-    standard: 10,
+    standard: 25, // Updated Standard Delivery price to 25
     express: 25,
     pickup: 0,
   }
@@ -350,7 +350,7 @@ export default function CheckoutPage() {
                       <p className="font-bold">Standard Delivery</p>
                       <p className="text-sm text-[#5c6466]">Depending on the location</p>
                     </div>
-                    <span className="font-bold text-[#014325]">{formatPrice(10)}</span>
+                    <span className="font-bold text-[#014325]">Le 25</span> {/* Updated to show Le 25 directly */}
                   </label>
 
                   <label className="flex items-center gap-4 p-4 border-2 border-[#e5e7e8] rounded-lg cursor-pointer hover:border-[#014325] transition-colors has-[:checked]:border-[#014325] has-[:checked]:bg-[#f0fdf4]">
@@ -366,7 +366,6 @@ export default function CheckoutPage() {
                       <p className="font-bold">Express Delivery</p>
                       <p className="text-sm text-[#5c6466]">Depending on the location</p>
                     </div>
-                    <span className="font-bold text-[#014325]">{formatPrice(25)}</span>
                   </label>
 
                   <label className="flex items-center gap-4 p-4 border-2 border-[#e5e7e8] rounded-lg cursor-pointer hover:border-[#014325] transition-colors has-[:checked]:border-[#014325] has-[:checked]:bg-[#f0fdf4]">
