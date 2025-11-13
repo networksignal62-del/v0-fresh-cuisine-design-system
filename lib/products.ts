@@ -271,7 +271,7 @@ export const products: Product[] = [
     id: 17,
     name: "Customize Order",
     category: "bakery",
-    price: 0,
+    price: 750,
     image: "/images/birthday-20cake-202500.jpg",
     description: "Custom birthday cake - message us for your design!",
     longDescription:
