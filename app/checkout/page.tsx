@@ -641,6 +641,18 @@ export default function CheckoutPage() {
                   {isProcessing ? "Processing..." : `Confirm Order - ${formatPrice(total)}`}
                 </button>
 
+                <div className="mt-4 p-3 bg-[#014325]/5 border border-[#014325] rounded-lg">
+                  <p className="text-sm text-[#0f1419] text-center">
+                    <strong>Call this number to confirm your order:</strong>
+                  </p>
+                  <a
+                    href="tel:+23275361494"
+                    className="block text-center text-lg font-bold text-[#014325] hover:underline mt-1"
+                  >
+                    +232 75 361494
+                  </a>
+                </div>
+
                 <p className="text-xs text-center mt-2 text-[#5c6466]">
                   {!isFormValid && "Please fill all required fields"}
                 </p>
