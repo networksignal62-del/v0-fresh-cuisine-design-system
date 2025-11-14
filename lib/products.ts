@@ -742,7 +742,7 @@ export const products: Product[] = [
     image: "/potato-leaves.jpg",
     description: "Traditional West African potato leaves stew",
     longDescription:
-      "Rich and flavorful potato leaves cooked with meat, fish, and special African spices. A beloved traditional dish from Pee's Bakery!",
+      "Rich and flavorful potato leaves cooked with meat, fish, and authentic African spices. A beloved traditional dish from Pee's Bakery!",
     addOns: [
       { id: 93, name: "Extra Meat", price: 40 },
       { id: 94, name: "Extra Fish", price: 40 },
@@ -862,7 +862,7 @@ export const products: Product[] = [
     id: 52,
     name: "Sierra Box Juice",
     category: "drinks",
-    price: 15,
+    price: 10,
     image: "/sierra-mango-juice.jpg",
     description: "Sierra Mango Nectar Box Juice",
     longDescription:
@@ -871,20 +871,56 @@ export const products: Product[] = [
       {
         id: 1,
         name: "Sierra Mango",
-        price: 15,
+        price: 10,
         description: "Mango nectar juice",
       },
       {
         id: 2,
         name: "Sierra Orange",
-        price: 15,
+        price: 10,
         description: "Orange juice",
       },
       {
         id: 3,
         name: "Sierra Pineapple",
-        price: 15,
+        price: 10,
         description: "Pineapple juice",
+      },
+    ],
+    addOns: [],
+  },
+  {
+    id: 62,
+    name: "Sierra Juice",
+    category: "drinks",
+    price: 15,
+    image: "/sierra-juice.jpg",
+    description: "Sierra Premium Juice Bottle",
+    longDescription:
+      "Premium Sierra juice in convenient bottle. Refreshing and delicious!",
+    addOns: [],
+  },
+  {
+    id: 63,
+    name: "Sierra Water",
+    category: "drinks",
+    price: 12,
+    image: "/sierra-water-big.jpg",
+    description: "Sierra Pure Mineral Water - Choose your size!",
+    longDescription:
+      "Pure and refreshing Sierra mineral water. Available in Small and Big bottle sizes. Stay hydrated!",
+    variants: [
+      {
+        id: 1,
+        name: "Small Bottle",
+        price: 8,
+        description: "500ml bottle",
+      },
+      {
+        id: 2,
+        name: "Big Bottle",
+        price: 12,
+        description: "1.5L bottle",
       },
     ],
     addOns: [],
