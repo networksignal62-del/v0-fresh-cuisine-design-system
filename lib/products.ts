@@ -882,7 +882,7 @@ export const products: Product[] = [
     name: "Sierra Juice",
     category: "drinks",
     price: 15,
-    image: "/sierra-juice.png",
+    image: "/sierra-juice.jpg",
     description: "Sierra Premium Juice",
     longDescription: "Delicious Sierra premium juice drink. Sweet, refreshing tropical flavor!",
     addOns: [],
@@ -892,7 +892,7 @@ export const products: Product[] = [
     name: "Sierra Water",
     category: "drinks",
     price: 12,
-    image: "/sierra-water-big.png",
+    image: "/sierra-water-big.jpg",
     description: "Sierra Mineral Water - Choose your size",
     longDescription: "Pure Sierra mineral water. Clean, refreshing, and hydrating. Available in two convenient sizes!",
     variants: [
