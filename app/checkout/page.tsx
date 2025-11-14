@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation'
 import Image from "next/image"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -56,8 +56,7 @@ export default function CheckoutPage() {
 
   const subtotal = getCartTotal()
   const deliveryFee = deliveryFees[deliveryOption]
-  const tax = Math.round(subtotal * 0.05)
-  const total = subtotal + deliveryFee + tax
+  const total = subtotal + deliveryFee
 
   const handleDeliveryOptionChange = (option: string) => {
     setDeliveryOption(option)
@@ -113,7 +112,7 @@ export default function CheckoutPage() {
         items: orderItems,
         subtotal,
         deliveryFee,
-        tax,
+        tax: 0,
         discount: 0,
         total,
         deliveryOption,
@@ -140,7 +139,7 @@ export default function CheckoutPage() {
           ? `%0A%0A*Orange Money Transaction:*%0ATransaction ID: ${orangeMoneyTransaction.transactionId}${orangeMoneyTransaction.phoneNumber ? `%0APhone: ${orangeMoneyTransaction.phoneNumber}` : ""}${orangeMoneyTransaction.accountName ? `%0AAccount Name: ${orangeMoneyTransaction.accountName}` : ""}`
           : ""
 
-      const message = `*New Order from Pee's Bakery*%0A%0A*Order Reference:* ${orderRef}%0A%0A*Customer Details:*%0AName: ${customer.name}%0APhone: ${customer.phone}${customer.email ? `%0AEmail: ${customer.email}` : ""}%0A%0A*Delivery Address:*%0A${deliveryAddress.street}%0A${deliveryAddress.city}, ${deliveryAddress.zipCode}${deliveryAddress.instructions ? `%0AInstructions: ${deliveryAddress.instructions}` : ""}%0A%0A*Order Items:*%0A${itemsList}%0A%0A*Order Summary:*%0ASubtotal: Le ${subtotal}%0ADelivery (${deliveryOption}): Le ${deliveryFee}%0ATax (5%%): Le ${tax}%0A*Total: Le ${total}*%0A%0A*Payment Method:* ${paymentMethod.toUpperCase()}${orangeMoneyDetails}%0A%0A*Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}`
+      const message = `*New Order from Pee's Bakery*%0A%0A*Order Reference:* ${orderRef}%0A%0A*Customer Details:*%0AName: ${customer.name}%0APhone: ${customer.phone}${customer.email ? `%0AEmail: ${customer.email}` : ""}%0A%0A*Delivery Address:*%0A${deliveryAddress.street}%0A${deliveryAddress.city}, ${deliveryAddress.zipCode}${deliveryAddress.instructions ? `%0AInstructions: ${deliveryAddress.instructions}` : ""}%0A%0A*Order Items:*%0A${itemsList}%0A%0A*Order Summary:*%0ASubtotal: Le ${subtotal}%0ADelivery (${deliveryOption}): Le ${deliveryFee}%0A*Total: Le ${total}*%0A%0A*Payment Method:* ${paymentMethod.toUpperCase()}${orangeMoneyDetails}%0A%0A*Estimated Delivery:* ${order.estimatedDelivery.toLocaleString()}`
 
       console.log("[v0] WhatsApp message created")
       console.log("[v0] Message length:", message.length)
@@ -618,10 +617,6 @@ export default function CheckoutPage() {
                   <div className="flex justify-between text-sm">
                     <span className="text-[#5c6466]">Delivery Fee</span>
                     <span className="font-medium">{formatPrice(deliveryFee)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[#5c6466]">Tax (5%)</span>
-                    <span className="font-medium">{formatPrice(tax)}</span>
                   </div>
                 </div>
 
