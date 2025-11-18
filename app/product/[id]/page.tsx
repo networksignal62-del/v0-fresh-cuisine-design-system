@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams, useRouter } from 'next/navigation'
 import Image from "next/image"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -10,7 +10,7 @@ import { formatPrice } from "@/lib/utils-app"
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
 import { useToast } from "@/hooks/use-toast"
-import { Star, Minus, Plus, ShoppingCart, Heart } from "lucide-react"
+import { Star, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
 import type { AddOn, ProductVariant } from "@/lib/types"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
 import { CartModal } from "@/components/cart-modal"
@@ -180,7 +180,7 @@ export default function ProductDetailPage() {
                     <Star
                       key={i}
                       className={`w-5 h-5 ${
-                        i < Math.floor(product.rating!) ? "fill-[#ffb40b] text-[#ffb40b]" : "text-gray-300"
+                        i < Math.floor(product.rating!) ? "fill-[#fd4d00] text-[#fd4d00]" : "text-gray-300"
                       }`}
                     />
                   ))}
@@ -308,7 +308,7 @@ export default function ProductDetailPage() {
             <button
               ref={buttonRef}
               onClick={handleAddToCart}
-              className="w-full bg-[#ffb40b] text-[#0f1419] py-4 rounded-xl font-bold text-lg shadow-[0_2px_8px_rgba(255,180,11,0.3)] hover:shadow-[0_4px_12px_rgba(255,180,11,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-[#fd4d00] text-white py-4 rounded-xl font-bold text-lg shadow-[0_2px_8px_rgba(253,77,0,0.3)] hover:shadow-[0_4px_12px_rgba(253,77,0,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2"
             >
               <ShoppingCart className="w-6 h-6" />
               Add to Cart

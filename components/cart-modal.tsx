@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { X, ShoppingCart } from "lucide-react"
+import { X, ShoppingCart } from 'lucide-react'
 import { useCart } from "@/hooks/use-cart"
 import { formatPrice } from "@/lib/utils-app"
 import Image from "next/image"
@@ -90,7 +90,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
               <Link
                 href="/cart"
                 onClick={onClose}
-                className="flex-1 bg-[#ffb40b] text-[#0f1419] py-3 rounded-lg font-bold hover:bg-[#ffb40b]/90 transition-colors text-center"
+                className="flex-1 bg-[#fd4d00] text-white py-3 rounded-lg font-bold hover:bg-[#fd4d00]/90 transition-colors text-center"
               >
                 View Cart
               </Link>

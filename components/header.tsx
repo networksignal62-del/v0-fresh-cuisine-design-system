@@ -65,8 +65,8 @@ export function Header() {
 
   return (
     <>
-      <div className="bg-[#ffb40b] text-[#014325] py-2 px-4 text-center font-medium">
-        <a href="tel:+23275361494" className="flex items-center justify-center gap-2 hover:underline">
+      <div className="bg-[#fd4d00] text-white py-2 px-4 text-center font-medium">
+        <a href="tel:+23275361494" className="flex items-center justify-center gap-2 hover:underline text-white">
           <Phone className="w-4 h-4" />
           <span>Call this number to confirm your order: +232 75 361494</span>
         </a>
@@ -175,17 +175,17 @@ export function Header() {
               {/* Action Buttons */}
               <button
                 onClick={handleMobileSearchClick}
-                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#ffb40b] flex items-center justify-center hover:bg-[#ffb40b]/90 transition-colors xl:hidden"
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#fd4d00] flex items-center justify-center hover:bg-[#fd4d00]/90 transition-colors xl:hidden"
                 aria-label="Search"
               >
-                <Search className="w-4 h-4 md:w-5 md:h-5 text-[#4a1f3d]" />
+                <Search className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </button>
               <button
                 onClick={handleWishlistClick}
-                className="hidden md:flex relative w-10 h-10 rounded-full bg-[#ffb40b] items-center justify-center hover:bg-[#ffb40b]/90 transition-colors"
+                className="hidden md:flex relative w-10 h-10 rounded-full bg-[#fd4d00] items-center justify-center hover:bg-[#fd4d00]/90 transition-colors"
                 aria-label="Wishlist"
               >
-                <Heart className="w-5 h-5 text-[#4a1f3d]" />
+                <Heart className="w-5 h-5 text-white" />
                 {wishlistCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-[#dc2626] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {wishlistCount}
@@ -194,10 +194,10 @@ export function Header() {
               </button>
               <Link
                 href="/cart"
-                className="relative w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#ffb40b] flex items-center justify-center hover:bg-[#ffb40b]/90 transition-colors"
+                className="relative w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#fd4d00] flex items-center justify-center hover:bg-[#fd4d00]/90 transition-colors"
                 onClick={() => handleNavClick("cart")}
               >
-                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 text-[#4a1f3d]" />
+                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 text-white" />
                 {itemCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-[#dc2626] text-white text-xs font-bold rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-[10px] md:text-xs">
                     {itemCount}
@@ -287,7 +287,7 @@ export function Header() {
                 <Link
                   href="/"
                   className={`font-medium transition-colors ${
-                    isActive("/") ? "text-[#ffb40b]" : "text-white hover:text-[#ffb40b]"
+                    isActive("/") ? "text-[#fd4d00]" : "text-white hover:text-[#fd4d00]"
                   }`}
                   onClick={() => handleNavClick("home")}
                 >
@@ -296,7 +296,7 @@ export function Header() {
                 <Link
                   href="/menu"
                   className={`font-medium transition-colors ${
-                    isActive("/menu") ? "text-[#ffb40b]" : "text-white hover:text-[#ffb40b]"
+                    isActive("/menu") ? "text-[#fd4d00]" : "text-white hover:text-[#fd4d00]"
                   }`}
                   onClick={() => handleNavClick("menu")}
                 >
@@ -305,7 +305,7 @@ export function Header() {
                 <Link
                   href="/about"
                   className={`font-medium transition-colors ${
-                    isActive("/about") ? "text-[#ffb40b]" : "text-white hover:text-[#ffb40b]"
+                    isActive("/about") ? "text-[#fd4d00]" : "text-white hover:text-[#fd4d00]"
                   }`}
                   onClick={() => handleNavClick("about")}
                 >
@@ -314,7 +314,7 @@ export function Header() {
                 <Link
                   href="/contact"
                   className={`font-medium transition-colors ${
-                    isActive("/contact") ? "text-[#ffb40b]" : "text-white hover:text-[#ffb40b]"
+                    isActive("/contact") ? "text-[#fd4d00]" : "text-white hover:text-[#fd4d00]"
                   }`}
                   onClick={() => handleNavClick("contact")}
                 >
@@ -323,11 +323,11 @@ export function Header() {
                 <Link
                   href="/wishlist"
                   className={`font-medium transition-colors flex items-center gap-2 ${
-                    isActive("/wishlist") ? "text-[#ffb40b]" : "text-white hover:text-[#ffb40b]"
+                    isActive("/wishlist") ? "text-[#fd4d00]" : "text-white hover:text-[#fd4d00]"
                   }`}
                   onClick={() => handleNavClick("wishlist")}
                 >
-                  <Heart className="w-5 h-5" />
+                  <Heart className="w-5 h-5 text-white" />
                   Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
                 </Link>
               </div>

@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Heart, Leaf, Users, Award, MapPin, Clock } from "lucide-react"
+import { Heart, Leaf, Users, Award, MapPin, Clock } from 'lucide-react'
 
 export default function AboutPage() {
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function AboutPage() {
                 To deliver quality, affordable, and flavorful meals that make every customer feel at home.
               </p>
             </div>
-            <div className="bg-[#ffb40b] text-[#0f1419] p-6 rounded-xl">
+            <div className="bg-[#fd4d00] text-white p-6 rounded-xl">
               <p className="font-bold text-xl mb-2">Our Vision</p>
               <p className="leading-relaxed">
                 To be the leading food and bakery brand in Sierra Leone, offering a seamless digital and walk-in
@@ -147,7 +147,7 @@ export default function AboutPage() {
             </p>
             <Link
               href="/menu"
-              className="inline-block bg-[#ffb40b] text-[#0f1419] px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#ffb40b]/90 transition-colors"
+              className="inline-block bg-[#fd4d00] text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#fd4d00]/90 transition-colors"
             >
               View Menu
             </Link>

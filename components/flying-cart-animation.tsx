@@ -34,7 +34,7 @@ export function FlyingCartAnimation({ trigger, startPosition, onComplete }: Flyi
       }}
     >
       <div className="animate-[fly-to-cart_0.8s_ease-in-out_forwards]">
-        <div className="bg-[#ffb40b] text-[#0f1419] px-3 py-1 rounded-lg font-bold text-sm shadow-lg">+1</div>
+        <div className="bg-[#fd4d00] text-white px-3 py-1 rounded-lg font-bold text-sm shadow-lg">+1</div>
       </div>
     </div>
   )

@@ -7,7 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/lib/types"
 import { formatPrice } from "@/lib/utils-app"
-import { Plus, Minus, Heart } from "lucide-react"
+import { Plus, Minus, Heart } from 'lucide-react'
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
@@ -19,7 +19,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1) // Start with quantity of 1 instead of 0
+  const [isExpanded, setIsExpanded] = useState(false) // New state to track if the add button has been clicked
   const [flyingAnimation, setFlyingAnimation] = useState(false)
   const [animationStart, setAnimationStart] = useState({ x: 0, y: 0 })
   const [showCartModal, setShowCartModal] = useState(false)
@@ -69,21 +70,18 @@ export function ProductCard({ product }: ProductCardProps) {
     })
 
     setShowCartModal(true)
-    setQuantity(0)
+    setQuantity(1) // Reset to 1 instead of 0 after adding to cart
+    setIsExpanded(false) // Reset to initial state after adding to cart
   }
 
   const handleQuantityChange = (e: React.MouseEvent, delta: number) => {
     e.preventDefault()
     e.stopPropagation()
 
-    const newQuantity = Math.max(0, quantity + delta)
+    const newQuantity = Math.max(1, quantity + delta) // Minimum quantity is 1, not 0
     setQuantity(newQuantity)
 
-    if (newQuantity === 0) {
-      console.log("[v0] Quantity reset to 0")
-    } else {
-      console.log("[v0] Quantity updated:", newQuantity)
-    }
+    console.log("[v0] Quantity updated:", newQuantity)
   }
 
   return (
@@ -110,7 +108,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#014325]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {/* Price Badge */}
-            <span className="absolute top-3 right-3 bg-[#ffb40b] text-[#0f1419] text-sm font-bold px-3 py-1.5 rounded-full shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+            <span className="absolute top-3 right-3 bg-[#fd4d00] text-white text-sm font-bold px-3 py-1.5 rounded-full shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
               {formatPrice(product.price)}
             </span>
 
@@ -147,48 +145,49 @@ export function ProductCard({ product }: ProductCardProps) {
               {product.description}
             </p>
 
-            {quantity === 0 ? (
-              <button
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  setQuantity(1)
-                  console.log("[v0] Add button clicked for:", product.name)
-                }}
-                className="w-full bg-[#f5f5f0] hover:bg-[#ffb40b]/20 text-[#0f1419] py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium border border-[#e5e7e8] hover:border-[#ffb40b] hover:scale-105 active:scale-95"
-              >
-                <Plus className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90" />
-                Add
-              </button>
-            ) : (
-              <div className="flex items-center justify-between bg-[#fffbf5] border-2 border-[#ffb40b] p-2 rounded-lg animate-[scale-in_0.2s_ease-out]">
+            <div className="mt-auto">
+              {!isExpanded ? (
                 <button
-                  onClick={(e) => handleQuantityChange(e, -1)}
-                  className="text-[#014325] hover:bg-[#ffb40b]/20 p-1.5 rounded transition-all duration-200 hover:scale-110 active:scale-90"
-                  aria-label="Decrease quantity"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setIsExpanded(true)
+                    setQuantity(1)
+                  }}
+                  className="w-full bg-[#f5f5f0] text-[#0f1419] py-3 rounded-lg font-bold transition-all duration-300 hover:bg-[#e5e7e8] flex items-center justify-center gap-2"
                 >
-                  <Minus className="w-5 h-5" />
+                  <Plus className="w-5 h-5" /> Add
                 </button>
-                <span className="font-bold text-[#014325] text-lg min-w-[2rem] text-center">{quantity}</span>
-                <button
-                  onClick={(e) => handleQuantityChange(e, 1)}
-                  className="text-[#014325] hover:bg-[#ffb40b]/20 p-1.5 rounded transition-all duration-200 hover:scale-110 active:scale-90"
-                  aria-label="Increase quantity"
-                >
-                  <Plus className="w-5 h-5" />
-                </button>
-              </div>
-            )}
+              ) : (
+                <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                  <div className="flex items-center justify-between bg-white border-2 border-[#fd4d00] p-2 rounded-lg">
+                    <button
+                      onClick={(e) => handleQuantityChange(e, -1)}
+                      className="text-[#fd4d00] hover:bg-[#fd4d00]/10 p-1.5 rounded transition-all duration-200 hover:scale-110 active:scale-90"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
+                    <span className="font-bold text-lg text-[#0f1419] w-8 text-center">{quantity}</span>
+                    <button
+                      onClick={(e) => handleQuantityChange(e, 1)}
+                      className="text-[#fd4d00] hover:bg-[#fd4d00]/10 p-1.5 rounded transition-all duration-200 hover:scale-110 active:scale-90"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="w-5 h-5" />
+                    </button>
+                  </div>
 
-            {quantity > 0 && (
-              <button
-                ref={buttonRef}
-                onClick={handleAddToCart}
-                className="w-full bg-[#ffb40b] hover:bg-[#ffb40b]/90 text-[#0f1419] py-2.5 rounded-lg transition-all duration-300 font-bold mt-2 shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
-              >
-                Add to Cart
-              </button>
-            )}
+                  <button
+                    ref={buttonRef}
+                    onClick={handleAddToCart}
+                    className="w-full bg-[#fd4d00] text-white py-2.5 rounded-lg font-bold transition-all duration-300 hover:bg-[#fd4d00]/90 hover:scale-105 active:scale-95 shadow-md"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </Link>

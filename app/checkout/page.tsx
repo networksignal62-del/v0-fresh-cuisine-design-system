@@ -453,15 +453,16 @@ export default function CheckoutPage() {
 
                 {paymentMethod === "orange-money" && (
                   <div className="mt-6 space-y-4">
-                    <div className="p-4 bg-[#ff8c00]/10 border border-[#ff8c00] rounded-lg">
+                    <div className="p-4 bg-[#ff8c00]/10 border border-[#fd4d00] rounded-lg">
                       <h3 className="font-bold text-[#0f1419] mb-3">Orange Money Payment Instructions</h3>
 
                       <div className="space-y-3 mb-4">
                         <p className="text-sm text-[#0f1419]">
-                          <strong>Step 1:</strong> Dial Orange Money USSD code to make payment
+                          <strong>Step 1:</strong> Click the button below to dial the payment code directly. The amount
+                          (Le {total}) is already included.
                         </p>
                         <a
-                          href="tel:*144#"
+                          href={`tel:*144*4*1*216542*${total}%23`}
                           className="flex items-center justify-center gap-2 w-full bg-[#ff8c00] text-white py-3 rounded-lg font-bold hover:bg-[#ff8c00]/90 transition-colors"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -472,25 +473,18 @@ export default function CheckoutPage() {
                               d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                             />
                           </svg>
-                          Dial *144# Now
+                          Dial *144*4*1*216542*{total}#
                         </a>
                         <p className="text-sm text-[#0f1419]">
-                          <strong>Step 2:</strong> Select option 4 (Pay Merchant)
+                          <strong>Step 2:</strong> Enter your PIN to confirm the payment of{" "}
+                          <strong className="text-[#ff8c00]">Le {total}</strong>.
                         </p>
                         <p className="text-sm text-[#0f1419]">
-                          <strong>Step 3:</strong> Enter merchant code:{" "}
-                          <strong className="text-[#ff8c00]">216542</strong>
-                        </p>
-                        <p className="text-sm text-[#0f1419]">
-                          <strong>Step 4:</strong> Enter amount:{" "}
-                          <strong className="text-[#ff8c00]">{formatPrice(total)}</strong>
-                        </p>
-                        <p className="text-sm text-[#0f1419]">
-                          <strong>Step 5:</strong> Complete payment and fill in transaction details below
+                          <strong>Step 3:</strong> Complete payment and fill in transaction details below
                         </p>
                       </div>
 
-                      <div className="p-3 bg-[#fffbf5] border border-[#ffb40b] rounded-lg text-sm">
+                      <div className="p-3 bg-[#fffbf5] border border-[#fd4d00] rounded-lg text-sm">
                         <p className="font-bold text-[#dc2626] mb-1">Important:</p>
                         <p className="text-[#0f1419] mb-2">
                           Please complete the payment within 15 minutes. Your order will be automatically cancelled if
@@ -503,7 +497,7 @@ export default function CheckoutPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 bg-white border-2 border-[#ff8c00] rounded-lg">
+                    <div className="p-4 bg-white border-2 border-[#fd4d00] rounded-lg">
                       <h4 className="font-bold text-[#0f1419] mb-3">
                         Transaction Details <span className="text-[#dc2626]">*</span>
                       </h4>
@@ -567,7 +561,7 @@ export default function CheckoutPage() {
                 )}
 
                 {paymentMethod !== "cod" && paymentMethod !== "orange-money" && (
-                  <div className="mt-6 p-4 bg-[#fffbf5] border border-[#ffb40b] rounded-lg">
+                  <div className="mt-6 p-4 bg-[#fffbf5] border border-[#fd4d00] rounded-lg">
                     <p className="text-sm text-[#0f1419] mb-2">
                       <strong>Note:</strong> After placing your order, please send your payment transaction screenshot
                       via WhatsApp.
@@ -585,7 +579,7 @@ export default function CheckoutPage() {
 
             {/* Right Column: Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white border border-[#e5e7e8] rounded-xl p-6 sticky top-24">
+              <div className="border border-[#e5e7e8] rounded-xl p-6 sticky top-24 bg-green-100">
                 <h2 className="text-2xl font-bold mb-6 text-[#0f1419]">Order Summary</h2>
 
                 {/* Items List */}

@@ -5,7 +5,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import type { Product } from "@/lib/types"
-import { MessageCircle, Sparkles } from "lucide-react"
+import { MessageCircle, Sparkles } from 'lucide-react'
 
 interface CustomizableProductCardProps {
   product: Product
@@ -26,13 +26,13 @@ export function CustomizableProductCard({ product }: CustomizableProductCardProp
   }
 
   return (
-    <div className="bg-gradient-to-br from-[#fffbf5] via-white to-[#fff5e6] border-2 border-[#ffb40b] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(255,180,11,0.3)] hover:-translate-y-3 hover:scale-[1.02] cursor-pointer flex flex-col h-full group relative">
+    <div className="bg-gradient-to-br from-[#fffbf5] via-white to-[#fff5e6] border-2 border-[#fd4d00] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(253,77,0,0.3)] hover:-translate-y-3 hover:scale-[1.02] cursor-pointer flex flex-col h-full group relative">
       {/* Decorative corner elements */}
-      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#ffb40b]/20 to-transparent rounded-bl-full" />
+      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#fd4d00]/20 to-transparent rounded-bl-full" />
       <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-[#014325]/10 to-transparent rounded-tr-full" />
 
       {/* Sparkle badge */}
-      <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-[#ffb40b] to-[#ffd700] text-[#0f1419] text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
+      <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-[#fd4d00] to-[#ffd700] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
         <Sparkles className="w-4 h-4" />
         CUSTOM ORDER
       </div>
@@ -48,7 +48,7 @@ export function CustomizableProductCard({ product }: CustomizableProductCardProp
           />
 
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#ffb40b]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#fd4d00]/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
           {/* Image dots navigation */}
           {images.length > 1 && (
@@ -62,7 +62,7 @@ export function CustomizableProductCard({ product }: CustomizableProductCardProp
                     setCurrentImageIndex(index)
                   }}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex ? "bg-[#ffb40b] w-6" : "bg-white/60 hover:bg-white/80"
+                    index === currentImageIndex ? "bg-[#fd4d00] w-6" : "bg-white/60 hover:bg-white/80"
                   }`}
                   aria-label={`View design ${index + 1}`}
                 />
@@ -79,7 +79,7 @@ export function CustomizableProductCard({ product }: CustomizableProductCardProp
         {/* Content */}
         <div className="p-4 sm:p-5 flex flex-col flex-1 relative z-10">
           <h3 className="font-bold text-lg sm:text-xl text-[#0f1419] mb-2 transition-all duration-300 group-hover:text-[#014325] flex items-center gap-2">
-            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffb40b] group-hover:rotate-180 transition-transform duration-500" />
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#fd4d00] group-hover:rotate-180 transition-transform duration-500" />
             {product.name}
           </h3>
 
@@ -90,7 +90,7 @@ export function CustomizableProductCard({ product }: CustomizableProductCardProp
           {/* WhatsApp CTA Button */}
           <button
             onClick={handleWhatsAppClick}
-            className="w-full bg-[#ffb40b] hover:bg-[#ffc83d] text-[#0f1419] py-2.5 sm:py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 font-bold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 group/btn text-sm sm:text-base"
+            className="w-full bg-[#fd4d00] hover:bg-[#ffc83d] text-white py-2.5 sm:py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 font-bold shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 group/btn text-sm sm:text-base"
           >
             <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:animate-bounce" />
             <span>Message on WhatsApp</span>
