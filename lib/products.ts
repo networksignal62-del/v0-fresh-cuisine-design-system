@@ -24,7 +24,7 @@ export const products: Product[] = [
     name: "Whole Chicken",
     category: "african",
     price: 250,
-    image: "/images/whatsapp-20image-202025-11-06-20at-2019.jpg",
+    image: "/whole-chicken-new.jpg", // Updated to new whole chicken image with fries and coleslaw
     description: "Perfectly roasted whole chicken with seasoning",
     longDescription:
       "A full roasted chicken seasoned with our special blend of spices. Served with crispy fries. Perfect for sharing with family and friends.",
