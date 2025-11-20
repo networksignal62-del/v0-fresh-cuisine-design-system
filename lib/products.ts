@@ -24,8 +24,7 @@ export const products: Product[] = [
     name: "Whole Chicken",
     category: "african",
     price: 250,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-06%20at%2019.18.26_707a395d-9EYS1emRSX3gUjhli9aYKrldsybBp4.jpg",
+    image: "/images/whatsapp-20image-202025-11-06-20at-2019.jpg",
     description: "Perfectly roasted whole chicken with seasoning",
     longDescription:
       "A full roasted chicken seasoned with our special blend of spices. Served with crispy fries. Perfect for sharing with family and friends.",
@@ -43,7 +42,7 @@ export const products: Product[] = [
     name: "Half Chicken",
     category: "african",
     price: 150,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Half%20chinken-5w6YI99FHKXkt6lwvEzNavI8hmwszB.jpg",
+    image: "/images/half-20chinken.jpg",
     description: "Half roasted chicken with special seasoning",
     longDescription:
       "Half of our perfectly roasted chicken, ideal for a single serving or smaller appetite. Seasoned to perfection.",
@@ -61,7 +60,7 @@ export const products: Product[] = [
     name: "Bulgur with Fish",
     category: "african",
     price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bulgur-51MinKIMuIfRwxBQGL3GKgxQyl9lm5.jpg",
+    image: "/images/bulgur.jpg",
     description: "Nutritious bulgur wheat served with fresh fish",
     longDescription:
       "Healthy bulgur wheat cooked with vegetables and served with perfectly seasoned fish. A nutritious and delicious meal.",
@@ -77,9 +76,8 @@ export const products: Product[] = [
     id: 5,
     name: "Fried Rice and Fish",
     category: "african",
-    price: 100,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fried%20rice%20and%20grilled%C2%A0fish-zVGHhUODDMEYCSfeMWa5d70h6WrkXE.jpg",
+    price: 250,
+    image: "/images/fried-20rice-20and-20grilled-c2-a0fish.jpg",
     description: "Flavorful fried rice with seasoned grilled fish",
     longDescription:
       "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal.",
@@ -95,8 +93,7 @@ export const products: Product[] = [
     name: "Fried Rice and Chicken",
     category: "african",
     price: 180,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fride%20Rice%20and%20chicken-TfVnP2SbQUXowmurXJXkzo1DxPxtJM.jpg",
+    image: "/images/fride-20rice-20and-20chicken.jpg",
     description: "Tasty fried rice with tender chicken",
     longDescription:
       "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner.",
@@ -112,7 +109,7 @@ export const products: Product[] = [
     name: "Shawarma Meat",
     category: "fast-food",
     price: 120,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-81A5dnbk4YmP5xpjCKx1RaTXxhXLTi.png",
+    image: "/images/image.png",
     description: "Delicious meat shawarma wrap with fresh vegetables",
     longDescription:
       "Tender marinated meat wrapped in fresh pita bread with lettuce, tomatoes, onions, and our special sauce.",
@@ -130,7 +127,7 @@ export const products: Product[] = [
     name: "Shawarma Chicken",
     category: "fast-food",
     price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7FH8Xj3KgISbHQ7mVMKViQVWp27GcO.png",
+    image: "/images/image.png",
     description: "Tasty chicken shawarma with fresh toppings",
     longDescription:
       "Grilled chicken wrapped in soft pita with crisp vegetables and our signature garlic sauce. A customer favorite!",
@@ -147,7 +144,7 @@ export const products: Product[] = [
     name: "Burger",
     category: "fast-food",
     price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-gTzsAxe7oYy0c0lE2jmeeKimlOdLFR.png",
+    image: "/images/image.png",
     description: "Classic beef burger with fresh toppings",
     longDescription:
       "Juicy beef patty with lettuce, tomato, onions, pickles, and our special burger sauce on a toasted bun.",
@@ -164,7 +161,7 @@ export const products: Product[] = [
     name: "Egg Burger",
     category: "fast-food",
     price: 120,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-r1S2SpmLukPNgqRehsvlF7HcQrTS3p.png",
+    image: "/images/image.png",
     description: "Burger with fried egg and beef patty",
     longDescription:
       "Our classic burger topped with a perfectly fried egg. The combination of runny yolk and juicy beef is irresistible!",
@@ -181,7 +178,7 @@ export const products: Product[] = [
     name: "Double Burger",
     category: "fast-food",
     price: 170,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-krCIXFMcSBukIZaTxODUPrSyPPAX9t.png",
+    image: "/images/image.png",
     description: "Double beef patty burger for big appetites",
     longDescription:
       "Two juicy beef patties stacked high with cheese, lettuce, tomato, and our special sauce. For those with a hearty appetite!",
@@ -198,7 +195,7 @@ export const products: Product[] = [
     name: "Ice Cream Small",
     category: "drinks",
     price: 20,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cream-LLQ3LSvijGkqTbPBJicnaMTQOfwUgs.jpg",
+    image: "/images/ice-20cream.jpg",
     description: "Small serving of creamy ice cream",
     longDescription: "Cool and creamy ice cream in various flavors. Perfect for a sweet treat!",
     addOns: [
@@ -213,7 +210,7 @@ export const products: Product[] = [
     name: "Ice Cream Large",
     category: "drinks",
     price: 50,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cream%201-KUmozZfzOikgIjvuN7kYWfQnJAwe2X.jpg",
+    image: "/images/ice-20cream-201.jpg",
     description: "Large serving of delicious ice cream",
     longDescription:
       "Generous portion of our creamy ice cream. Available in multiple flavors to satisfy your sweet tooth.",
@@ -229,8 +226,7 @@ export const products: Product[] = [
     name: "Foofoo with Okra Soup",
     category: "african",
     price: 120,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Foofoo%20okara%20suap-UMxkpqwGcyF8Q9iT8MnWbotSFxipD6.jpg",
+    image: "/images/foofoo-20okara-20suap.jpg",
     description: "Traditional African foofoo with okra soup",
     longDescription:
       "Smooth and stretchy foofoo served with rich okra soup and tender meat. A traditional African staple that's both filling and delicious.",
@@ -247,8 +243,7 @@ export const products: Product[] = [
     name: "Birthday Cake Small",
     category: "bakery",
     price: 350,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%20350-M9U0vI1CYXs9XJxgZXxB7qCn89LYIl.jpg",
+    image: "/images/birthday-20cake-20350.jpg",
     description: "Small birthday cake for intimate celebrations",
     longDescription:
       "Beautiful birthday cake perfect for small gatherings. Available in various flavors and can be customized with a message. For customized designs message on WhatsApp +232 78 891638.",
@@ -263,8 +258,7 @@ export const products: Product[] = [
     name: "Birthday Cake Medium",
     category: "bakery",
     price: 550,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20Cake%20550-aDjYxWfat7XZ0J5d4puKB8EI4ydk1Y.jpg",
+    image: "/images/birthday-20cake-20550.jpg",
     description: "Medium birthday cake for family celebrations",
     longDescription:
       "Perfect sized cake for family birthday celebrations. Choose from chocolate, vanilla, or red velvet flavors. Can be customized with your child's favorite themes! For customized designs message on WhatsApp +232 78 891638.",
@@ -278,8 +272,7 @@ export const products: Product[] = [
     name: "Customize Order",
     category: "bakery",
     price: 0,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%202500-scV0HFXBrDDXf02a6v4vFb4SuVHEpM.jpg",
+    image: "/images/birthday-20cake-202500.jpg",
     description: "Custom birthday cake - message us for your design!",
     longDescription:
       "Large celebration cake perfect for parties. Beautifully decorated with intricate designs. Multiple flavor options available. For customized designs message on WhatsApp +232 78 891638.",
@@ -293,14 +286,13 @@ export const products: Product[] = [
     name: "Customized Cake Design",
     category: "bakery",
     price: 0,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%203-5NN7FvpOc8MZ4Qsf9RBz7flNGiVJ02.jpg",
+    image: "/images/customize-20cake-203.jpg",
     images: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%203-5NN7FvpOc8MZ4Qsf9RBz7flNGiVJ02.jpg",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake-7nOzODXuuEbfptAD3KHT9pEl9RMGZf.jpg",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%204-kAYaKaLtKy2Ilsl1AewccFaaiRfLo8.jpg",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/customize%20Cake%202-ofFoVsnmQLAuxRUxPUC1Ogd1cXrKyi.jpg",
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Birthday%20cake%202500-scV0HFXBrDDXf02a6v4vFb4SuVHEpM.jpg",
+      "/images/customize-20cake-203.jpg",
+      "/images/customize-20cake.jpg",
+      "/images/customize-20cake-204.jpg",
+      "/images/customize-20cake-202.jpg",
+      "/images/birthday-20cake-202500.jpg",
     ],
     description: "Create your dream cake with personalized designs and themes",
     longDescription:
@@ -330,7 +322,7 @@ export const products: Product[] = [
     name: "Banana Bread",
     category: "bakery",
     price: 65,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Banana%20bread-GQZfy18LuYq3tX05fv2wxGMBeIFoNZ.jpg",
+    image: "/images/banana-20bread.jpg",
     description: "Small loaf of homemade banana bread",
     longDescription:
       "Moist and flavorful banana bread made with ripe bananas. Perfect for breakfast or as a snack with tea.",
@@ -360,13 +352,13 @@ export const products: Product[] = [
       {
         id: 2,
         name: "Medium Pizza",
-        price: 300,
+        price: 350,
         description: "Great for 2-3 people",
       },
       {
         id: 3,
         name: "Large Pizza",
-        price: 350,
+        price: 500,
         description: "Feeds 3-4 people",
       },
     ],
@@ -383,9 +375,8 @@ export const products: Product[] = [
     id: 23,
     name: "Sausage Roll",
     category: "bakery",
-    price: 20,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-11-06%20at%2019.18.02_96d1adb7-LioEbKmoGPqnZE2OebJ34yfPrFookY.jpg",
+    price: 15,
+    image: "/images/whatsapp-20image-202025-11-06-20at-2019.jpg",
     description: "Freshly baked sausage rolls",
     longDescription:
       "Golden brown sausage rolls made fresh daily. Flaky pastry wrapped around seasoned sausage meat. Perfect for a quick snack!",
@@ -425,7 +416,7 @@ export const products: Product[] = [
     name: "Coca Cola",
     category: "drinks",
     price: 30,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Cock-OKpuLbq3Smq9JWt4x6RgSVjxpF7N2A.jpeg",
+    image: "/images/cock.jpeg",
     description: "Coca-Cola classic",
     longDescription: "Ice cold Coca-Cola. The classic refreshing cola!",
     addOns: [],
@@ -448,8 +439,7 @@ export const products: Product[] = [
     name: "Fanta",
     category: "drinks",
     price: 30,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ice%20cold%20fanta-qQNGGuht2bRfqVLzznJhdI4U1UuyqA.jpeg",
+    image: "/images/ice-20cold-20fanta.jpeg",
     description: "Fanta Orange",
     longDescription: "Refreshing Fanta Orange soda. Perfect for quenching your thirst on a hot day!",
     addOns: [],
@@ -459,7 +449,7 @@ export const products: Product[] = [
     name: "Kebba",
     category: "african",
     price: 25,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kebba-wTBvhmk8yXmeOjmIfqX8qW9QHd2hTA.jpg",
+    image: "/images/kebba.jpg",
     description: "Traditional African Kebba",
     longDescription:
       "Delicious traditional African kebba, crispy on the outside and flavorful on the inside. A beloved street food delicacy!",
@@ -476,7 +466,7 @@ export const products: Product[] = [
     name: "Laffadie Special",
     category: "african",
     price: 150,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Laffadie%20150-g20b02jrCgZ6rwZHy1YCStGigAa16y.jpg",
+    image: "/images/laffadie-20150.jpg",
     description: "Laffadie rice with sausages and fried items",
     longDescription:
       "A complete Laffadie meal featuring white rice, sausages, crispy fried items, and special spices. A hearty traditional favorite!",
@@ -492,7 +482,7 @@ export const products: Product[] = [
     name: "Maltina",
     category: "drinks",
     price: 35,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Maltina-w1L5rUpnTXcQXagYGs4YutmG3FQMgp.jpeg",
+    image: "/images/maltina.jpeg",
     description: "Maltina Classic Malt Drink",
     longDescription: "Enriched non-alcoholic malt beverage with B vitamins. Smooth, refreshing, and nutritious!",
     addOns: [],
@@ -504,8 +494,7 @@ export const products: Product[] = [
     name: "Lucozade Energy",
     category: "drinks",
     price: 35,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lucozade%20Drink-FMcU3DK8mTtSzZPDnQa37vEbURrpsD.jpg",
+    image: "/images/lucozade-20drink.jpg",
     description: "Lucozade Energy Orange",
     longDescription:
       "Ice-cold Lucozade Energy drink with glucose to keep you powered throughout the day. Refreshing orange flavor!",
@@ -518,7 +507,7 @@ export const products: Product[] = [
     name: "Krain Krain",
     category: "african",
     price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/krain%20krain-6wBSS2WtipNx50vqemm8Zi3hrhP0JZ.jpg",
+    image: "/images/krain-20krain.jpg",
     description: "Traditional Krain Krain stew with meat",
     longDescription:
       "Rich, traditional Krain Krain stew cooked with tender meat, seafood, and special spices. A West African delicacy from Pee's Bakery!",
@@ -536,13 +525,13 @@ export const products: Product[] = [
     name: "Fish Balls",
     category: "african",
     price: 10,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Fish%20Ball-CmEMGPt5srcWX3yNh3w0BBxZ0J4Vga.jpg",
-    description: "Crispy fried fish balls - 10 GMD for 1pc, 100 GMD for 12pcs with veg",
+    image: "/images/fish-20ball.jpg",
+    description: "Crispy fried fish balls - 80 Le for 12pcs with vegetable",
     longDescription:
-      "Golden fried fish balls made with fresh fish and special seasonings. Crispy on the outside, tender on the inside. A popular snack! 10 GMD for 1 piece or 100 GMD for 12 pieces with vegetables.",
+      "Golden fried fish balls made with fresh fish and special seasonings. Crispy on the outside, tender on the inside. A popular snack! 10 Le for 1 piece or 80 Le for 12 pieces with vegetables.",
     addOns: [
       { id: 70, name: "Extra Sauce", price: 5 },
-      { id: 71, name: "12 Pieces with Veg", price: 90 },
+      { id: 71, name: "12 Pieces with Veg", price: 80 },
     ],
     rating: 4.6,
     reviewCount: 134,
@@ -552,7 +541,7 @@ export const products: Product[] = [
     name: "Chicken Balls",
     category: "fast-food",
     price: 80,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chinken%20ball-WvE4Dpis0CBmTAf5gFdFRsy4ADphap.jpg",
+    image: "/images/chinken-20ball.jpg",
     description: "Pack of 12 crispy chicken balls with vegetables",
     longDescription:
       "Golden fried chicken balls made with tender chicken and special seasonings. Pack of 12 pieces served with fresh vegetables. Perfect for sharing!",
@@ -568,7 +557,7 @@ export const products: Product[] = [
     name: "Meat Pie",
     category: "bakery",
     price: 20,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-t03EuVJC5nGswH4Ge3oFoeqOgpkXve.png",
+    image: "/images/image.png",
     description: "Freshly baked meat pie",
     longDescription:
       "Flaky pastry filled with seasoned ground beef and vegetables. Baked fresh daily. Perfect for a quick snack or light meal!",
@@ -584,8 +573,7 @@ export const products: Product[] = [
     name: "Gizzard on Stick",
     category: "african",
     price: 20,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Gizzard%20on%20stick-UyeDFuvx2zlLX1Uuikuf1s6N5TyXZb.jpg",
+    image: "/images/gizzard-20on-20stick.jpg",
     description: "Tender grilled gizzards on stick",
     longDescription:
       "Succulent grilled gizzards seasoned with African spices and grilled to perfection. A delicious street food favorite!",
@@ -601,7 +589,7 @@ export const products: Product[] = [
     name: "Pork Stick",
     category: "african",
     price: 35,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-eUyuX1lq5xrLPr5Dcgh0RXAWKiSbnL.png",
+    image: "/images/image.png",
     description: "Grilled pork on stick",
     longDescription:
       "Tender pork pieces marinated and grilled on skewers. Juicy, flavorful, and perfectly seasoned. A popular street food choice!",
@@ -617,7 +605,7 @@ export const products: Product[] = [
     name: "Spring Roll",
     category: "fast-food",
     price: 10,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-xpdUD2p9dsLHOIEuACjAeNyRgxlAHe.png",
+    image: "/images/image.png",
     description: "Crispy vegetable spring roll",
     longDescription:
       "Crispy fried spring rolls filled with mixed vegetables and special seasonings. Perfect as a snack or appetizer!",
@@ -650,7 +638,7 @@ export const products: Product[] = [
     name: "Bread",
     category: "bakery",
     price: 25,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bread-Nz38OenycM4E2YYmfg2gv5m0xWgW1D.jpg",
+    image: "/images/bread.jpg",
     description: "Fresh baked bread loaf",
     longDescription:
       "Soft and fresh white bread loaf baked daily. Perfect for sandwiches or toast. Made with quality ingredients!",
@@ -666,7 +654,7 @@ export const products: Product[] = [
     name: "Brown Bread",
     category: "bakery",
     price: 35,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Brown%20Bread-fPUByO1zeZwRvqkOXTo68ewmOmQB0c.jpg",
+    image: "/images/brown-20bread.jpg",
     description: "Healthy whole wheat brown bread",
     longDescription:
       "Nutritious brown bread made with whole wheat flour. Higher in fiber and perfect for a healthy diet. Freshly baked!",
@@ -682,7 +670,7 @@ export const products: Product[] = [
     name: "Grilled Fish Selection",
     category: "african",
     price: 350,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Grilled%20fish-K9r93nch5a9rNEF4aZRPWCBLljQmvX.jpg",
+    image: "/images/grilled-20fish.jpg",
     description: "Choose from our selection of grilled fish options",
     longDescription:
       "Select your preferred grilled fish option from our menu. All options are grilled to perfection with our special blend of spices and served with delicious sides!",
@@ -726,7 +714,7 @@ export const products: Product[] = [
     name: "Chin Chin",
     category: "bakery",
     price: 20,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chin%20chin-EymquYewookdYTUoBiO4nMHzpZphmU.jpg",
+    image: "/images/chin-20chin.jpg",
     description: "Crunchy West African chin chin",
     longDescription:
       "Traditional West African crunchy snack made with flour, sugar, and spices. Sweet, crispy, and perfect for munching anytime!",
@@ -787,7 +775,7 @@ export const products: Product[] = [
     name: "Beans",
     category: "african",
     price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bean%27s-hyAASVJdcpCw97CJlPObKFtuFUcILs.jpg",
+    image: "/images/bean-27s.jpg",
     description: "Rich and savory beans",
     longDescription:
       "Traditional beans cooked with meat and vegetables. Flavorful and satisfying. A West African classic!",
@@ -817,7 +805,7 @@ export const products: Product[] = [
     name: "Rice or Bulgur",
     category: "african",
     price: 100,
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bulgur-51MinKIMuIfRwxBQGL3GKgxQyl9lm5.jpg",
+    image: "/images/bulgur.jpg",
     description: "White rice or bulgur wheat side dish",
     longDescription:
       "Choose between fluffy white rice or nutritious bulgur wheat. Perfect as a side or base for your favorite African stew!",
@@ -896,8 +884,7 @@ export const products: Product[] = [
     price: 15,
     image: "/sierra-juice.jpg",
     description: "Sierra Premium Juice Bottle",
-    longDescription:
-      "Premium Sierra juice in convenient bottle. Refreshing and delicious!",
+    longDescription: "Premium Sierra juice in convenient bottle. Refreshing and delicious!",
     addOns: [],
   },
   {
@@ -926,239 +913,24 @@ export const products: Product[] = [
     addOns: [],
   },
   {
-    id: 53,
-    name: "Schweppes",
-    category: "drinks",
-    price: 65,
-    image: "/schweppes.jpg",
-    description: "Schweppes Carbonated Drinks",
+    id: 64,
+    name: "Fish in Batta",
+    category: "african",
+    price: 25,
+    image: "/fish-in-batta.jpg",
+    description: "Crispy fish in batter",
     longDescription:
-      "Classic Schweppes carbonated drinks. Crisp, refreshing, and perfect for mixing or enjoying on its own!",
-    variants: [
-      {
-        id: 1,
-        name: "Schweppes Soda Water",
-        price: 65,
-        description: "Carbonated soda water",
-      },
-      {
-        id: 2,
-        name: "Schweppes Tonic Water",
-        price: 65,
-        description: "Carbonated tonic water",
-      },
-    ],
-    addOns: [],
+      "Fresh fish fillet coated in a light, crispy batter and fried to golden perfection. A delicious snack or side dish.",
+    addOns: [{ id: 111, name: "Extra Sauce", price: 5 }],
   },
   {
-    id: 54,
-    name: "X-tra Juice",
-    category: "drinks",
-    price: 35,
-    image: "/xtra-juice.jpg",
-    description: "X-tra Premium Bottled Juice - Multiple flavors",
-    longDescription:
-      "Premium X-tra brand bottled juice enriched with vitamins. Available in Pineapple, Exotic, and other delicious flavors!",
-    variants: [
-      {
-        id: 1,
-        name: "X-tra Pineapple",
-        price: 35,
-        description: "Pineapple juice",
-      },
-      {
-        id: 2,
-        name: "X-tra Exotic",
-        price: 35,
-        description: "Exotic fruit juice",
-      },
-      {
-        id: 3,
-        name: "X-tra Orange",
-        price: 35,
-        description: "Orange juice",
-      },
-    ],
-    addOns: [],
-  },
-  {
-    id: 55,
-    name: "Vita Milk",
-    category: "drinks",
-    price: 35,
-    image: "/vita-milk.jpg",
-    description: "Vita Milk Soy Drinks - Multiple flavors",
-    longDescription:
-      "Delicious Vita Milk soy drinks. 25% protein, enriched with vitamins and calcium. Nutritious and tasty!",
-    variants: [
-      {
-        id: 1,
-        name: "Vita Milk Banana",
-        price: 35,
-        description: "Banana flavored soy drink",
-      },
-      {
-        id: 2,
-        name: "Vita Milk Double Choco",
-        price: 35,
-        description: "Double chocolate shake",
-      },
-    ],
-    addOns: [],
-  },
-  {
-    id: 56,
-    name: "Fontana Juice",
-    category: "drinks",
-    price: 85,
-    image: "/fontana-juice.jpg",
-    description: "Fontana Refreshing Juice - Multiple flavors",
-    longDescription: "Delicious Fontana juice in convenient cartons. Fresh, sweet, and refreshing tropical flavors!",
-    variants: [
-      {
-        id: 1,
-        name: "Fontana Pineapple Juice",
-        price: 85,
-        description: "Pineapple juice",
-      },
-      {
-        id: 2,
-        name: "Fontana Cranberry Juice",
-        price: 85,
-        description: "Cranberry juice",
-      },
-    ],
-    addOns: [],
-  },
-  {
-    id: 57,
-    name: "Countre Milk",
-    category: "drinks",
-    price: 55,
-    image: "/countre-milk.jpg",
-    description: "Countre Dairy Milk - Multiple flavors",
-    longDescription: "Delicious Countre milk products. Creamy, sweet, and packed with nutrients. Perfect for any time!",
-    variants: [
-      {
-        id: 1,
-        name: "Countre Banana Milk",
-        price: 55,
-        description: "Banana flavored whole milk",
-      },
-      {
-        id: 2,
-        name: "Countre Whole Milk",
-        price: 55,
-        description: "UHT whole milk",
-      },
-      {
-        id: 3,
-        name: "Countre Vanilla Milk",
-        price: 55,
-        description: "Vanilla full cream milk",
-      },
-    ],
-    addOns: [],
-  },
-  {
-    id: 58,
-    name: "Aloe Vera Drink",
-    category: "drinks",
-    price: 45,
-    image: "/aloe-vera-drink.jpg",
-    description: "Vinut Aloe Vera Original Drink",
-    longDescription: "Refreshing Vinut aloe vera drink with real aloe vera pieces. Healthy, hydrating, and delicious!",
-    addOns: [],
-  },
-  {
-    id: 59,
-    name: "Don Simon Juice",
-    category: "drinks",
-    price: 85,
-    image: "/don-simon-juice.jpg",
-    description: "Don Simon Premium Juice 1L - Multiple flavors",
-    longDescription: "Premium Don Simon juice in large 1L cartons. Bursting with fruit flavors!",
-    variants: [
-      {
-        id: 1,
-        name: "Don Simon Tropical",
-        price: 85,
-        description: "Tropical fruit juice",
-      },
-      {
-        id: 2,
-        name: "Don Simon Orange",
-        price: 85,
-        description: "Orange juice",
-      },
-      {
-        id: 3,
-        name: "Don Simon Pineapple",
-        price: 85,
-        description: "Pineapple juice",
-      },
-    ],
-    addOns: [],
-  },
-  {
-    id: 60,
-    name: "Ceres Juice",
-    category: "drinks",
-    price: 100,
-    image: "/ceres-juice.jpg",
-    description: "Ceres 100% Fruit Juice - Multiple flavors",
-    longDescription:
-      "Premium Ceres 100% fruit juice in 1L boxes. Available in Mango, Apple, Pineapple, and more delicious flavors!",
-    variants: [
-      {
-        id: 1,
-        name: "Ceres Mango",
-        price: 100,
-        description: "100% mango juice",
-      },
-      {
-        id: 2,
-        name: "Ceres Apple",
-        price: 100,
-        description: "100% apple juice",
-      },
-      {
-        id: 3,
-        name: "Ceres Pineapple",
-        price: 100,
-        description: "100% pineapple juice",
-      },
-    ],
-    addOns: [],
-  },
-  {
-    id: 61,
-    name: "Small Robber Drink",
-    category: "drinks",
-    price: 10,
-    image: "/small-robber-drink.jpg",
-    description: "Small plastic bottle soft drinks",
-    longDescription: "Small plastic bottle soft drinks. Perfect size for a quick refreshment!",
-    variants: [
-      {
-        id: 1,
-        name: "Sprite",
-        price: 10,
-        description: "Lemon-lime soda",
-      },
-      {
-        id: 2,
-        name: "Coca-Cola",
-        price: 10,
-        description: "Classic cola",
-      },
-      {
-        id: 3,
-        name: "Fanta",
-        price: 10,
-        description: "Orange soda",
-      },
-    ],
+    id: 65,
+    name: "Cup Cake",
+    category: "bakery",
+    price: 15,
+    image: "/cupcake.png",
+    description: "Sweet and fluffy cupcake",
+    longDescription: "Deliciously moist cupcake topped with creamy frosting and sprinkles. The perfect sweet treat!",
     addOns: [],
   },
 ]
