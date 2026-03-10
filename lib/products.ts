@@ -23,7 +23,7 @@ export const products: Product[] = [
     id: 2,
     name: "Whole Chicken",
     category: "african",
-    price: 250,
+    price: 300,
     image: "/whole-chicken-new.jpg", // Updated to new whole chicken image with fries and coleslaw
     description: "Perfectly roasted whole chicken with seasoning",
     longDescription:
@@ -41,7 +41,7 @@ export const products: Product[] = [
     id: 3,
     name: "Half Chicken",
     category: "african",
-    price: 150,
+    price: 250,
     image: "/images/half-20chinken.jpg",
     description: "Half roasted chicken with special seasoning",
     longDescription:
@@ -81,6 +81,20 @@ export const products: Product[] = [
     description: "Flavorful fried rice with seasoned grilled fish",
     longDescription:
       "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal.",
+    variants: [
+      {
+        id: 1,
+        name: "Regular Size",
+        price: 250,
+        description: "Regular portion"
+      },
+      {
+        id: 2,
+        name: "Large Size",
+        price: 350,
+        description: "Large portion"
+      }
+    ],
     addOns: [
       { id: 12, name: "Extra Fish", price: 40 },
       { id: 13, name: "Plantain", price: 15 },
@@ -92,11 +106,25 @@ export const products: Product[] = [
     id: 6,
     name: "Fried Rice and Chicken",
     category: "african",
-    price: 180,
+    price: 250,
     image: "/images/fride-20rice-20and-20chicken.jpg",
     description: "Tasty fried rice with tender chicken",
     longDescription:
       "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner.",
+    variants: [
+      {
+        id: 1,
+        name: "Regular Size",
+        price: 250,
+        description: "Regular portion"
+      },
+      {
+        id: 2,
+        name: "Large Size",
+        price: 350,
+        description: "Large portion"
+      }
+    ],
     addOns: [
       { id: 14, name: "Extra Chicken", price: 30 },
       { id: 15, name: "Coleslaw", price: 10 },
@@ -836,17 +864,6 @@ export const products: Product[] = [
     reviewCount: 187,
   },
   {
-    id: 51,
-    name: "Savanna Cider",
-    category: "drinks",
-    price: 50,
-    image: "/savanna-cider.jpg",
-    description: "Savanna Premium Dry Cider",
-    longDescription:
-      "Refreshing Savanna Premium Dry Cider. Crisp, cold, and perfect for any occasion. Enjoy the taste of premium cider!",
-    addOns: [],
-  },
-  {
     id: 52,
     name: "Sierra Box Juice",
     category: "drinks",
@@ -933,6 +950,36 @@ export const products: Product[] = [
     longDescription: "Deliciously moist cupcake topped with creamy frosting and sprinkles. The perfect sweet treat!",
     addOns: [],
   },
+  {
+    id: 66,
+    name: "Actater and Chicken",
+    category: "african",
+    price: 200,
+    image: "/images/actater-chicken.jpg",
+    description: "Actater served with delicious chicken",
+    longDescription: "Traditional Actater dish served with nicely seasoned chicken and special sauce.",
+    addOns: [{ id: 112, name: "Extra Chicken", price: 30 }]
+  },
+  {
+    id: 67,
+    name: "Actater and Fish",
+    category: "african",
+    price: 300,
+    image: "/images/actater-fish.jpg",
+    description: "Actater served with grilled fish",
+    longDescription: "Traditional Actater dish served with tasty grilled fish and special sauce.",
+    addOns: [{ id: 113, name: "Extra Fish", price: 40 }]
+  },
+  {
+    id: 68,
+    name: "Actater and Goat",
+    category: "african",
+    price: 400,
+    image: "/images/actater-goat.jpg",
+    description: "Actater served with tender goat meat",
+    longDescription: "Traditional Actater dish served with tender, flavorful goat meat and special sauce.",
+    addOns: [{ id: 114, name: "Extra Goat Meat", price: 50 }]
+  }
 ]
 
 export const categories = [
