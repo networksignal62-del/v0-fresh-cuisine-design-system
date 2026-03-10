@@ -23,7 +23,7 @@ export const products: Product[] = [
     id: 2,
     name: "Whole Chicken",
     category: "african",
-    price: 250,
+    price: 300,
     image: "/whole-chicken-new.jpg", // Updated to new whole chicken image with fries and coleslaw
     description: "Perfectly roasted whole chicken with seasoning",
     longDescription:
@@ -41,7 +41,7 @@ export const products: Product[] = [
     id: 3,
     name: "Half Chicken",
     category: "african",
-    price: 150,
+    price: 250,
     image: "/images/half-20chinken.jpg",
     description: "Half roasted chicken with special seasoning",
     longDescription:
@@ -78,9 +78,23 @@ export const products: Product[] = [
     category: "african",
     price: 250,
     image: "/images/fried-20rice-20and-20grilled-c2-a0fish.jpg",
-    description: "Flavorful fried rice with seasoned grilled fish",
+    description: "Flavorful fried rice with seasoned grilled fish - Choose your size!",
     longDescription:
-      "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal.",
+      "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal. Available in Small (250 Le) and Large (350 Le) sizes!",
+    variants: [
+      {
+        id: 1,
+        name: "Small Size",
+        price: 250,
+        description: "Regular portion",
+      },
+      {
+        id: 2,
+        name: "Large Size",
+        price: 350,
+        description: "Extra large portion",
+      },
+    ],
     addOns: [
       { id: 12, name: "Extra Fish", price: 40 },
       { id: 13, name: "Plantain", price: 15 },
@@ -92,11 +106,25 @@ export const products: Product[] = [
     id: 6,
     name: "Fried Rice and Chicken",
     category: "african",
-    price: 180,
+    price: 250,
     image: "/images/fride-20rice-20and-20chicken.jpg",
-    description: "Tasty fried rice with tender chicken",
+    description: "Tasty fried rice with tender chicken - Choose your size!",
     longDescription:
-      "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner.",
+      "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner. Available in Small (250 Le) and Large (350 Le) sizes!",
+    variants: [
+      {
+        id: 1,
+        name: "Small Size",
+        price: 250,
+        description: "Regular portion",
+      },
+      {
+        id: 2,
+        name: "Large Size",
+        price: 350,
+        description: "Extra large portion",
+      },
+    ],
     addOns: [
       { id: 14, name: "Extra Chicken", price: 30 },
       { id: 15, name: "Coleslaw", price: 10 },
@@ -835,17 +863,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 187,
   },
-  {
-    id: 51,
-    name: "Savanna Cider",
-    category: "drinks",
-    price: 50,
-    image: "/savanna-cider.jpg",
-    description: "Savanna Premium Dry Cider",
-    longDescription:
-      "Refreshing Savanna Premium Dry Cider. Crisp, cold, and perfect for any occasion. Enjoy the taste of premium cider!",
-    addOns: [],
-  },
+
   {
     id: 52,
     name: "Sierra Box Juice",
@@ -932,6 +950,58 @@ export const products: Product[] = [
     description: "Sweet and fluffy cupcake",
     longDescription: "Deliciously moist cupcake topped with creamy frosting and sprinkles. The perfect sweet treat!",
     addOns: [],
+  },
+  {
+    id: 66,
+    name: "Acheke and Chicken",
+    category: "african",
+    price: 200,
+    image: "/acheke-african-dish.jpg",
+    description: "Traditional Acheke with grilled chicken",
+    longDescription:
+      "Authentic West African Acheke (attieke) - fermented cassava couscous served with tender grilled chicken. A delicious and filling traditional meal!",
+    addOns: [
+      { id: 112, name: "Extra Chicken", price: 50 },
+      { id: 113, name: "Extra Acheke", price: 30 },
+      { id: 114, name: "Extra Sauce", price: 10 },
+    ],
+    featured: true,
+    rating: 4.8,
+    reviewCount: 156,
+  },
+  {
+    id: 67,
+    name: "Acheke and Fish",
+    category: "african",
+    price: 300,
+    image: "/acheke-african-dish.jpg",
+    description: "Traditional Acheke with grilled fish",
+    longDescription:
+      "Authentic West African Acheke (attieke) - fermented cassava couscous served with perfectly grilled fish. A delicious and filling traditional meal!",
+    addOns: [
+      { id: 115, name: "Extra Fish", price: 60 },
+      { id: 116, name: "Extra Acheke", price: 30 },
+      { id: 117, name: "Extra Sauce", price: 10 },
+    ],
+    rating: 4.9,
+    reviewCount: 178,
+  },
+  {
+    id: 68,
+    name: "Acheke and Goat",
+    category: "african",
+    price: 400,
+    image: "/acheke-african-dish.jpg",
+    description: "Traditional Acheke with grilled goat meat",
+    longDescription:
+      "Authentic West African Acheke (attieke) - fermented cassava couscous served with succulent grilled goat meat. A premium traditional delicacy!",
+    addOns: [
+      { id: 118, name: "Extra Goat Meat", price: 80 },
+      { id: 119, name: "Extra Acheke", price: 30 },
+      { id: 120, name: "Extra Sauce", price: 10 },
+    ],
+    rating: 4.9,
+    reviewCount: 134,
   },
 ]
 
