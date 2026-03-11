@@ -1,11 +1,11 @@
 # Product Requirements Document (PRD)
-# Pee's Bakery & Restaurant - Admin Panel
+# Pee's Bakery & Restaurant — Admin Panel & Supabase Integration
 
 ## Document Information
 - **Project Name:** Pee's Bakery Admin Dashboard
-- **Version:** 1.0
+- **Version:** 1.1
 - **Date:** March 2026
-- **Status:** Ready for Development
+- **Status:** Phase 1 Complete — In Active Development
 
 ---
 
@@ -482,9 +482,22 @@ SUPABASE_SERVICE_ROLE_KEY=xxx (for admin operations)
 ```
 
 ### 12.2 First Admin Setup
-1. Create user via Supabase Auth
-2. Set `is_admin: true` in user_metadata
-3. Insert record in `admin_profiles` table
+1. Go to your Supabase project > **Authentication > Users > Add User**.
+2. Enter the admin email and a secure password. Copy the new user's UUID.
+3. Run the following SQL in the Supabase SQL Editor:
+
+```sql
+INSERT INTO public.admin_profiles (id, email, full_name, role, is_active)
+VALUES (
+  '<paste-user-uuid-here>',
+  'admin@peesbakery.com',
+  'Pee',
+  'super_admin',
+  true
+);
+```
+
+4. Visit `/admin/login` and sign in with the email and password.
 
 ---
 
@@ -504,22 +517,24 @@ SUPABASE_SERVICE_ROLE_KEY=xxx (for admin operations)
 ## 14. Acceptance Criteria
 
 ### 14.1 Must Have (MVP)
-- [ ] Admin login with role verification
-- [ ] Dashboard with order stats
-- [ ] Orders list with status management
-- [ ] Products CRUD with images
-- [ ] Categories management
-- [ ] Basic settings
+- [x] Admin login with role verification — `/app/admin/login/page.tsx`
+- [x] Dashboard with order stats — `/app/admin/page.tsx`
+- [x] Orders list with status management — `/app/admin/page.tsx`
+- [x] Products CRUD with image path — `/app/admin/products/page.tsx`
+- [x] Orders saved to Supabase on checkout — `/lib/actions/orders.ts`
+- [x] All database tables created with RLS — Supabase migration applied
+- [ ] Admin Settings page — `/app/admin/settings/page.tsx` (Phase 2)
+- [ ] Categories management — `/app/admin/categories/page.tsx` (Phase 2)
 
 ### 14.2 Should Have
-- [ ] Real-time order notifications
-- [ ] Product preview
-- [ ] Order printing
-- [ ] Bulk actions
+- [x] Real-time order notifications via Supabase Realtime
+- [ ] Product image upload via Vercel Blob (Phase 2)
+- [ ] Order printing / WhatsApp quick action (Phase 2)
+- [ ] Bulk product actions (Phase 2)
 
 ### 14.3 Nice to Have
 - [ ] Analytics charts
-- [ ] Dark mode
+- [ ] Customer order tracking page
 - [ ] Mobile app-like experience
 
 ---

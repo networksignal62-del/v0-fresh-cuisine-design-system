@@ -1,5 +1,5 @@
--- Pee's Bakery Database Schema
--- This script creates all necessary tables for the restaurant management system
+-- Pee's Bakery Database Schema - Part 1
+-- Creates all main tables (no auth dependency)
 
 -- =====================================================
 -- PRODUCTS TABLE
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS public.product_addons (
 );
 
 -- =====================================================
--- PRODUCT IMAGES TABLE (for multiple images)
+-- PRODUCT IMAGES TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS public.product_images (
   id SERIAL PRIMARY KEY,
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS public.order_items (
 );
 
 -- =====================================================
--- ADMIN USERS TABLE (profiles for admin access)
+-- ADMIN PROFILES TABLE
 -- =====================================================
 CREATE TABLE IF NOT EXISTS public.admin_profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -140,93 +140,106 @@ ALTER TABLE public.admin_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
 
 -- =====================================================
--- RLS POLICIES - PRODUCTS (Public read, Admin write)
+-- RLS POLICIES - PRODUCTS
 -- =====================================================
+DROP POLICY IF EXISTS "Products are viewable by everyone" ON public.products;
 CREATE POLICY "Products are viewable by everyone" ON public.products
   FOR SELECT USING (is_active = true);
 
+DROP POLICY IF EXISTS "Admins can manage products" ON public.products;
 CREATE POLICY "Admins can manage products" ON public.products
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
 -- =====================================================
--- RLS POLICIES - PRODUCT VARIANTS (Public read, Admin write)
+-- RLS POLICIES - PRODUCT VARIANTS
 -- =====================================================
+DROP POLICY IF EXISTS "Product variants are viewable by everyone" ON public.product_variants;
 CREATE POLICY "Product variants are viewable by everyone" ON public.product_variants
   FOR SELECT USING (true);
 
+DROP POLICY IF EXISTS "Admins can manage product variants" ON public.product_variants;
 CREATE POLICY "Admins can manage product variants" ON public.product_variants
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
 -- =====================================================
--- RLS POLICIES - PRODUCT ADDONS (Public read, Admin write)
+-- RLS POLICIES - PRODUCT ADDONS
 -- =====================================================
+DROP POLICY IF EXISTS "Product addons are viewable by everyone" ON public.product_addons;
 CREATE POLICY "Product addons are viewable by everyone" ON public.product_addons
   FOR SELECT USING (true);
 
+DROP POLICY IF EXISTS "Admins can manage product addons" ON public.product_addons;
 CREATE POLICY "Admins can manage product addons" ON public.product_addons
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
 -- =====================================================
--- RLS POLICIES - PRODUCT IMAGES (Public read, Admin write)
+-- RLS POLICIES - PRODUCT IMAGES
 -- =====================================================
+DROP POLICY IF EXISTS "Product images are viewable by everyone" ON public.product_images;
 CREATE POLICY "Product images are viewable by everyone" ON public.product_images
   FOR SELECT USING (true);
 
+DROP POLICY IF EXISTS "Admins can manage product images" ON public.product_images;
 CREATE POLICY "Admins can manage product images" ON public.product_images
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
 -- =====================================================
--- RLS POLICIES - CATEGORIES (Public read, Admin write)
+-- RLS POLICIES - CATEGORIES
 -- =====================================================
+DROP POLICY IF EXISTS "Categories are viewable by everyone" ON public.categories;
 CREATE POLICY "Categories are viewable by everyone" ON public.categories
   FOR SELECT USING (is_active = true);
 
+DROP POLICY IF EXISTS "Admins can manage categories" ON public.categories;
 CREATE POLICY "Admins can manage categories" ON public.categories
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
 -- =====================================================
--- RLS POLICIES - ORDERS (Customers can create, Admins can view all)
+-- RLS POLICIES - ORDERS
 -- =====================================================
+DROP POLICY IF EXISTS "Anyone can create orders" ON public.orders;
 CREATE POLICY "Anyone can create orders" ON public.orders
   FOR INSERT WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Admins can view all orders" ON public.orders;
 CREATE POLICY "Admins can view all orders" ON public.orders
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
+DROP POLICY IF EXISTS "Admins can update orders" ON public.orders;
 CREATE POLICY "Admins can update orders" ON public.orders
   FOR UPDATE USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
@@ -234,13 +247,15 @@ CREATE POLICY "Admins can update orders" ON public.orders
 -- =====================================================
 -- RLS POLICIES - ORDER ITEMS
 -- =====================================================
+DROP POLICY IF EXISTS "Anyone can create order items" ON public.order_items;
 CREATE POLICY "Anyone can create order items" ON public.order_items
   FOR INSERT WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Admins can view all order items" ON public.order_items;
 CREATE POLICY "Admins can view all order items" ON public.order_items
   FOR SELECT USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
@@ -248,13 +263,15 @@ CREATE POLICY "Admins can view all order items" ON public.order_items
 -- =====================================================
 -- RLS POLICIES - ADMIN PROFILES
 -- =====================================================
+DROP POLICY IF EXISTS "Admins can view their own profile" ON public.admin_profiles;
 CREATE POLICY "Admins can view their own profile" ON public.admin_profiles
   FOR SELECT USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Super admins can manage all admin profiles" ON public.admin_profiles;
 CREATE POLICY "Super admins can manage all admin profiles" ON public.admin_profiles
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND role = 'super_admin' AND is_active = true
     )
   );
@@ -262,19 +279,21 @@ CREATE POLICY "Super admins can manage all admin profiles" ON public.admin_profi
 -- =====================================================
 -- RLS POLICIES - SITE SETTINGS
 -- =====================================================
+DROP POLICY IF EXISTS "Site settings are viewable by everyone" ON public.site_settings;
 CREATE POLICY "Site settings are viewable by everyone" ON public.site_settings
   FOR SELECT USING (true);
 
+DROP POLICY IF EXISTS "Admins can manage site settings" ON public.site_settings;
 CREATE POLICY "Admins can manage site settings" ON public.site_settings
   FOR ALL USING (
     EXISTS (
-      SELECT 1 FROM public.admin_profiles 
+      SELECT 1 FROM public.admin_profiles
       WHERE id = auth.uid() AND is_active = true
     )
   );
 
 -- =====================================================
--- INDEXES FOR BETTER PERFORMANCE
+-- INDEXES
 -- =====================================================
 CREATE INDEX IF NOT EXISTS idx_products_category ON public.products(category);
 CREATE INDEX IF NOT EXISTS idx_products_featured ON public.products(featured);
