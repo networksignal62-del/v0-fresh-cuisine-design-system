@@ -11,6 +11,7 @@ import { useCart } from "@/hooks/use-cart"
 import { formatPrice, generateOrderReference, calculateEstimatedDelivery } from "@/lib/utils-app"
 import type { Order, Customer, DeliveryAddress } from "@/lib/types"
 import { OrderConfirmationModal } from "@/components/order-confirmation-modal"
+import { saveOrder } from "@/lib/actions/orders"
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -102,6 +103,36 @@ export default function CheckoutPage() {
 
     try {
       const orderRef = generateOrderReference()
+
+      // Save order to Supabase
+      const deliveryMethodMapped =
+        deliveryOption === "pickup" ? "pickup" : "delivery"
+      const paymentMethodMapped =
+        paymentMethod === "orange-money"
+          ? "orange_money"
+          : paymentMethod === "vault"
+          ? "afrimoney"
+          : "cash"
+
+      await saveOrder({
+        customerName: customer.name,
+        customerPhone: customer.phone,
+        customerAddress: `${deliveryAddress.street}, ${deliveryAddress.city} ${deliveryAddress.zipCode}${deliveryAddress.instructions ? ` - ${deliveryAddress.instructions}` : ""}`,
+        deliveryMethod: deliveryMethodMapped,
+        paymentMethod: paymentMethodMapped,
+        subtotal,
+        deliveryFee,
+        total,
+        notes: deliveryAddress.instructions,
+        items: orderItems.map((item) => ({
+          productId: item.product.id,
+          productName: item.product.name,
+          variantName: item.selectedVariant?.name,
+          quantity: item.quantity,
+          unitPrice: item.product.price,
+          totalPrice: item.totalPrice,
+        })),
+      })
       console.log("[v0] Generated order reference:", orderRef)
 
       const order: Order = {

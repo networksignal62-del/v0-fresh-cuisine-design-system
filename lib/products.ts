@@ -1,5 +1,6 @@
 import type { Product } from "./types"
 
+// Products data for Pee's Bakery & Restaurant
 export const products: Product[] = [
   {
     id: 1,
@@ -78,22 +79,22 @@ export const products: Product[] = [
     category: "african",
     price: 250,
     image: "/images/fried-20rice-20and-20grilled-c2-a0fish.jpg",
-    description: "Flavorful fried rice with seasoned grilled fish",
+    description: "Flavorful fried rice with seasoned grilled fish - Choose your size!",
     longDescription:
-      "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal.",
+      "Our special fried rice loaded with vegetables and served with perfectly grilled fish, fresh coleslaw, and fried plantains. A complete and satisfying meal. Available in Small (250 Le) and Large (350 Le) sizes!",
     variants: [
       {
         id: 1,
-        name: "Regular Size",
+        name: "Small Size",
         price: 250,
-        description: "Regular portion"
+        description: "Regular portion",
       },
       {
         id: 2,
         name: "Large Size",
         price: 350,
-        description: "Large portion"
-      }
+        description: "Extra large portion",
+      },
     ],
     addOns: [
       { id: 12, name: "Extra Fish", price: 40 },
@@ -108,22 +109,22 @@ export const products: Product[] = [
     category: "african",
     price: 250,
     image: "/images/fride-20rice-20and-20chicken.jpg",
-    description: "Tasty fried rice with tender chicken",
+    description: "Tasty fried rice with tender chicken - Choose your size!",
     longDescription:
-      "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner.",
+      "Delicious fried rice with mixed vegetables and tender chicken pieces. A popular choice for lunch or dinner. Available in Small (250 Le) and Large (350 Le) sizes!",
     variants: [
       {
         id: 1,
-        name: "Regular Size",
+        name: "Small Size",
         price: 250,
-        description: "Regular portion"
+        description: "Regular portion",
       },
       {
         id: 2,
         name: "Large Size",
         price: 350,
-        description: "Large portion"
-      }
+        description: "Extra large portion",
+      },
     ],
     addOns: [
       { id: 14, name: "Extra Chicken", price: 30 },
@@ -863,6 +864,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 187,
   },
+
   {
     id: 52,
     name: "Sierra Box Juice",
@@ -952,36 +954,59 @@ export const products: Product[] = [
   },
   {
     id: 66,
-    name: "Actater and Chicken",
+    name: "Acheke and Chicken",
     category: "african",
     price: 200,
-    image: "/images/actater-chicken.jpg",
-    description: "Actater served with delicious chicken",
-    longDescription: "Traditional Actater dish served with nicely seasoned chicken and special sauce.",
-    addOns: [{ id: 112, name: "Extra Chicken", price: 30 }]
+    image: "/acheke-african-dish.jpg",
+    description: "Traditional Acheke with grilled chicken",
+    longDescription:
+      "Authentic West African Acheke (attieke) - fermented cassava couscous served with tender grilled chicken. A delicious and filling traditional meal!",
+    addOns: [
+      { id: 112, name: "Extra Chicken", price: 50 },
+      { id: 113, name: "Extra Acheke", price: 30 },
+      { id: 114, name: "Extra Sauce", price: 10 },
+    ],
+    featured: true,
+    rating: 4.8,
+    reviewCount: 156,
   },
   {
     id: 67,
-    name: "Actater and Fish",
+    name: "Acheke and Fish",
     category: "african",
     price: 300,
-    image: "/images/actater-fish.jpg",
-    description: "Actater served with grilled fish",
-    longDescription: "Traditional Actater dish served with tasty grilled fish and special sauce.",
-    addOns: [{ id: 113, name: "Extra Fish", price: 40 }]
+    image: "/acheke-african-dish.jpg",
+    description: "Traditional Acheke with grilled fish",
+    longDescription:
+      "Authentic West African Acheke (attieke) - fermented cassava couscous served with perfectly grilled fish. A delicious and filling traditional meal!",
+    addOns: [
+      { id: 115, name: "Extra Fish", price: 60 },
+      { id: 116, name: "Extra Acheke", price: 30 },
+      { id: 117, name: "Extra Sauce", price: 10 },
+    ],
+    rating: 4.9,
+    reviewCount: 178,
   },
   {
     id: 68,
-    name: "Actater and Goat",
+    name: "Acheke and Goat",
     category: "african",
     price: 400,
-    image: "/images/actater-goat.jpg",
-    description: "Actater served with tender goat meat",
-    longDescription: "Traditional Actater dish served with tender, flavorful goat meat and special sauce.",
-    addOns: [{ id: 114, name: "Extra Goat Meat", price: 50 }]
-  }
+    image: "/acheke-african-dish.jpg",
+    description: "Traditional Acheke with grilled goat meat",
+    longDescription:
+      "Authentic West African Acheke (attieke) - fermented cassava couscous served with succulent grilled goat meat. A premium traditional delicacy!",
+    addOns: [
+      { id: 118, name: "Extra Goat Meat", price: 80 },
+      { id: 119, name: "Extra Acheke", price: 30 },
+      { id: 120, name: "Extra Sauce", price: 10 },
+    ],
+    rating: 4.9,
+    reviewCount: 134,
+  },
 ]
 
+// Categories for menu filtering
 export const categories = [
   { id: "all", name: "All Items" },
   { id: "african", name: "African Dishes" },
