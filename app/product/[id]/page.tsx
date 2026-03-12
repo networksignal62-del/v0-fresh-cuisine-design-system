@@ -1,17 +1,17 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { products } from "@/lib/products"
+import { getProductById, getProducts } from "@/lib/actions/products"
 import { formatPrice } from "@/lib/utils-app"
 import { useCart } from "@/hooks/use-cart"
 import { useWishlist } from "@/hooks/use-wishlist"
 import { useToast } from "@/hooks/use-toast"
-import { Star, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
-import type { AddOn, ProductVariant } from "@/lib/types"
+import { Star, Minus, Plus, ShoppingCart, Heart, Loader2 } from "lucide-react"
+import type { AddOn, ProductVariant, Product } from "@/lib/types"
 import { FlyingCartAnimation } from "@/components/flying-cart-animation"
 import { CartModal } from "@/components/cart-modal"
 import { RelatedProducts } from "@/components/related-products"
@@ -29,29 +29,54 @@ export default function ProductDetailPage() {
   const [flyingAnimation, setFlyingAnimation] = useState(false)
   const [animationStart, setAnimationStart] = useState({ x: 0, y: 0 })
   const [showCartModal, setShowCartModal] = useState(false)
+  const [product, setProduct] = useState<Product | null>(null)
+  const [allProducts, setAllProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const productId = Number.parseInt(params.id as string)
-  const product = products.find((p) => p.id === productId)
   const isFavorite = product ? isInWishlist(product.id) : false
 
+  // Load product data from Supabase
   useEffect(() => {
-    if (product) {
-      console.log("[v0] Product viewed:", product.id, product.name)
-      if (product.variants && product.variants.length > 0 && !selectedVariant) {
-        setSelectedVariant(product.variants[0])
+    async function loadProduct() {
+      setLoading(true)
+      try {
+        const [productResult, allProductsResult] = await Promise.all([
+          getProductById(productId),
+          getProducts(),
+        ])
+
+        if (productResult.success && productResult.data) {
+          setProduct(productResult.data)
+          // Set default variant if available
+          if (productResult.data.variants && productResult.data.variants.length > 0) {
+            setSelectedVariant(productResult.data.variants[0])
+          }
+        }
+
+        if (allProductsResult.success) {
+          setAllProducts(allProductsResult.data)
+        }
+      } catch (error) {
+        console.error("Error loading product:", error)
+      } finally {
+        setLoading(false)
       }
     }
-  }, [product, selectedVariant])
+
+    if (productId) {
+      loadProduct()
+    }
+  }, [productId])
 
   const handleWishlistToggle = () => {
     if (!product) return
 
     toggleWishlist(product)
-    console.log("[v0] Wishlist toggled for:", product.name, "isFavorite:", !isFavorite)
 
     toast({
-      title: isFavorite ? "Removed from Wishlist" : "Added to Wishlist ❤️",
+      title: isFavorite ? "Removed from Wishlist" : "Added to Wishlist",
       description: `${product.name}`,
       duration: 3000,
     })
@@ -61,10 +86,8 @@ export default function ProductDetailPage() {
     setSelectedAddOns((prev) => {
       const exists = prev.find((a) => a.id === addOn.id)
       if (exists) {
-        console.log("[v0] Add-on removed:", addOn.name)
         return prev.filter((a) => a.id !== addOn.id)
       } else {
-        console.log("[v0] Add-on selected:", addOn.name, addOn.price)
         return [...prev, addOn]
       }
     })
@@ -72,13 +95,38 @@ export default function ProductDetailPage() {
 
   const handleVariantSelect = (variant: ProductVariant) => {
     setSelectedVariant(variant)
-    console.log("[v0] Variant selected:", variant.name, variant.price)
   }
 
   const handleQuantityChange = (delta: number) => {
     const newQuantity = Math.max(1, quantity + delta)
     setQuantity(newQuantity)
-    console.log("[v0] Quantity updated:", newQuantity)
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#fffbf5]">
+        <Header />
+        <main className="container mx-auto px-4 py-16 flex justify-center items-center">
+          <Loader2 className="w-8 h-8 animate-spin text-[#014325]" />
+        </main>
+        <Footer />
+      </div>
+    )
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-[#fffbf5]">
+        <Header />
+        <main className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
+          <button onClick={() => router.push("/menu")} className="bg-[#014325] text-white px-6 py-3 rounded-lg">
+            Back to Menu
+          </button>
+        </main>
+        <Footer />
+      </div>
+    )
   }
 
   const addOnsTotal = selectedAddOns.reduce((sum, addon) => sum + addon.price, 0)
@@ -97,35 +145,17 @@ export default function ProductDetailPage() {
 
     addToCart(product, quantity, selectedAddOns, selectedVariant)
 
-    console.log("[v0] Add to cart:", product.name, "qty:", quantity, "total:", totalPrice)
-    console.log("[v0] Flying cart animation triggered")
-
     const variantText = selectedVariant ? ` (${selectedVariant.name})` : ""
     const addOnsText =
       selectedAddOns.length > 0 ? ` + ${selectedAddOns.length} add-on${selectedAddOns.length > 1 ? "s" : ""}` : ""
 
     toast({
-      title: "Added to Cart! 🛒",
+      title: "Added to Cart!",
       description: `${product.name}${variantText} x${quantity}${addOnsText} - ${formatPrice(totalPrice)}`,
       duration: 3000,
     })
 
     setShowCartModal(true)
-  }
-
-  if (!product) {
-    return (
-      <div className="min-h-screen bg-[#fffbf5]">
-        <Header />
-        <main className="container mx-auto px-4 py-16 text-center">
-          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-          <button onClick={() => router.push("/menu")} className="bg-[#014325] text-white px-6 py-3 rounded-lg">
-            Back to Menu
-          </button>
-        </main>
-        <Footer />
-      </div>
-    )
   }
 
   return (
@@ -234,7 +264,7 @@ export default function ProductDetailPage() {
             )}
 
             {/* Add-ons */}
-            {product.addOns.length > 0 && (
+            {product.addOns && product.addOns.length > 0 && (
               <div className="space-y-3">
                 <h2 className="text-xl font-bold text-[#0f1419]">Customize Your Order</h2>
                 <div className="space-y-2">
@@ -296,7 +326,7 @@ export default function ProductDetailPage() {
               )}
               <div className="flex justify-between text-sm">
                 <span className="text-[#5c6466]">Quantity</span>
-                <span>× {quantity}</span>
+                <span>x {quantity}</span>
               </div>
               <div className="border-t border-[#e5e7e8] pt-2 flex justify-between">
                 <span className="font-bold text-lg">Total</span>
@@ -318,7 +348,7 @@ export default function ProductDetailPage() {
       </main>
 
       {/* Related Products section */}
-      <RelatedProducts currentProduct={product} allProducts={products} />
+      <RelatedProducts currentProduct={product} allProducts={allProducts} />
 
       {/* Promo Banner above footer */}
       <PromoBanner />

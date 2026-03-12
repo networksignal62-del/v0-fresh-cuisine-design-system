@@ -17,6 +17,139 @@ export interface ProductPayload {
   isActive?: boolean
 }
 
+// Transform database product to frontend Product type
+function transformProduct(dbProduct: any) {
+  return {
+    id: dbProduct.id,
+    name: dbProduct.name,
+    category: dbProduct.category,
+    price: Number(dbProduct.price),
+    image: dbProduct.image || "/placeholder.svg",
+    description: dbProduct.description || "",
+    longDescription: dbProduct.long_description || dbProduct.description || "",
+    featured: dbProduct.featured ?? false,
+    rating: dbProduct.rating ? Number(dbProduct.rating) : undefined,
+    reviewCount: dbProduct.review_count ?? 0,
+    isCustomizable: dbProduct.is_customizable ?? false,
+    addOns: (dbProduct.product_addons || []).map((addon: any) => ({
+      id: addon.id,
+      name: addon.name,
+      price: Number(addon.price),
+    })),
+    variants: (dbProduct.product_variants || []).map((variant: any) => ({
+      id: variant.id,
+      name: variant.name,
+      price: Number(variant.price),
+      description: variant.description,
+    })),
+  }
+}
+
+// ==================== CUSTOMER-FACING FUNCTIONS ====================
+
+// Get all active products for customers
+export async function getProducts() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(`*, product_variants(*), product_addons(*)`)
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching products:", error)
+    return { success: false, error: error.message, data: [] }
+  }
+
+  const transformedProducts = (data ?? []).map(transformProduct)
+  return { success: true, data: transformedProducts }
+}
+
+// Get featured products only
+export async function getFeaturedProducts() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(`*, product_variants(*), product_addons(*)`)
+    .eq("is_active", true)
+    .eq("featured", true)
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    console.error("Error fetching featured products:", error)
+    return { success: false, error: error.message, data: [] }
+  }
+
+  const transformedProducts = (data ?? []).map(transformProduct)
+  return { success: true, data: transformedProducts }
+}
+
+// Get single product by ID
+export async function getProductById(id: number) {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(`*, product_variants(*), product_addons(*)`)
+    .eq("id", id)
+    .eq("is_active", true)
+    .single()
+
+  if (error) {
+    console.error("Error fetching product:", error)
+    return { success: false, error: error.message, data: null }
+  }
+
+  return { success: true, data: transformProduct(data) }
+}
+
+// Get products by category
+export async function getProductsByCategory(category: string) {
+  const supabase = await createClient()
+
+  let query = supabase
+    .from("products")
+    .select(`*, product_variants(*), product_addons(*)`)
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+
+  if (category !== "all") {
+    query = query.eq("category", category)
+  }
+
+  const { data, error } = await query
+
+  if (error) {
+    console.error("Error fetching products by category:", error)
+    return { success: false, error: error.message, data: [] }
+  }
+
+  const transformedProducts = (data ?? []).map(transformProduct)
+  return { success: true, data: transformedProducts }
+}
+
+// Get all categories from database
+export async function getCategories() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order", { ascending: true })
+
+  if (error) {
+    console.error("Error fetching categories:", error)
+    return { success: false, error: error.message, data: [] }
+  }
+
+  return { success: true, data: data ?? [] }
+}
+
+// ==================== ADMIN FUNCTIONS ====================
+
 export async function getAdminProducts() {
   const supabase = await createClient()
 

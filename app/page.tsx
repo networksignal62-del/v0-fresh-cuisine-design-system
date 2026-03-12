@@ -7,26 +7,64 @@ import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 import { CustomizableProductCard } from "@/components/customizable-product-card"
 import { CategoryFilter } from "@/components/category-filter"
-import { products } from "@/lib/products"
+import { getProducts, getFeaturedProducts, getCategories } from "@/lib/actions/products"
+import type { Product } from "@/lib/types"
+
+interface Category {
+  id: string
+  name: string
+  display_order: number
+  is_active: boolean
+}
 
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
-  const [filteredProducts, setFilteredProducts] = useState(products)
+  const [products, setProducts] = useState<Product[]>([])
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
 
+  // Load products, featured products, and categories from Supabase
   useEffect(() => {
-    console.log("[v0] Page loaded: Home")
+    async function loadData() {
+      try {
+        const [productsResult, featuredResult, categoriesResult] = await Promise.all([
+          getProducts(),
+          getFeaturedProducts(),
+          getCategories(),
+        ])
+
+        if (productsResult.success) {
+          setProducts(productsResult.data)
+          setFilteredProducts(productsResult.data)
+        }
+
+        if (featuredResult.success) {
+          setFeaturedProducts(featuredResult.data)
+        }
+
+        if (categoriesResult.success) {
+          setCategories(categoriesResult.data)
+        }
+      } catch (error) {
+        console.error("Error loading data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadData()
   }, [])
 
+  // Filter products when category changes
   useEffect(() => {
     if (selectedCategory === "all") {
       setFilteredProducts(products)
     } else {
       setFilteredProducts(products.filter((p) => p.category === selectedCategory))
     }
-    console.log("[v0] Products filtered by category:", selectedCategory)
-  }, [selectedCategory])
-
-  const featuredProducts = products.filter((p) => p.featured)
+  }, [selectedCategory, products])
 
   return (
     <div className="min-h-screen bg-[#fffbf5] bg-popover-foreground">
@@ -73,7 +111,11 @@ export default function HomePage() {
         {/* Shop by Category */}
         <section className="container mx-auto px-4 py-6 md:py-12">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-[#0f1419]">Shop by Category</h2>
-          <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            categories={categories}
+          />
         </section>
 
         {/* Featured Products */}
@@ -84,7 +126,17 @@ export default function HomePage() {
               : `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}`}
           </h2>
 
-          {filteredProducts.length > 0 ? (
+          {loading ? (
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="bg-white rounded-xl p-4 animate-pulse">
+                  <div className="aspect-square bg-gray-200 rounded-lg mb-4" />
+                  <div className="h-4 bg-gray-200 rounded mb-2" />
+                  <div className="h-4 bg-gray-200 rounded w-2/3" />
+                </div>
+              ))}
+            </div>
+          ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filteredProducts.map((product) =>
                 product.isCustomizable ? (
