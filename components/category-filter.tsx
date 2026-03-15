@@ -1,21 +1,42 @@
 "use client"
 
-import { categories } from "@/lib/products"
+interface Category {
+  id: string
+  name: string
+  display_order?: number
+  is_active?: boolean
+}
 
 interface CategoryFilterProps {
   selectedCategory: string
   onCategoryChange: (category: string) => void
+  categories?: Category[]
 }
 
-export function CategoryFilter({ selectedCategory, onCategoryChange }: CategoryFilterProps) {
+// Default categories as fallback
+const defaultCategories: Category[] = [
+  { id: "all", name: "All Items", display_order: 0 },
+  { id: "african", name: "African Dishes", display_order: 1 },
+  { id: "bakery", name: "Bakery & Cakes", display_order: 2 },
+  { id: "fast-food", name: "Burgers & Shawarma", display_order: 3 },
+  { id: "drinks", name: "Drinks & Desserts", display_order: 4 },
+]
+
+export function CategoryFilter({
+  selectedCategory,
+  onCategoryChange,
+  categories,
+}: CategoryFilterProps) {
+  // Use provided categories or fallback to defaults
+  const displayCategories = categories && categories.length > 0 ? categories : defaultCategories
+
   const handleCategoryClick = (categoryId: string) => {
-    console.log("[v0] Category clicked:", categoryId)
     onCategoryChange(categoryId)
   }
 
   return (
     <div className="flex flex-wrap gap-2 md:gap-3">
-      {categories.map((category) => (
+      {displayCategories.map((category) => (
         <button
           key={category.id}
           onClick={() => handleCategoryClick(category.id)}

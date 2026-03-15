@@ -34,7 +34,7 @@ Build a comprehensive admin panel for Pee's Bakery & Restaurant that allows the 
 - **File Storage:** Supabase Storage for product images
 
 ### 2.2 Database Schema (Already Created)
-```
+\`\`\`
 Tables:
 - products (main product info)
 - product_variants (size/type options)
@@ -45,7 +45,7 @@ Tables:
 - order_items (items in each order)
 - admin_profiles (admin user management)
 - site_settings (restaurant configuration)
-```
+\`\`\`
 
 ### 2.3 Security Model
 - Row Level Security (RLS) on all tables
@@ -59,7 +59,7 @@ Tables:
 ## 3. Design Specifications
 
 ### 3.1 Design System (Match Existing Website)
-```css
+\`\`\`css
 Colors:
 - Primary: #166534 (dark green)
 - Secondary: #f97316 (orange)
@@ -83,10 +83,10 @@ Spacing:
 - Card padding: 1.5rem
 - Grid gap: 1rem - 1.5rem
 - Border radius: 0.75rem (cards), 0.5rem (buttons)
-```
+\`\`\`
 
 ### 3.2 Layout Structure
-```
+\`\`\`
 Admin Layout:
 ├── Sidebar (240px fixed)
 │   ├── Logo (Pee's Bakery)
@@ -102,7 +102,7 @@ Admin Layout:
 │   ├── Header (breadcrumb, search, notifications)
 │   └── Page Content (scrollable)
 └── Footer (minimal)
-```
+\`\`\`
 
 ---
 
@@ -118,11 +118,11 @@ Admin Layout:
 - Admin-only access verification
 
 **Implementation:**
-```typescript
+\`\`\`typescript
 // Check admin status after login
 const { data: { user } } = await supabase.auth.getUser()
 const isAdmin = user?.user_metadata?.is_admin === true
-```
+\`\`\`
 
 ---
 
@@ -165,11 +165,11 @@ const isAdmin = user?.user_metadata?.is_admin === true
 - Order timeline/history
 
 **Status Flow:**
-```
+\`\`\`
 pending → confirmed → preparing → ready → out_for_delivery → delivered
                                    ↓
                               cancelled
-```
+\`\`\`
 
 **Actions:**
 - Update order status
@@ -190,7 +190,7 @@ pending → confirmed → preparing → ready → out_for_delivery → delivered
 - Bulk actions (activate, deactivate, delete)
 
 **Add/Edit Product Form:**
-```
+\`\`\`
 Fields:
 - Name* (text)
 - Category* (dropdown)
@@ -215,7 +215,7 @@ Add-ons (optional):
 - Add add-on: Name, Price
 - Sortable list
 - Remove add-on
-```
+\`\`\`
 
 **Product Card Preview:**
 - Show how product will appear to customers
@@ -267,37 +267,37 @@ Add-ons (optional):
 ## 5. API Routes
 
 ### 5.1 Products API
-```
+\`\`\`
 GET    /api/admin/products         - List all products
 GET    /api/admin/products/[id]    - Get single product
 POST   /api/admin/products         - Create product
 PUT    /api/admin/products/[id]    - Update product
 DELETE /api/admin/products/[id]    - Delete product
 POST   /api/admin/products/upload  - Upload product image
-```
+\`\`\`
 
 ### 5.2 Orders API
-```
+\`\`\`
 GET    /api/admin/orders           - List orders (with filters)
 GET    /api/admin/orders/[id]      - Get order details
 PUT    /api/admin/orders/[id]      - Update order status
 GET    /api/admin/orders/stats     - Get order statistics
-```
+\`\`\`
 
 ### 5.3 Categories API
-```
+\`\`\`
 GET    /api/admin/categories       - List categories
 POST   /api/admin/categories       - Create category
 PUT    /api/admin/categories/[id]  - Update category
 DELETE /api/admin/categories/[id]  - Delete category
 PUT    /api/admin/categories/reorder - Reorder categories
-```
+\`\`\`
 
 ### 5.4 Settings API
-```
+\`\`\`
 GET    /api/admin/settings         - Get all settings
 PUT    /api/admin/settings         - Update settings
-```
+\`\`\`
 
 ---
 
@@ -321,7 +321,7 @@ When customer places order, create records in:
 
 ## 7. File Structure
 
-```
+\`\`\`
 app/
 ├── admin/
 │   ├── layout.tsx              # Admin layout with sidebar
@@ -371,14 +371,14 @@ lib/
 ├── admin-actions.ts            # Server actions for admin
 └── types/
     └── admin.ts                # Admin-specific types
-```
+\`\`\`
 
 ---
 
 ## 8. Component Specifications
 
 ### 8.1 Admin Sidebar
-```tsx
+\`\`\`tsx
 // Components needed:
 - Logo with restaurant name
 - Navigation items with icons
@@ -386,10 +386,10 @@ lib/
 - Collapsible on mobile
 - Admin user info at bottom
 - Logout button
-```
+\`\`\`
 
 ### 8.2 Stats Card
-```tsx
+\`\`\`tsx
 interface StatsCardProps {
   title: string
   value: string | number
@@ -400,10 +400,10 @@ interface StatsCardProps {
   }
   description?: string
 }
-```
+\`\`\`
 
 ### 8.3 Orders Table
-```tsx
+\`\`\`tsx
 // Features:
 - Sortable columns
 - Status badges with colors
@@ -411,10 +411,10 @@ interface StatsCardProps {
 - Bulk selection
 - Action dropdown per row
 - Responsive (cards on mobile)
-```
+\`\`\`
 
 ### 8.4 Product Form
-```tsx
+\`\`\`tsx
 // Features:
 - Form validation
 - Image upload with preview
@@ -423,7 +423,7 @@ interface StatsCardProps {
 - Price formatting
 - Save draft capability
 - Preview panel
-```
+\`\`\`
 
 ---
 
@@ -475,18 +475,18 @@ interface StatsCardProps {
 ## 12. Deployment Notes
 
 ### 12.1 Environment Variables
-```
+\`\`\`
 NEXT_PUBLIC_SUPABASE_URL=xxx
 NEXT_PUBLIC_SUPABASE_ANON_KEY=xxx
 SUPABASE_SERVICE_ROLE_KEY=xxx (for admin operations)
-```
+\`\`\`
 
 ### 12.2 First Admin Setup
 1. Go to your Supabase project > **Authentication > Users > Add User**.
 2. Enter the admin email and a secure password. Copy the new user's UUID.
 3. Run the following SQL in the Supabase SQL Editor:
 
-```sql
+\`\`\`sql
 INSERT INTO public.admin_profiles (id, email, full_name, role, is_active)
 VALUES (
   '<paste-user-uuid-here>',
@@ -495,7 +495,7 @@ VALUES (
   'super_admin',
   true
 );
-```
+\`\`\`
 
 4. Visit `/admin/login` and sign in with the email and password.
 
