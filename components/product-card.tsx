@@ -165,13 +165,15 @@ export function ProductCard({ product }: ProductCardProps) {
                         {variant.name}
                       </span>
                       <span className="text-sm font-bold text-[#fd4d00]">
-                        +{formatPrice(variant.price)}
+                        {formatPrice(variant.price)}
                       </span>
                     </label>
                   ))}
                 </div>
               </div>
             )}
+
+            <div className="mt-auto">
               {!isExpanded ? (
                 <button
                   onClick={(e) => {
